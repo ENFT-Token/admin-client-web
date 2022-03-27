@@ -9,6 +9,7 @@ import ApprovePage from "./page/ApprovePage";
 import MemoPage from "./page/MemoPage";
 import ProfitPage from "./page/ProfitPage";
 import MyPage from "./page/MyPage";
+import LoginPage from "./page/LoginPage";
 
 const { Header, Content, Footer } = Layout;
 
@@ -17,21 +18,28 @@ function App() {
     <div className="App">
 
 {/********** Header-bar **********/}
+
       <BrowserRouter>
+      
         <Layout>
+        
           <Header>
-            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
-              <Menu.Item key="1"> <Link to="/"> MAIN </Link> </Menu.Item>
+            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["0"]}>
+              <Menu.Item key="1"> <Link to="/home"> MAIN </Link> </Menu.Item>
               <Menu.Item key="2"> <Link to="/approve"> APPROVE </Link></Menu.Item>
               <Menu.Item key="3"> <Link to="/profit"> PROFIT </Link> </Menu.Item>
               <Menu.Item key="4"> <Link to="/memo"> MEMO </Link></Menu.Item>
-              <Menu.Item key="5"> <Link to="/my"> MYINFO </Link></Menu.Item>
+              <Menu.Item key="5"> <Link to="/my"> MY INFO </Link></Menu.Item>
+              <Menu.Item key="6"> <Link to="/"> Login </Link></Menu.Item>
             </Menu>
           </Header>
           <Contents className="site-layout">
             <div className="site-layout-background">
+              
+                    
               <Routes>
-                <Route path="/" element={<MainPage />}></Route>
+                <Route path="/" element={<LoginPage/>}></Route>  
+                <Route path="/home" element={<MainPage />}></Route>
                 <Route path="/approve" element={<ApprovePage />}></Route>
                 <Route path="/profit" element={<ProfitPage />}></Route>
                 <Route path="/memo" element={<MemoPage />}></Route>
