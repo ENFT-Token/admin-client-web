@@ -35,8 +35,6 @@ function App() {
           </Header>
           <Contents className="site-layout">
             <div className="site-layout-background">
-              
-                    
               <Routes>
                 <Route path="/" element={<LoginPage/>}></Route>  
                 <Route path="/home" element={<MainPage />}></Route>
@@ -47,9 +45,6 @@ function App() {
               </Routes>
             </div>
           </Contents>
-          <Footer style={{ textAlign: "center" }}>
-            Ant Design ©2018 Created by Ant UED
-          </Footer>
         </Layout>
       </BrowserRouter>
 {/********** Header-bar **********/}
