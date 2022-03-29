@@ -17,7 +17,10 @@ export default function ApprovePage() {
     const approvedUser=data.filter((data) => data.email === email); //승인하기 버튼 누른 유저정보
     setData(data.filter((data) => data.email !== email)); //승인후 유저 재구성
   }
-
+  const onClickReject=(email:string)=>{
+    //거절하면 리스트에서 삭제.
+    setData(data.filter((data) => data.email !== email)); 
+  }
   const appendData = async () => {
     try {
       const response = await axios(fakeDataUrl);
@@ -59,7 +62,7 @@ export default function ApprovePage() {
 
             
             <button onClick={()=>onClickApprove(item.email)}>승인하기</button>
-           
+            <button onClick={()=>onClickReject(item.email)}>거절하기</button>
           </List.Item>
         )}
       </VirtualList>
