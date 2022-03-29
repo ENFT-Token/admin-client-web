@@ -1,29 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { List, message, Avatar } from 'antd';
-import VirtualList from 'rc-virtual-list';
+import React, { useState, useEffect } from "react";
+import { List, message, Avatar } from "antd";
+import VirtualList from "rc-virtual-list";
+import axios from "axios";
 
 export default function ApprovePage() {
   const fakeDataUrl =
-  'https://randomuser.me/api/?results=20&inc=name,gender,email,nat,picture&noinfo';
-  const ContainerHeight = 450;
+    "https://randomuser.me/api/?results=20&inc=name,gender,email,nat,picture&noinfo";
+  const ContainerHeight = 500;
 
   const [data, setData] = useState<any[]>([]);
+  
 
-  const appendData = () => {
-    fetch(fakeDataUrl)
-      .then(res => res.json())
-      .then(body => {
-        setData(data.concat(body.results));
-        message.success(`${body.results.length} more items loaded!`);
-      });
+  // const appendData = () => {
+  //   fetch(fakeDataUrl)
+  //     .then(res =>(res.json()))
+  //     .then(body => {
+  //       setData(data.concat(body.results));
+  //       message.success(`${body.results.length} more items loaded!`);
+  //     });
+  // };
+
+  const appendData = async () => {
+    try {
+      const response = await axios(fakeDataUrl);
+      setData(data.concat(response.data.results))
+      message.success(`${response.data.results.length} more items loaded!`);
+    } catch {
+      console.log("Error");
+    }
   };
-
 
   useEffect(() => {
     appendData();
   }, []);
-
-  const onScroll = (e:any) => {
+  const onScroll = (e: any) => {
     if (e.target.scrollHeight - e.target.scrollTop === ContainerHeight) {
       appendData();
     }
@@ -38,7 +48,7 @@ export default function ApprovePage() {
         itemKey="email"
         onScroll={onScroll}
       >
-        {item => (
+        {(item) => (
           <List.Item key={item.email}>
             <List.Item.Meta
               avatar={<Avatar src={item.picture.large} />}
@@ -50,5 +60,5 @@ export default function ApprovePage() {
         )}
       </VirtualList>
     </List>
-  )
+  );
 }
