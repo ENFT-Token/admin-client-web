@@ -11,14 +11,18 @@ export default function ApprovePage() {
 
   const [data, setData] = useState<any[]>([]); //승인요청하는 유저들(useState로 관리)
   const [info,setInfo]=useState<any[]>([]);
-  const onClickApprove =(email:string) =>{
+
+  const onClickApprove =(email:string) =>{ //승인하기
     //승인버튼 누르면 유저는 (승인된)회원 페이지로 이동(redux로 관리해야 다른페이지에서 씀.)
     //일단 삭제만 구현
     const approvedUser=data.filter((data) => data.email === email); //승인하기 버튼 누른 유저정보
+    console.log(approvedUser)
     setData(data.filter((data) => data.email !== email)); //승인후 유저 재구성
   }
-  const onClickReject=(email:string)=>{
+
+  const onClickReject=(email:string)=>{ //거절하기
     const approvedUser=data.filter((data) => data.email === email);
+    
     //거절하면 리스트에서 삭제.
     setInfo([
       ...info,
