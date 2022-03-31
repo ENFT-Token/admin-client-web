@@ -1,4 +1,4 @@
-import { createSlice, createAction, createReducer } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction , createReducer } from "@reduxjs/toolkit";
 //action type
 const USERADD = "ADD" as const;
 
@@ -19,15 +19,16 @@ export interface IUser {
   nat: string;
   picture: IPicture;
 }
- // email: "",
-  // gender: "",
-  // name: { first: "", last: "", title: "" },
-  // nat: "",
-  // picture: { large: "", medium: "", thumbnail: "" },
-const initialState: IUser[] = [];
 
-export const userAdd = createAction(USERADD, (userData) => userData);
 
-export default function members() {
-  return 0;
+
+interface IState {
+  user: IUser[];
+  approveUser: IUser[];
 }
+
+const initialState:IState = {
+  user: [],
+  approveUser: []
+};
+
