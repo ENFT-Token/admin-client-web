@@ -32,3 +32,18 @@ const initialState:IState = {
   approveUser: []
 };
 
+export const userSlice = createSlice({
+  name:'user',
+  initialState,
+  reducers:{
+    addUser(state, action:PayloadAction<IUser>){
+      console.log(action)
+      state.approveUser.push(action.payload);
+    }
+  },
+
+});
+
+const { reducer, actions } = userSlice;
+export const { addUser} = actions;
+export default reducer;
