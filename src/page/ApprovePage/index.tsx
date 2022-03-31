@@ -9,8 +9,8 @@ import { Rootstate } from "../../modules";
 export default function ApprovePage() {
   /////redux///////////
   const user = useSelector((store: Rootstate) => store.members.approveUser);
+  const dispatch = useDispatch();
   /////redux///////////
-
   const fakeDataUrl =
     "https://randomuser.me/api/?results=20&inc=name,gender,email,nat,picture&noinfo";
   const ContainerHeight = 500;
@@ -25,10 +25,15 @@ export default function ApprovePage() {
     const approvedUser = data.find((data) => data.email === email); //승인하기 버튼 누른 유저정보
     if (approvedUser) {
       // console.log("approvedUser", approvedUser);
-
+      dispatch(addUser(approvedUser));
     }
     setData(data.filter((data) => data.email !== email)); //승인후 유저 재구성
   };
+
+  //temp
+  useEffect(()=>{
+    console.log(user);
+  },[user])
 
   const onClickReject = (email: string) => {
     //거절하기
@@ -95,3 +100,5 @@ export default function ApprovePage() {
     </List>
   );
 }
+
+
