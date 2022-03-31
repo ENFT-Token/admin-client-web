@@ -7,6 +7,9 @@ import { addUser, IUser } from "../../modules/members";
 import { Rootstate } from "../../modules";
 
 export default function ApprovePage() {
+  /////redux///////////
+  const user = useSelector((store: Rootstate) => store.members.approveUser);
+  /////redux///////////
 
   const fakeDataUrl =
     "https://randomuser.me/api/?results=20&inc=name,gender,email,nat,picture&noinfo";
