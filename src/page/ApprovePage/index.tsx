@@ -3,7 +3,7 @@ import { List, message, Avatar } from "antd";
 import VirtualList from "rc-virtual-list";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { addUser,addAllUser, IUser } from "../../modules/members";
+import { addUser,addAllUser, deleteUser,IUser } from "../../modules/members";
 import { Rootstate } from "../../modules";
 
 export default function ApprovePage() {
@@ -11,28 +11,28 @@ export default function ApprovePage() {
   const reqArvUser = useSelector((store: Rootstate) => store.members.user);
   const ArvUser = useSelector((store: Rootstate) => store.members.approveUser);
   const dispatch = useDispatch();
-  /////redux///////////
 
   const fakeDataUrl =
     "https://randomuser.me/api/?results=20&inc=name,gender,email,nat,picture&noinfo";
   const ContainerHeight = 500;
 
-  const [data, setData] = useState<IUser[]>([]); //승인요청하는 유저들(useState로 관리)
-
-  const onClickApprove = (email: string) => {
+  const onClickApprove = (email: string) => { //승인하기
     
     const approvedUser = reqArvUser.find((data) => data.email === email); //승인하기 버튼 누른 유저정보
-    console.log(approvedUser)
-    if (approvedUser) { //redux - 승인된 유저들 redux로 일단 관리 
+    if (approvedUser) {  
       dispatch(addUser(approvedUser));
-      
+      dispatch(deleteUser(approvedUser));
     }
 
   };
 
   const onClickReject = (email: string) => { //거절하기
-    
+    const approvedUser = reqArvUser.find((data) => data.email === email); //승인하기 버튼 누른 유저정보
+    if (approvedUser) {  
+      dispatch(deleteUser(approvedUser));
+    }
   };
+
   const appendData = async () => {
     try {
       const response = await axios(fakeDataUrl);

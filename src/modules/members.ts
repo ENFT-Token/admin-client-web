@@ -37,15 +37,14 @@ export const userSlice = createSlice({
   initialState,
   reducers:{
     addUser(state, action:PayloadAction<IUser>){
-      state.user.push(action.payload);
+      state.approveUser.push(action.payload);
 
     },
     addAllUser(state, action:PayloadAction<IUser[]>){
-      // state.user = state.user.filter((v)=>v.email !==email) //모든유저에서 승인되면 delete.
       state.user = action.payload;
     },
     deleteUser(state,action:PayloadAction<IUser>){
-
+      state.user = state.user.filter((v)=>v.email !==action.payload.email)
     }
   },
 
