@@ -37,7 +37,7 @@ export const userSlice = createSlice({
   initialState,
   reducers:{
     addUser(state, action:PayloadAction<IUser>){
-      console.log(action)
+      // state.user = state.user.filter //모든유저에서 승인되면 delete.
       state.approveUser.push(action.payload);
     }
   },

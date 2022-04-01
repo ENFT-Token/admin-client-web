@@ -16,24 +16,24 @@ export default function ApprovePage() {
   const ContainerHeight = 500;
 
   const [data, setData] = useState<IUser[]>([]); //승인요청하는 유저들(useState로 관리)
-  const [info, setInfo] = useState<any[]>([]);
+  const [info, setInfo] = useState<any[]>([]); //거절된 유저들 list. But, 
 
   const onClickApprove = (email: string) => {
     //승인하기
     //승인버튼 누르면 유저는 (승인된)회원 페이지로 이동(redux로 관리해야 다른페이지에서 씀.)
     //일단 삭제만 구현
     const approvedUser = data.find((data) => data.email === email); //승인하기 버튼 누른 유저정보
-    if (approvedUser) {
-      // console.log("approvedUser", approvedUser);
+    
+    if (approvedUser) { //redux - 승인된 유저들 redux로 일단 관리 
       dispatch(addUser(approvedUser));
     }
     setData(data.filter((data) => data.email !== email)); //승인후 유저 재구성
   };
 
   //temp
-  useEffect(()=>{
-    console.log(user);
-  },[user])
+  // useEffect(()=>{
+  //   console.log(user);
+  // },[user])
 
   const onClickReject = (email: string) => {
     //거절하기
@@ -52,7 +52,6 @@ export default function ApprovePage() {
           approvedUser[0].name.last,
       },
     ]);
-
     setData(data.filter((data) => data.email !== email));
   };
   const appendData = async () => {
