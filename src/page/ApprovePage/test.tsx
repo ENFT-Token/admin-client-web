@@ -8,40 +8,58 @@ import { Rootstate } from "../../modules";
 
 export default function ApprovePage() {
   /////redux///////////
-  const reqArvUser = useSelector((store: Rootstate) => store.members.user);
-  const ArvUser = useSelector((store: Rootstate) => store.members.approveUser);
+  const user = useSelector((store: Rootstate) => store.members.approveUser);
   const dispatch = useDispatch();
   /////redux///////////
-
   const fakeDataUrl =
     "https://randomuser.me/api/?results=20&inc=name,gender,email,nat,picture&noinfo";
   const ContainerHeight = 500;
 
   const [data, setData] = useState<IUser[]>([]); //승인요청하는 유저들(useState로 관리)
+  const [info, setInfo] = useState<any[]>([]); //거절된 유저들 list. But, 
 
   const onClickApprove = (email: string) => {
+    //승인하기
+    //승인버튼 누르면 유저는 (승인된)회원 페이지로 이동(redux로 관리해야 다른페이지에서 씀.)
+    //일단 삭제만 구현
+    const approvedUser = data.find((data) => data.email === email); //승인하기 버튼 누른 유저정보
+    
+    if (approvedUser) { //redux - 승인된 유저들 redux로 일단 관리 
+      dispatch(addUser(approvedUser));
+    }
+    setData(data.filter((data) => data.email !== email)); //승인후 유저 재구성
   };
 
-  const onClickReject = (email: string) => { //거절하기
-    
+
+  const onClickReject = (email: string) => {
+    //거절하기
+    const approvedUser = data.filter((data) => data.email === email);
+    //거절하면 리스트에서 삭제.
+    setInfo([
+      ...info,
+      {
+        email: approvedUser[0].email,
+        gender: approvedUser[0].gender,
+        name:
+          approvedUser[0].name.title +
+          "." +
+          approvedUser[0].name.first +
+          " " +
+          approvedUser[0].name.last,
+      },
+    ]);
+    setData(data.filter((data) => data.email !== email));
   };
   const appendData = async () => {
     try {
       const response = await axios(fakeDataUrl);
-      const info=response.data.results
-      setData(data.concat(info))
-      dispatch(addUser(info));
+      setData(data.concat(response.data.results));
       message.success(`${response.data.results.length} more users loaded!`);
-
     } catch {
       console.log("Error");
     }
   };
-  useEffect(()=>{
-    console.log("data",data)
-    console.log("fuck",reqArvUser)
 
-  },[reqArvUser])
   useEffect(() => {
     appendData();
   }, []);
@@ -77,3 +95,5 @@ export default function ApprovePage() {
     </List>
   );
 }
+
+
