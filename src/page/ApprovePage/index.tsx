@@ -30,10 +30,6 @@ export default function ApprovePage() {
     setData(data.filter((data) => data.email !== email)); //승인후 유저 재구성
   };
 
-  //temp
-  // useEffect(()=>{
-  //   console.log(user);
-  // },[user])
 
   const onClickReject = (email: string) => {
     //거절하기
