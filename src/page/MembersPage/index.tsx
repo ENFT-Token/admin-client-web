@@ -10,23 +10,31 @@ import { MessageOutlined, LikeOutlined, StarOutlined } from "@ant-design/icons";
 //     {text}
 //   </Space>
 // );
-const listData: any = [];
+
 export default function MembersPage() {
+  interface ILISTDATA{
+    href:string;
+    title:string;
+    avatar:string;
+    description:string;
+    content:string;
+  }
   const arvUser = useSelector((store: Rootstate) => store.members.approveUser);
-  // const [listData, setListData] = useState<any>([]);
+  const [listData, setListData] = useState<ILISTDATA[]>([]);
   useEffect(() => {
     arvUser.map((v) => {
-      listData.push({
-        href: "https://ant.design",
-        title: `${v.name.last}`,
-        avatar: `${v.picture.medium}`,
-        description: `${v.gender}`,
-        content: `${v.email}`,
-      });
+      setListData((listData) => [
+        ...listData,
+        {
+          href: "https://ant.design",
+          title: `${v.name.last}`,
+          avatar: `${v.picture.medium}`,
+          description: `${v.gender}`,
+          content: `${v.email}`,
+        },
+      ]);
     });
- 
   }, []);
-
   useEffect(() => {
     console.log(listData);
   }, [listData]);
