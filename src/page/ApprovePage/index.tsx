@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {  useEffect } from "react";
 import { List, message, Avatar } from "antd";
 import VirtualList from "rc-virtual-list";
 import axios from "axios";
@@ -19,6 +19,7 @@ export default function ApprovePage() {
   const onClickApprove = (email: string) => { //승인하기
     
     const approvedUser = reqArvUser.find((data) => data.email === email); //승인하기 버튼 누른 유저정보
+    console.log(approvedUser);
     if (approvedUser) {  
       dispatch(addUser(approvedUser));
       dispatch(deleteUser(approvedUser));
