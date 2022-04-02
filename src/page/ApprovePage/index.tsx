@@ -9,7 +9,7 @@ import { Rootstate } from "../../modules";
 export default function ApprovePage() {
   /////redux///////////
   const reqArvUser = useSelector((store: Rootstate) => store.members.user);
-  const ArvUser = useSelector((store: Rootstate) => store.members.approveUser);
+  
   const dispatch = useDispatch();
 
   const fakeDataUrl =
