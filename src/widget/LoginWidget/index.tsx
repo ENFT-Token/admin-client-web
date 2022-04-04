@@ -5,13 +5,15 @@ import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import styled from "styled-components";
 
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+
+import MainPage from "../../page/MainPage";
+import { useNavigate } from "react-router-dom";
 const onFinish = (values: any) => {
   console.log('Received values of form: ', values);
 };
 
 export default function LoginWidget() {
-
+  const navigate = useNavigate();
   const [account, setAccount] = useState({
     email: "",
     password: "",
@@ -23,6 +25,13 @@ export default function LoginWidget() {
     });
 
   };
+
+  const onClickLogin = () => {
+    if (account.email && account.password) {
+      console.log(account)
+      navigate("/home", { replace: true });
+    }
+  }
   return (
     <div>
       <Forms
@@ -59,13 +68,17 @@ export default function LoginWidget() {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" className="login-form-button">
+
+
+          <Button type="primary" htmlType="submit" className="login-form-button" onClick={onClickLogin}>
             Log in
           </Button>
+
+
           Or <a href="">register now!</a>
         </Form.Item>
-      </Forms>
 
+      </Forms>
 
 
     </div>
