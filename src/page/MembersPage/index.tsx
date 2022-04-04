@@ -11,30 +11,44 @@ import { MessageOutlined, LikeOutlined, StarOutlined } from "@ant-design/icons";
 //   </Space>
 // );
 
+interface IListData{ //렌더링계속되므로 함수밖에 작성
+  href:string;
+  title:string;
+  avatar:string;
+  description:string;
+  content:string;
+}
+
+
+
 export default function MembersPage() {
-  interface ILISTDATA{
-    href:string;
-    title:string;
-    avatar:string;
-    description:string;
-    content:string;
-  }
   const arvUser = useSelector((store: Rootstate) => store.members.approveUser);
-  const [listData, setListData] = useState<ILISTDATA[]>([]);
+  const [listData, setListData] = useState<IListData[]>([]);
+  // useEffect(() => {
+  //   arvUser.map((v) => {
+  //     setListData((listData) => [
+  //       ...listData,
+  //       {
+  //         href: "https://ant.design",
+  //         title: `${v.name.last}`,
+  //         avatar: `${v.picture.medium}`,
+  //         description: `${v.gender}`,
+  //         content: `${v.email}`,
+  //       },
+  //     ]);
+  //   });
+  // }, []);
+
   useEffect(() => {
-    arvUser.map((v) => {
-      setListData((listData) => [
-        ...listData,
-        {
-          href: "https://ant.design",
-          title: `${v.name.last}`,
-          avatar: `${v.picture.medium}`,
-          description: `${v.gender}`,
-          content: `${v.email}`,
-        },
-      ]);
-    });
-  }, []);
+    setListData(arvUser.map(v => ({
+      href: "https://ant.design",
+      title: `${v.name.last}`,
+      avatar: `${v.picture.medium}`,
+      description: `${v.gender}`,
+      content: `${v.email}`,
+    })))
+  }, [arvUser]);
+  
   useEffect(() => {
     console.log(listData);
   }, [listData]);

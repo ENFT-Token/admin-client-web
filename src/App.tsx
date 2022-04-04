@@ -31,8 +31,8 @@ function App() {
               <Menu.Item key="3"> <Link to="/approve"> APPROVE </Link></Menu.Item>
               <Menu.Item key="4"> <Link to="/profit"> PROFIT </Link> </Menu.Item>
               <Menu.Item key="5"> <Link to="/memo"> MEMO </Link></Menu.Item>
-              <Menu.Item key="6"> <Link to="/my"> MY INFO </Link></Menu.Item>
-              <Menu.Item key="7"> <Link to="/"> Login </Link></Menu.Item>
+              <Menu.Item key="6"> <Link to="/info"> MY INFO </Link></Menu.Item>
+              
             </Menu>
           </Header>
           <Contents className="site-layout">
@@ -44,7 +44,7 @@ function App() {
                 <Route path="/approve" element={<ApprovePage />}></Route>
                 <Route path="/profit" element={<ProfitPage />}></Route>
                 <Route path="/memo" element={<MemoPage />}></Route>
-                <Route path="/my" element={<MyPage />}></Route>
+                <Route path="/info" element={<MyPage />}></Route>
               </Routes>
             </div>
           </Contents>

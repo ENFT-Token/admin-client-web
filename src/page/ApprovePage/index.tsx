@@ -71,7 +71,6 @@ export default function ApprovePage() {
               title={<a href="https://ant.design">{item.name.last}</a>}
               description={item.email}
             />
-
             <button onClick={() => onClickApprove(item.email)}>승인하기</button>
             <button onClick={() => onClickReject(item.email)}>거절하기</button>
           </List.Item>
