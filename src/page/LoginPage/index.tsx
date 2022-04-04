@@ -1,7 +1,6 @@
 import React from "react";
 import LoginWidget from "../../widget/LoginWidget";
 import styled from "styled-components";
-
 export default function LoginPage() {
 
   return (

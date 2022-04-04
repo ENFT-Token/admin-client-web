@@ -24,20 +24,6 @@ interface IListData{ //렌더링계속되므로 함수밖에 작성
 export default function MembersPage() {
   const arvUser = useSelector((store: Rootstate) => store.members.approveUser);
   const [listData, setListData] = useState<IListData[]>([]);
-  // useEffect(() => {
-  //   arvUser.map((v) => {
-  //     setListData((listData) => [
-  //       ...listData,
-  //       {
-  //         href: "https://ant.design",
-  //         title: `${v.name.last}`,
-  //         avatar: `${v.picture.medium}`,
-  //         description: `${v.gender}`,
-  //         content: `${v.email}`,
-  //       },
-  //     ]);
-  //   });
-  // }, []);
 
   useEffect(() => {
     setListData(arvUser.map(v => ({
@@ -49,9 +35,9 @@ export default function MembersPage() {
     })))
   }, [arvUser]);
   
-  useEffect(() => {
-    console.log(listData);
-  }, [listData]);
+  // useEffect(() => {
+  //   console.log(listData);
+  // }, [listData]);
 
   if (!arvUser) {
     return <div>Loading...</div>;
