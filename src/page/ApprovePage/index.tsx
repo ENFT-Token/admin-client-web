@@ -54,8 +54,9 @@ export default function ApprovePage() {
       appendData();
     }
   };
-
   return (
+    <div>
+      <div>Customers who requested approval</div>
     <List>
       <VirtualList
         data={reqArvUser}
@@ -77,5 +78,7 @@ export default function ApprovePage() {
         )}
       </VirtualList>
     </List>
+    </div>
   );
 }
+
