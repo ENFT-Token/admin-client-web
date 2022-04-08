@@ -1,5 +1,6 @@
 import React from 'react'
 import { Line } from '@ant-design/plots';
+import styled from "styled-components";
 
 export default function ProfitPage() {
   const data = [
@@ -72,19 +73,40 @@ export default function ProfitPage() {
     ],
   };
   return (
-    <div>
-      <Line {...config} />
+    <Form>
+      <div className='curMembers'>
+        <h1 id='title'>현재 고객 수</h1>
+        <Line className='line' {...config} />
+      </div>
+      <div className='apvMembers'>
+        <h1 id='title'>승인 요청한 회원 수</h1>
+        <Line className='line' {...config} />
+      </div>
 
-      <Line {...config} />
-
-      <Line {...config} />
-
-      <Line {...config} />
-    </div>
+      <div className='dayVisitedMembers'>
+        <h1 id='title'>하루 방문 회원 수</h1>
+        <Line className='line' {...config} />
+      </div>
+      <div className='profit'>
+        <h1 id='title'>매출</h1>
+        <Line className='line' {...config} />
+      </div>
+    </Form>
   );
 }
 
 
 
 
+const Form = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
 
+.line{
+  margin-bottom: 50px;
+}
+#title{
+  text-align: center;
+}
+`
