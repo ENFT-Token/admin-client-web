@@ -38,48 +38,43 @@ export default function ProfitPage() {
 
   const config = {
     data,
-    width: 2000,
-    height: 200,
+    width: 700,
+    height: 300,
     autoFit: false,
     xField: 'Month',
     yField: 'value',
-    label: {},
     point: {
       size: 5,
       shape: 'diamond',
+    },
+    label: {
       style: {
-        fill: 'white',
-        stroke: '#5B8FF9',
-        lineWidth: 2,
+        fill: '#aaa',
       },
     },
-    tooltip: {
-      showMarkers: false,
-    },
-    state: {
-      active: {
-        style: {
-          shadowBlur: 4,
-          stroke: '#000',
-          fill: 'red',
-        },
-      },
-    },
-    interactions: [
-      {
-        type: 'marker-active',
-      },
-    ],
   };
+
+  let chart:any;
+
+  // Export Image
+  const downloadImage = () => {
+    chart?.downloadImage();
+  };
+
+  // Get chart base64 string
+  const toDataURL = () => {
+    console.log(chart?.toDataURL());
+  };
+
   return (
     <div>
-      <Line {...config} />
-
-      <Line {...config} />
-
-      <Line {...config} />
-
-      <Line {...config} />
+      <button type="button" onClick={downloadImage} style={{ marginRight: 24 }}>
+        Export Image
+      </button>
+      <button type="button" onClick={toDataURL}>
+        Get base64
+      </button>
+      <Line {...config} onReady={(chartInstance:any) => (chart = chartInstance)} />
     </div>
   );
 }
