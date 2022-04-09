@@ -39,19 +39,19 @@ export default function ProfitPage() {
 
   const config = {
     data,
-    width: 2000,
-    height: 200,
+    width: 1500,
+    height: 250,
     autoFit: false,
     xField: 'Month',
     yField: 'value',
     label: {},
     point: {
-      size: 5,
-      shape: 'diamond',
+      size: 3,
+      shape: 'circle',
       style: {
         fill: 'white',
-        stroke: '#5B8FF9',
-        lineWidth: 2,
+        stroke: '#02660a',
+        lineWidth: 5,
       },
     },
     tooltip: {
@@ -73,40 +73,48 @@ export default function ProfitPage() {
     ],
   };
   return (
-    <Form>
-      <div className='curMembers'>
+
+    <ChartForm>
+      <div>통계</div>
+      <div className='curMembers box1'>
         <h1 id='title'>현재 고객 수</h1>
         <Line className='line' {...config} />
       </div>
-      <div className='apvMembers'>
+      <div className='apvMembers box2'>
         <h1 id='title'>승인 요청한 회원 수</h1>
         <Line className='line' {...config} />
       </div>
 
-      <div className='dayVisitedMembers'>
+      <div className='dayVisitedMembers box3'>
         <h1 id='title'>하루 방문 회원 수</h1>
         <Line className='line' {...config} />
       </div>
-      <div className='profit'>
+      <div className='profit box4'>
         <h1 id='title'>매출</h1>
         <Line className='line' {...config} />
       </div>
-    </Form>
+    </ChartForm>
+
   );
 }
 
 
-
-
-const Form = styled.div`
+const ChartForm = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
+background-color: #e2f0dc;
+border-radius: 30px;
+padding:100px;
 
+.box1 .box2{
+  background-color: white;
+}
 .line{
   margin-bottom: 50px;
 }
 #title{
   text-align: center;
 }
+
 `
