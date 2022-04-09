@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction , createReducer } from "@reduxjs/toolkit";
 //action type
-const USERADD = "ADD" as const;
+//const USERADD = "ADD" as const;
 
 export interface IPicture {
   large: string;
