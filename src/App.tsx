@@ -11,8 +11,11 @@ import ProfitPage from "./page/ProfitPage";
 import MyPage from "./page/MyPage";
 import LoginPage from "./page/LoginPage";
 import MembersPage from "./page/MembersPage";
+import RegisterPage from "./page/RegisterPage";
+
 
 const { Header, Content, Footer } = Layout;
+
 
 function App() {
   return (
@@ -45,6 +48,7 @@ function App() {
                 <Route path="/profit" element={<ProfitPage />}></Route>
                 <Route path="/memo" element={<MemoPage />}></Route>
                 <Route path="/info" element={<MyPage />}></Route>
+                <Route path="/register" element={<RegisterPage />}></Route>
               </Routes>
             </div>
           </Contents>

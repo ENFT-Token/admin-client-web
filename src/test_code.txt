@@ -1,0 +1,65 @@
+import axios from "axios";
+
+import React from 'react'
+
+
+// export function Test() {
+    
+// axios.post("http://3.39.24.209/auth/login/", {
+//     email: "admin@gmail.com",
+//     password: "1234"
+// }).then(response => {
+//     console.log("TEST",response.data);
+
+//     const {access_token} = response.data;
+
+
+//     // 리스트
+//     axios.get("http://3.39.24.209/admin/approve/list",{
+//         headers: {
+//             Authorization: `Basic ${access_token}`,
+//         }
+//     }).then(res2 => {
+//         res2.status
+//         console.log("approve List",res2.data);
+//     });
+
+
+//     // 리스트 받은거 허용 위 리스트 요소만 하나 가져오면 됨
+//     axios.post("http://3.39.24.209/admin/approve/complete",  {
+//         "email": "user@gmail.com",
+//         "address": "0x63266DeC603fB6Ab5349Cd3150A7bf32c6836E8A",
+//         "requestDay": 30,
+//         "requestLocation": "ENFT 헬스장"
+//     },{
+//         headers: {
+//             Authorization: `Basic ${access_token}`,
+//         }
+//     }).then(res2 => {
+//         console.log("approve List",res2.data);
+//     });
+
+
+// });
+
+// }
+// // 위 리스폰스 값 저장
+// const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsIm5pY2tuYW1lIjoi66y47LGxIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjQ5NTczNTk2LCJleHAiOjE2NDk2NTk5OTZ9.cLwso-HNLdaUJKzLt-i5QyiA_-kx6QOT3PxwzByl5Rc`;
+// // 기타 유저 정보 드림 //  해당 데이터들 redux
+
+
+
+// axios.post(
+//   "http://3.39.24.209/admin/approve/",
+//   {
+//     email: "user@gmail.com",
+//     address: "0x63266DeC603fB6Ab5349Cd3150A7bf32c6836E8A",
+//     requestDay: 30,
+//     requestLocation: "ENFT 헬스장",
+//   },
+//   {
+//     headers: {
+//       Authorization: `Basic ${token}`,
+//     },
+//   }
+// );
