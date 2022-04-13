@@ -191,7 +191,9 @@ export default function Register() {
           주소 찾기
         </Button>
         
-       
+        <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+          <DaumPostCode autoClose={false} onComplete={handleComplete}/> 
+        </Modal>
       </Form.Item>
 
       <Form.Item
