@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "antd/dist/antd.css";
 import { Form, Input, Button, Checkbox } from "antd";
@@ -8,9 +8,8 @@ import styled from "styled-components";
 
 import MainPage from "../../page/MainPage";
 import { useNavigate } from "react-router-dom";
-const onFinish = (values: any) => {
-  console.log('Received values of form: ', values);
-};
+import axios from "axios";
+
 
 export default function LoginWidget() {
   const navigate = useNavigate();
@@ -18,6 +17,31 @@ export default function LoginWidget() {
     email: "",
     password: "",
   });
+
+
+  const onFinish = (values: any) => {
+
+    const fetch = async () => {
+      try {
+        if (account.email && account.password) {
+          const response = await axios.post('http://3.39.24.209/auth/admin/login', account);
+          console.log(response.data);
+        }
+      }
+      catch (e) {
+        console.log(e);
+      }
+    }
+
+    fetch();
+
+
+
+    if (account.email && account.password) {
+      console.log(account)
+      navigate("/home", { replace: true });
+    }
+  };
   const onChangeAccount = (e: any) => {
     setAccount({
       ...account,
@@ -26,12 +50,6 @@ export default function LoginWidget() {
 
   };
 
-  const onClickLogin = () => {
-    if (account.email && account.password) {
-      console.log(account)
-      navigate("/home", { replace: true });
-    }
-  }
   return (
     <div>
       <Forms
@@ -70,7 +88,7 @@ export default function LoginWidget() {
         <Form.Item>
 
 
-          <Button type="primary" htmlType="submit" className="login-form-button" onClick={onClickLogin}>
+          <Button type="primary" htmlType="submit" className="login-form-button">
             Log in
           </Button>
 

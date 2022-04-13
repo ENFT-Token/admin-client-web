@@ -35,7 +35,7 @@ export default function ApprovePage() {
 
   const appendData = async () => {
     try {
-      const response = await axios(fakeDataUrl);
+      const response = await axios.get(fakeDataUrl);
       const info=response.data.results
       dispatch(addAllUser(info));
       message.success(`${response.data.results.length} more users loaded!`);
