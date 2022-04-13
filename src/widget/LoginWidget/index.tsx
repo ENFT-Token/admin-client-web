@@ -9,10 +9,13 @@ import styled from "styled-components";
 import MainPage from "../../page/MainPage";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { addInfo } from "../../modules/admin";
 
 
 export default function LoginWidget() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [account, setAccount] = useState({
     email: "",
     password: "",
@@ -25,12 +28,16 @@ export default function LoginWidget() {
       try {
         if (account.email && account.password) {
           const response = await axios.post('http://3.39.24.209/auth/admin/login', account);
-          console.log(response.data);
-          navigate("/home", { replace: true });
+          if (response.status == 201) {
+            dispatch(addInfo(response.data));
+            navigate("/home", { replace: true });
+          }
         }
       }
       catch (e) {
         console.log(e);
+        (alert("로그인 실패"));
+
       }
     }
     fetch();
