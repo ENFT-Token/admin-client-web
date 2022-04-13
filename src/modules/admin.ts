@@ -5,30 +5,28 @@ import axios from "axios";
 //company : company, address, company number, ceo
 
 export interface IAdmin {
-  id: string;
-  password: string;
-  nickname: string;
-  phoneNum: string;
-}
-export interface ICompany extends IAdmin {
+  access_token: string;
+  address: string;
   email: string;
-  companyName: string;
   location: string;
+  place: string;
+  privateKey: string;
+  status: string;
 }
 
 interface IState {
-  adminInfo: IAdmin[];
+  adminInfo: IAdmin | null;
 }
 const initialState: IState = {
-  adminInfo: [],
+  adminInfo: null ,
 };
 
 export const adminSlice = createSlice({
   name: "admin",
   initialState,
   reducers: {
-    addInfo(state, action: PayloadAction<ICompany>) {
-      state.adminInfo.push(action.payload);
+    addInfo(state, action: PayloadAction<IAdmin>) {
+      state.adminInfo = (action.payload);
     },
   },
 });

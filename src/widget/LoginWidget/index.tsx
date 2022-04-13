@@ -26,21 +26,14 @@ export default function LoginWidget() {
         if (account.email && account.password) {
           const response = await axios.post('http://3.39.24.209/auth/admin/login', account);
           console.log(response.data);
+          navigate("/home", { replace: true });
         }
       }
       catch (e) {
         console.log(e);
       }
     }
-
     fetch();
-
-
-
-    if (account.email && account.password) {
-      console.log(account)
-      navigate("/home", { replace: true });
-    }
   };
   const onChangeAccount = (e: any) => {
     setAccount({
