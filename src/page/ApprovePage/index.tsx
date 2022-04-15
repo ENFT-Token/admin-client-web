@@ -1,10 +1,10 @@
 import React, {  useEffect } from "react";
-import { List, message, Avatar } from "antd";
+import { List, message, Avatar,Button } from "antd";
 import VirtualList from "rc-virtual-list";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { addUser,addAllUser, deleteUser,IUser } from "../../modules/members";
-import { Rootstate } from "../../modules";
+import { addUser,addAllUser, deleteUser,IUser } from "../../models/members";
+import { Rootstate } from "../../models";
 
 export default function ApprovePage() {
   /////redux///////////
@@ -72,8 +72,10 @@ export default function ApprovePage() {
               title={<a href="https://ant.design">{item.name.last}</a>}
               description={item.email}
             />
-            <button onClick={() => onClickApprove(item.email)}>승인하기</button>
-            <button onClick={() => onClickReject(item.email)}>거절하기</button>
+          
+            <Button type="primary" ghost onClick={() => onClickApprove(item.email)}>승인하기</Button>
+            <Button type="primary" danger ghost onClick={() => onClickReject(item.email)}>거절하기</Button>
+          
           </List.Item>
         )}
       </VirtualList>

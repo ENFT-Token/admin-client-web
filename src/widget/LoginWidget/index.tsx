@@ -10,7 +10,7 @@ import MainPage from "../../page/MainPage";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { addInfo } from "../../modules/admin";
+import { addInfo } from "../../models/admin";
 
 
 export default function LoginWidget() {

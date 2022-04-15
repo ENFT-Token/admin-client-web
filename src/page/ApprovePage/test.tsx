@@ -3,8 +3,8 @@ import { List, message, Avatar } from "antd";
 import VirtualList from "rc-virtual-list";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { addUser, IUser } from "../../modules/members";
-import { Rootstate } from "../../modules";
+import { addUser, IUser } from "../../models/members";
+import { Rootstate } from "../../models";
 
 export default function ApprovePage() {
   /////redux///////////

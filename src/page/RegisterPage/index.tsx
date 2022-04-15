@@ -61,38 +61,9 @@ export default function Register() {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select style={{ width: 70 }}>
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
-      </Select>
-    </Form.Item>
-  );
 
-  const suffixSelector = (
-    <Form.Item name="suffix" noStyle>
-      <Select style={{ width: 70 }}>
-        <Option value="USD">$</Option>
-        <Option value="CNY">¥</Option>
-      </Select>
-    </Form.Item>
-  );
+  
 
-  const [autoCompleteResult, setAutoCompleteResult] = useState<string[]>([]);
-
-  const useOnWebsiteChange = (value: string) => {
-    if (!value) {
-      setAutoCompleteResult([]);
-    } else {
-      setAutoCompleteResult(['.com', '.org', '.net'].map(domain => `${value}${domain}`));
-    }
-  };
-
-  const websiteOptions = autoCompleteResult.map(website => ({
-    label: website,
-    value: website,
-  }));
   const handleComplete = (data: any) => {
     let fullAddress = data.address;
     let extraAddress = '';
@@ -182,9 +153,7 @@ export default function Register() {
       <Form.Item
         name="location"
         label="주소"
-        rules={[
-          { required: true, message: 'Please select your habitual residence!' },
-        ]}
+        rules={[{required: true, message: 'Please select your location'}]}
       >
         <Input value={location}/>
         <Button type="ghost" onClick={showModal}>
@@ -200,50 +169,11 @@ export default function Register() {
         name="place"
         label="지점명"
         rules={[
-          { required: true, message: 'Please select your habitual residence!' },
+          { required: true, message: 'Please select your company name!' },
         ]}
       >
         <Input placeholder='헬스장 이름' />
       </Form.Item>
-      {/* <Form.Item
-          name="phone"
-          label="Phone Number"
-          rules={[{ required: true, message: 'Please input your phone number!' }]}
-        >
-          <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
-        </Form.Item> */}
-
-
-
-
-
-      {/* <Form.Item
-          name="gender"
-          label="Gender"
-          rules={[{ required: true, message: 'Please select gender!' }]}
-        >
-          <Select placeholder="select your gender">
-            <Option value="male">Male</Option>
-            <Option value="female">Female</Option>
-          </Select>
-        </Form.Item> */}
-      {/* TODO: get domain  */}
-      {/* <Form.Item label="Captcha" extra="We must make sure that your are a human.">
-          <Row gutter={8}>
-            <Col span={12}>
-              <Form.Item
-                name="captcha"
-                noStyle
-                rules={[{ required: true, message: 'Please input the captcha you got!' }]}
-              >
-                <Input />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Button>Get captcha</Button>
-            </Col>
-          </Row>
-        </Form.Item> */}
 
       <Form.Item
         name="agreement"
