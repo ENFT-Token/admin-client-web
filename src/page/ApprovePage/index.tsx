@@ -1,15 +1,15 @@
-import React, {  useEffect } from "react";
-import { List, message, Avatar,Button } from "antd";
+import React, { useEffect } from "react";
+import { List, message, Avatar, Button } from "antd";
 import VirtualList from "rc-virtual-list";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { addUser,addAllUser, deleteUser,IUser } from "../../models/members";
+import { addUser, addAllUser, deleteUser, IUser } from "../../models/members";
 import { Rootstate } from "../../models";
-
+import styled from "styled-components";
 export default function ApprovePage() {
   /////redux///////////
   const reqArvUser = useSelector((store: Rootstate) => store.members.user);
-  
+
   const dispatch = useDispatch();
 
   const fakeDataUrl =
@@ -17,9 +17,9 @@ export default function ApprovePage() {
   const ContainerHeight = 500;
 
   const onClickApprove = (email: string) => { //승인하기
-    
+
     const approvedUser = reqArvUser.find((data) => data.email === email); //승인하기 버튼 누른 유저정보
-    if (approvedUser) {  
+    if (approvedUser) {
       dispatch(addUser(approvedUser));
       dispatch(deleteUser(approvedUser));
     }
@@ -28,7 +28,7 @@ export default function ApprovePage() {
 
   const onClickReject = (email: string) => { //거절하기
     const approvedUser = reqArvUser.find((data) => data.email === email); //승인하기 버튼 누른 유저정보
-    if (approvedUser) {  
+    if (approvedUser) {
       dispatch(deleteUser(approvedUser));
     }
   };
@@ -36,7 +36,7 @@ export default function ApprovePage() {
   const appendData = async () => {
     try {
       const response = await axios.get(fakeDataUrl);
-      const info=response.data.results
+      const info = response.data.results
       dispatch(addAllUser(info));
       message.success(`${response.data.results.length} more users loaded!`);
 
@@ -57,30 +57,36 @@ export default function ApprovePage() {
   return (
     <div>
       <div>Customers who requested approval</div>
-    <List>
-      <VirtualList
-        data={reqArvUser}
-        height={ContainerHeight}
-        itemHeight={47}
-        itemKey="email"
-        onScroll={onScroll}
-      >
-        {(item) => (
-          <List.Item key={item.email}>
-            <List.Item.Meta
-              avatar={<Avatar src={item.picture.large} />}
-              title={<a href="https://ant.design">{item.name.last}</a>}
-              description={item.email}
-            />
-          
-            <Button type="primary" ghost onClick={() => onClickApprove(item.email)}>승인하기</Button>
-            <Button type="primary" danger ghost onClick={() => onClickReject(item.email)}>거절하기</Button>
-          
-          </List.Item>
-        )}
-      </VirtualList>
-    </List>
+      <List>
+        <VirtualList
+          data={reqArvUser}
+          height={ContainerHeight}
+          itemHeight={47}
+          itemKey="email"
+          onScroll={onScroll}
+        >
+          {(item) => (
+            <List.Item key={item.email}>
+              <List.Item.Meta
+                avatar={<Avatar src={item.picture.large} />}
+                title={<a href="https://ant.design">{item.name.last}</a>}
+                description={item.email}
+              />
+              <ButtonWrapper>
+                <Button id="btn1" type="primary" ghost onClick={() => onClickApprove(item.email)}>승인하기</Button>
+                <Button id="btn2" type="primary" danger ghost onClick={() => onClickReject(item.email)}>거절하기</Button>
+              </ButtonWrapper>
+            </List.Item>
+          )}
+        </VirtualList>
+      </List>
     </div>
   );
 }
 
+const ButtonWrapper = styled.div`
+   #btn1{
+
+     margin-right:10px;
+   }
+`
