@@ -56,7 +56,7 @@ export default function MembersPage() {
       dataSource={listData}
       footer={
         <div>
-          <b>ant design</b> footer part
+          footer
         </div>
       }
       renderItem={(item: any) => (

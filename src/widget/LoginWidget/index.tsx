@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 
 import MainPage from "../../page/MainPage";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addInfo } from "../../models/admin";
@@ -28,7 +28,7 @@ export default function LoginWidget() {
       try {
         if (account.email && account.password) {
           const response = await axios.post('http://3.39.24.209/auth/admin/login', account);
-          if (response.status == 201) {
+          if (response.status === 201) {
             dispatch(addInfo(response.data));
             navigate("/home", { replace: true });
           }
@@ -93,7 +93,7 @@ export default function LoginWidget() {
           </Button>
 
 
-          Or <a href="">register now!</a>
+          Or <Link to="/register">회원 가입</Link>
         </Form.Item>
 
       </Forms>

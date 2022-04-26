@@ -4,7 +4,7 @@ import memberReducer from './members';
 
 const rootReducer = combineReducers({
     members : memberReducer,
-    admin:adminReducer
+    admin : adminReducer
 });
 
 export default rootReducer;
