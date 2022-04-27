@@ -1,4 +1,4 @@
-import { Table, Input, Button } from 'antd';
+import { Table, Input, Button, Popconfirm } from 'antd';
 import { useState,useRef } from 'react'
 
 
@@ -33,11 +33,18 @@ export default function NestedTable() {
       setInputBody("");
     }
   }
+  const handleDelete =()=>{
+    console.log("delete");
+  }
   const columns = [
     { title: 'Name', dataIndex: 'name', key: 'name' },
     { title: 'text', dataIndex: 'text', key: 'upgradeNum' },
     { title: 'Date', dataIndex: 'createdAt', key: 'createdAt' },
-    { title: 'Action', key: 'operation', render: () => <button>Publish</button> },
+    { title: 'Action', key: 'operation', render: () => 
+    <Popconfirm title="삭제하시겠습니까?" onConfirm={() => handleDelete()}> 
+    <Button danger ghost>Publish</Button>  
+    </Popconfirm>
+    },
   ];
 
   return (
