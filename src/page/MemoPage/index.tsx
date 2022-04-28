@@ -33,16 +33,18 @@ export default function NestedTable() {
       setInputBody("");
     }
   }
-  const handleDelete =()=>{
-    console.log("delete");
+  const handleDelete =(id:number)=>{
+    setMemoList([
+      ...memoList.filter((v:any)=>v.id !== id)
+    ])
   }
   const columns = [
     { title: 'Name', dataIndex: 'name', key: 'name' },
     { title: 'text', dataIndex: 'text', key: 'upgradeNum' },
     { title: 'Date', dataIndex: 'createdAt', key: 'createdAt' },
-    { title: 'Action', key: 'operation', render: () => 
-    <Popconfirm title="삭제하시겠습니까?" onConfirm={() => handleDelete()}> 
-    <Button danger ghost>Publish</Button>  
+    { title: 'Action',dataIndex: 'id', key: 'operation', render: (id : number) => 
+    <Popconfirm title="삭제하시겠습니까?" onConfirm={() => handleDelete(id)}> 
+    <Button danger ghost>Delete</Button>  
     </Popconfirm>
     },
   ];
