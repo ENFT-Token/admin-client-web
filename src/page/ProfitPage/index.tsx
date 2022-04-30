@@ -103,7 +103,7 @@ const ChartForm = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
-background-color: #e2f0dc;
+
 border-radius: 30px;
 padding:100px;
 

@@ -1,21 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DaumPostCode from 'react-daum-postcode';
 // import ReCAPTCHA from 'react-google-recaptcha';
 import {
   Form,
   Modal,
   Input,
-  InputNumber,
-  Cascader,
-  Select,
-  Row,
-  Col,
   Checkbox,
   Button,
-  AutoComplete,
 } from 'antd';
 
-const { Option } = Select;
 
 
 
@@ -45,8 +38,14 @@ const tailFormItemLayout = {
 export default function Register() {
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [location,setLocation] = useState("");
-  
+  const [location, setLocation] = useState("");
+  const [admin, setAdmin] = useState({
+    email: "",
+    password: "",
+    nickname: "",
+    location: "",
+    place: ""
+  });
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values);
   };
@@ -62,7 +61,7 @@ export default function Register() {
     setIsModalVisible(false);
   };
 
-  
+
 
   const handleComplete = (data: any) => {
     let fullAddress = data.address;
@@ -76,9 +75,26 @@ export default function Register() {
       }
       fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
       setLocation(fullAddress);
+
+      setAdmin({
+        ...admin,
+        ['location']: fullAddress,
+      })
       setIsModalVisible(false);
     }
   }
+  const handleChangeState = (e: any) => {
+    console.log(e.target.name)
+    setAdmin({
+      ...admin,
+      [e.target.name]: e.target.value,
+    })
+
+  }
+
+  useEffect(() => {
+    console.log(admin)
+  }, [admin])
   return (
     <Form
       {...formItemLayout}
@@ -101,7 +117,7 @@ export default function Register() {
           },
         ]}
       >
-        <Input />
+        <Input name="email" onChange={handleChangeState} />
       </Form.Item>
 
       <Form.Item
@@ -115,7 +131,7 @@ export default function Register() {
         ]}
         hasFeedback
       >
-        <Input.Password />
+        <Input.Password name="password" onChange={handleChangeState} />
       </Form.Item>
 
       <Form.Item
@@ -147,21 +163,21 @@ export default function Register() {
         tooltip="What do you want others to call you?"
         rules={[{ required: true, message: 'Please input your nickname!', whitespace: true }]}
       >
-        <Input />
+        <Input name="nickname" onChange={handleChangeState} />
       </Form.Item>
 
       <Form.Item
         name="location"
         label="주소"
-        rules={[{required: true, message: 'Please select your location'}]}
+        rules={[{ required: false, message: 'Please select your location' }]}
       >
-        <Input value={location}/>
+        <Input type="text" value={location} name="location" />
         <Button type="ghost" onClick={showModal}>
           주소 찾기
         </Button>
-        
+
         <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-          <DaumPostCode autoClose={false} onComplete={handleComplete}/> 
+          <DaumPostCode autoClose={false} onComplete={handleComplete} />
         </Modal>
       </Form.Item>
 
@@ -172,7 +188,7 @@ export default function Register() {
           { required: true, message: 'Please select your company name!' },
         ]}
       >
-        <Input placeholder='헬스장 이름' />
+        <Input placeholder='헬스장 이름' name="place" onChange={handleChangeState} />
       </Form.Item>
 
       <Form.Item
@@ -187,7 +203,7 @@ export default function Register() {
         {...tailFormItemLayout}
       >
         <Checkbox>
-          I have read the <a href="">agreement</a>
+          모든 정보를 올바르게 입력하셨습니까?
         </Checkbox>
       </Form.Item>
       <Form.Item {...tailFormItemLayout}>
