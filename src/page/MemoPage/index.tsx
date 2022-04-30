@@ -6,7 +6,7 @@ export default function NestedTable() {
   const [memoList, setMemoList] = useState([] as any);
   const [inputBody, setInputBody] = useState([] as any);
   const [inputHead, setInputHead] = useState([] as any);
-  const [temp, setTemp] = useState([] as any);
+  const [localMemoList, setlocalMemoList] = useState([] as any);
   const date = new Date();
   //input 
   const { TextArea } = Input;
@@ -49,15 +49,16 @@ export default function NestedTable() {
   ];
 
   useEffect(()=>{
-    setTemp(JSON.parse(window.localStorage.getItem('body') as string))
-    console.log(temp)
-  },[memoList])
+    const bodyString = window.localStorage.getItem('body');
+    setMemoList(JSON.parse(bodyString as string))
+  },[])
 
   useEffect(()=>{
     const tempObjBody = JSON.stringify(memoList);
     window.localStorage.setItem('body',tempObjBody);
     const bodyString = window.localStorage.getItem('body');
-    setTemp(JSON.parse(bodyString as string));
+    console.log(window.localStorage.getItem('body'))
+    setlocalMemoList(JSON.parse(bodyString as string));
   },[memoList])
  
   return (
@@ -65,7 +66,7 @@ export default function NestedTable() {
       <Table
         className="components-table-demo-nested"
         columns={columns}
-        dataSource={temp}
+        dataSource={localMemoList}
       />
       <Input placeholder="작성자 이름" onChange={onChangeHead} value={inputHead}/>
       <TextArea placeholder="내용" 
