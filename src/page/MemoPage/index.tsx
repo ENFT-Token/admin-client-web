@@ -63,7 +63,6 @@ export default function NestedTable() {
     window.localStorage.setItem('num',tempNum);
     const bodyString = window.localStorage.getItem('body');
     setlocalMemoList(JSON.parse(bodyString as string));
-    console.log(bodyString)
   },[memoList])
  
   return (

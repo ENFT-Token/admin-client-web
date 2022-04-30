@@ -1,17 +1,22 @@
 import { createSlice, PayloadAction, createReducer } from "@reduxjs/toolkit";
-import axios from "axios";
+
 
 //admin : id, password, nickname, phone number, email
 //company : company, address, company number, ceo
 
 export interface IAdmin {
   access_token: string;
-  address: string;
-  email: string;
-  location: string;
-  place: string;
+  address: string; 
+  email: string; 
+  location: string; 
+  place: string; 
   privateKey: string;
   status: string;
+  //회원가입하고 post할 것
+  //이메일
+  //헬스장 주소
+  //헬스장 지점명
+  //nickname:string 추가하고
 }
 
 interface IState {

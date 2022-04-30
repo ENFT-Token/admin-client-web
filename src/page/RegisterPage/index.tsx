@@ -84,7 +84,7 @@ export default function Register() {
     }
   }
   const handleChangeState = (e: any) => {
-    console.log(e.target.name)
+
     setAdmin({
       ...admin,
       [e.target.name]: e.target.value,
@@ -92,9 +92,7 @@ export default function Register() {
 
   }
 
-  useEffect(() => {
-    console.log(admin)
-  }, [admin])
+
   return (
     <Form
       {...formItemLayout}
