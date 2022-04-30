@@ -1,13 +1,12 @@
 import { Table, Input, Button, Popconfirm } from 'antd';
-import { useState,useRef } from 'react'
-
-
+import { useState,useRef, useEffect } from 'react'
 
 
 export default function NestedTable() {
   const [memoList, setMemoList] = useState([] as any);
   const [inputBody, setInputBody] = useState([] as any);
   const [inputHead, setInputHead] = useState([] as any);
+  const [temp, setTemp] = useState([] as any);
   const date = new Date();
   //input 
   const { TextArea } = Input;
@@ -49,12 +48,24 @@ export default function NestedTable() {
     },
   ];
 
+  useEffect(()=>{
+    setTemp(JSON.parse(window.localStorage.getItem('body') as string))
+    console.log(temp)
+  },[memoList])
+
+  useEffect(()=>{
+    const tempObjBody = JSON.stringify(memoList);
+    window.localStorage.setItem('body',tempObjBody);
+    const bodyString = window.localStorage.getItem('body');
+    setTemp(JSON.parse(bodyString as string));
+  },[memoList])
+ 
   return (
     <div>
       <Table
         className="components-table-demo-nested"
         columns={columns}
-        dataSource={memoList}
+        dataSource={temp}
       />
       <Input placeholder="작성자 이름" onChange={onChangeHead} value={inputHead}/>
       <TextArea placeholder="내용" 
