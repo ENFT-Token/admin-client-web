@@ -10,7 +10,7 @@ export default function NestedTable() {
   const date = new Date();
   //input 
   const { TextArea } = Input;
-  const num = useRef(1);
+  let num = useRef(1);
   const onChangeBody = (e: any) => {
     setInputBody(e.target.value);
   };
@@ -51,14 +51,19 @@ export default function NestedTable() {
   useEffect(()=>{
     const bodyString = window.localStorage.getItem('body');
     setMemoList(JSON.parse(bodyString as string))
+    const numStorage= JSON.parse(window.localStorage.getItem('num') as string)
+    
+    num.current = numStorage.current
   },[])
 
   useEffect(()=>{
     const tempObjBody = JSON.stringify(memoList);
+    const tempNum = JSON.stringify(num);
     window.localStorage.setItem('body',tempObjBody);
+    window.localStorage.setItem('num',tempNum);
     const bodyString = window.localStorage.getItem('body');
-    console.log(window.localStorage.getItem('body'))
     setlocalMemoList(JSON.parse(bodyString as string));
+    console.log(bodyString)
   },[memoList])
  
   return (
