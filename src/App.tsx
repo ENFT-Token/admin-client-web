@@ -8,7 +8,6 @@ import MainPage from "./page/MainPage";
 import ApprovePage from "./page/ApprovePage";
 import MemoPage from "./page/MemoPage";
 import ProfitPage from "./page/ProfitPage";
-import MyPage from "./page/MyPage";
 import LoginPage from "./page/LoginPage";
 import MembersPage from "./page/MembersPage";
 import RegisterPage from "./page/RegisterPage";
@@ -34,7 +33,6 @@ function App() {
               <Menu.Item key="3"> <Link to="/approve"> APPROVE </Link></Menu.Item>
               <Menu.Item key="4"> <Link to="/profit"> PROFIT </Link> </Menu.Item>
               <Menu.Item key="5"> <Link to="/memo"> MEMO </Link></Menu.Item>
-              <Menu.Item key="6"> <Link to="/info"> MY INFO </Link></Menu.Item>
               
             </Menu>
           </Header>
@@ -47,7 +45,6 @@ function App() {
                 <Route path="/approve" element={<ApprovePage />}></Route>
                 <Route path="/profit" element={<ProfitPage />}></Route>
                 <Route path="/memo" element={<MemoPage />}></Route>
-                <Route path="/info" element={<MyPage />}></Route>
                 <Route path="/register" element={<RegisterPage />}></Route>
               </Routes>
             </div>
