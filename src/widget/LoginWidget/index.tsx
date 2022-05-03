@@ -11,7 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addInfo } from "../../models/admin";
-
+import { SERVER_URL } from "../../confing";
 
 export default function LoginWidget() {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ export default function LoginWidget() {
     const fetch = async () => {
       try {
         if (account.email && account.password) {
-          const response = await axios.post('http://3.39.24.209/auth/admin/login', account);
+          const response = await axios.post(`http://${SERVER_URL}/auth/admin/login`, account);
           if (response.status === 201) {
             dispatch(addInfo(response.data));
             navigate("/home", { replace: true });

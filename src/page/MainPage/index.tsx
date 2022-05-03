@@ -20,7 +20,7 @@ export default function MainPage() {
     { i: "현재", x: 1, y: 0, w: 3, h: 3 },
   ];
   return (
-    <div style={{}}>
+    <div className="container">
       <GridLayout
         className="layout"
         layout={layout}

@@ -44,7 +44,8 @@ export default function Register() {
     password: "",
     nickname: "",
     location: "",
-    place: ""
+    place: "",
+    phone:""
   });
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values);
@@ -158,7 +159,16 @@ export default function Register() {
       <Form.Item
         name="nickname"
         label="닉네임"
-        tooltip="What do you want others to call you?"
+        tooltip="다른 사람들이 당신을 뭐라고 부르기를 원하십니까?"
+        rules={[{ required: true, message: 'Please input your nickname!', whitespace: true }]}
+      >
+        <Input name="nickname" onChange={handleChangeState} />
+      </Form.Item>
+
+      <Form.Item
+        name="phone"
+        label="연락처"
+        tooltip="연락가능한 헬스장 유/무선 번호는 무엇입니까?"
         rules={[{ required: true, message: 'Please input your nickname!', whitespace: true }]}
       >
         <Input name="nickname" onChange={handleChangeState} />
