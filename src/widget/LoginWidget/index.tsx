@@ -29,6 +29,8 @@ export default function LoginWidget() {
         if (account.email && account.password) {
           const response = await axios.post(`http://${SERVER_URL}/auth/admin/login`, account);
           if (response.status === 201) {
+            const tempLogin = JSON.stringify(response.data);
+            window.localStorage.setItem('login',tempLogin);
             dispatch(addInfo(response.data));
             navigate("/home", { replace: true });
           }

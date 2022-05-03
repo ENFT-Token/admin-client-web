@@ -7,6 +7,7 @@ import { addUser, addAllUser, deleteUser, IUser } from "../../models/members";
 import { Rootstate } from "../../models";
 import styled from "styled-components";
 import { SERVER_URL } from "../../confing";
+import { addInfo } from "../../models/admin";
 export default function ApprovePage() {
   /////redux///////////
   const reqArvUser = useSelector((store: Rootstate) => store.members.user);
@@ -35,6 +36,7 @@ export default function ApprovePage() {
   };
 
   const appendData = async () => {
+    
     try {
       const response = await axios.get(`http://${SERVER_URL}/admin/approve/list`,
       {
@@ -43,13 +45,13 @@ export default function ApprovePage() {
       console.log("실제 data",response)
       const info = response.data.results
       dispatch(addAllUser(info));
-      message.success(`${response.data.results.length} more users loaded!`);
+      //message.success(`${response.data.results.length} more users loaded!`);
 
-    } catch {
-      console.log("Error");
+    } catch(e) {
+      console.log("Error",e);
     }
   };
-
+ 
   useEffect(() => {
     appendData();
   }, []);
