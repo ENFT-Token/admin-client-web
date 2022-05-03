@@ -108,11 +108,11 @@ export default function Register() {
         rules={[
           {
             type: 'email',
-            message: 'The input is not valid E-mail!',
+            message: '형식이 맞지 않는 E-mail 입니다!',
           },
           {
             required: true,
-            message: 'Please input your E-mail!',
+            message: 'E-mail을 입력하세요!',
           },
         ]}
       >
@@ -125,7 +125,7 @@ export default function Register() {
         rules={[
           {
             required: true,
-            message: 'Please input your password!',
+            message: '패스워드를 입력하세요!',
           },
         ]}
         hasFeedback
@@ -141,7 +141,7 @@ export default function Register() {
         rules={[
           {
             required: true,
-            message: 'Please confirm your password!',
+            message: '패스워드를 입력하세요!',
           },
           ({ getFieldValue }) => ({
             validator(_, value) {
@@ -160,7 +160,7 @@ export default function Register() {
         name="nickname"
         label="닉네임"
         tooltip="다른 사람들이 당신을 뭐라고 부르기를 원하십니까?"
-        rules={[{ required: true, message: 'Please input your nickname!', whitespace: true }]}
+        rules={[{ required: true, message: '닉네임을 입력하세요!', whitespace: true }]}
       >
         <Input name="nickname" onChange={handleChangeState} />
       </Form.Item>
@@ -169,15 +169,15 @@ export default function Register() {
         name="phone"
         label="연락처"
         tooltip="연락가능한 헬스장 유/무선 번호는 무엇입니까?"
-        rules={[{ required: true, message: 'Please input your nickname!', whitespace: true }]}
+        rules={[{ required: true, message: '번호를 입력하세요!', whitespace: true }]}
       >
-        <Input name="nickname" onChange={handleChangeState} />
+        <Input name="phone" onChange={handleChangeState} />
       </Form.Item>
 
       <Form.Item
         name="location"
         label="주소"
-        rules={[{ required: false, message: 'Please select your location' }]}
+        rules={[{ required: false, message: '헬스장 주소를 입력하세요!' }]}
       >
         <Input type="text" value={location} name="location" />
         <Button type="ghost" onClick={showModal}>
@@ -193,7 +193,7 @@ export default function Register() {
         name="place"
         label="지점명"
         rules={[
-          { required: true, message: 'Please select your company name!' },
+          { required: true, message: '회사 이름을 입력하세요!' },
         ]}
       >
         <Input placeholder='헬스장 이름' name="place" onChange={handleChangeState} />
