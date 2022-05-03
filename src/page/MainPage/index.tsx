@@ -7,8 +7,10 @@ import GridLayout from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 import InfoWidget from '../../widget/InfoWidget';
+import { Rootstate } from '../../models';
+import { useSelector } from 'react-redux';
 export default function MainPage() {
-
+  const admin = useSelector((store: Rootstate) => store.admin.adminInfo);
   const layout = [
     { i: "관리자 정보", x: 8, y: 0, w: 3, h: 6},
     { i: "헬스장 이름", x: 4, y: 0, w: 4, h: 2, minW: 2, maxW: 4 },
@@ -34,7 +36,7 @@ export default function MainPage() {
         <div key="관리자 정보" style={{background:"red"}}>
           <InfoWidget/>
         </div>
-        <div key="헬스장 이름" style={{background:"orange"}}>헬스장 이름</div>
+        <div key="헬스장 이름" style={{background:"orange"}}>{admin?.place}</div>
         <div key="현재 회원들" style={{background:"blue"}}>현재 회원들</div>
         <div key="광고1" style={{background:"blue"}}>광고1</div>
         <div key="광고2" style={{background:"gray"}}>광고2</div>
