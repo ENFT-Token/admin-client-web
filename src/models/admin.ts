@@ -9,6 +9,8 @@ export interface IAdmin {
   address: string; 
   email: string; 
   location: string; 
+  nickname:string;
+  phone:string;
   place: string; 
   privateKey: string;
   status: string;
@@ -16,7 +18,7 @@ export interface IAdmin {
   //이메일
   //헬스장 주소
   //헬스장 지점명
-  //nickname:string 추가하고
+  //nickname
 }
 
 interface IState {
