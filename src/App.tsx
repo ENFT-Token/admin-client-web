@@ -22,6 +22,7 @@ const { Header, Content, Footer } = Layout;
 function App() {
   const dispatch = useDispatch();
   const admin = useSelector((store:Rootstate)=> store.admin.adminInfo);
+  
   useEffect(()=>{
     const loginLocal = window.localStorage.getItem('login');
     if(!admin){
@@ -29,10 +30,6 @@ function App() {
       dispatch(addInfo(JSON.parse(loginLocal as string)))
     }
   },[])
-
-  useEffect(()=>{
-    console.log("redux",admin)
-  },[admin])
   
   return (
     <div className="App">

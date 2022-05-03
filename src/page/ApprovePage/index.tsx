@@ -51,14 +51,11 @@ export default function ApprovePage() {
   };
  
   useEffect(() => {
-    appendData();
-  }, []);
-  useEffect(()=>{
-    requestUser.map((v)=>{
-
-    })
+    if(!admin) return;
     
-  },[requestUser])
+    appendData();
+  }, [admin]);
+
   const onScroll = (e: any) => {
     if (e.target.scrollHeight - e.target.scrollTop === ContainerHeight) {
       appendData();
