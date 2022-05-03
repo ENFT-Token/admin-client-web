@@ -4,12 +4,7 @@ import { Rootstate } from "../../models";
 import { List, Avatar, Space } from "antd";
 import { MessageOutlined, LikeOutlined, StarOutlined } from "@ant-design/icons";
 
-// const IconText = ({ icon, text }:any) => (
-//   <Space>
-//     {React.createElement(icon)}
-//     {text}
-//   </Space>
-// );
+
 
 interface IListData{ //렌더링계속되므로 함수밖에 작성
   href:string;
@@ -22,18 +17,18 @@ interface IListData{ //렌더링계속되므로 함수밖에 작성
 
 
 export default function MembersPage() {
-  const arvUser = useSelector((store: Rootstate) => store.members.approveUser);
+  const arvUser = useSelector((store: Rootstate) => store.members.approvedUser);
   const [listData, setListData] = useState<IListData[]>([]);
 
-  useEffect(() => {
-    setListData(arvUser.map(v => ({
-      href: "https://ant.design",
-      title: `${v.name.last}`,
-      avatar: `${v.picture.medium}`,
-      description: `${v.gender}`,
-      content: `${v.email}`,
-    })))
-  }, [arvUser]);
+  // useEffect(() => {
+  //   setListData(arvUser.map(v => ({
+  //     href: "https://ant.design",
+  //     title: `${v.name.last}`,
+  //     avatar: `${v.picture.medium}`,
+  //     description: `${v.gender}`,
+  //     content: `${v.email}`,
+  //   })))
+  // }, [arvUser]);
   
   // useEffect(() => {
   //   console.log(listData);
@@ -44,7 +39,8 @@ export default function MembersPage() {
   }
 
   return (
-    <List
+    <div>
+    {/* <List
       itemLayout="vertical"
       size="large"
       pagination={{
@@ -78,6 +74,7 @@ export default function MembersPage() {
           {item.content}
         </List.Item>
       )}
-    />
+    /> */}
+    </div>
   );
 }
