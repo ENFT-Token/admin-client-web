@@ -20,7 +20,7 @@ export default function MainPage() {
     { i: "광고2", x: 8, y: 0, w: 3, h: 2 },
     { i: "관리자 메모", x: 4, y: 0, w: 4, h:4 },
     { i: "할일", x: 1, y: 0, w: 3, h: 3 },
-    { i: "회원들", x: 1, y: 0, w: 3, h: 4 },
+    { i: "접속 중인 회원들", x: 1, y: 0, w: 3, h: 4 },
     { i: "현재", x: 1, y: 0, w: 3, h: 3 },
   ];
   return (
@@ -46,7 +46,7 @@ export default function MainPage() {
         <div key="관리자 메모" style={{background:"yellow"}}>
           <MemoWidget/>
         </div>
-        <div key="회원들" style={{background:"yellow"}}>회원들</div>
+        <div key="접속 중인 회원들" style={{background:"yellow"}}>접속중인 회원들</div>
         
       </GridLayout>
     </div>
