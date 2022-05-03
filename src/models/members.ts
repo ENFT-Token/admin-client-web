@@ -49,7 +49,7 @@ export const userSlice = createSlice({
       state.user = action.payload;
     },
     deleteUser(state,action:PayloadAction<IUser>){
-      //state.user = state.user.filter((v)=>v.email !==action.payload.email)
+      state.user = state.user.filter((v)=>v.address !==action.payload.address)
     }
   },
 

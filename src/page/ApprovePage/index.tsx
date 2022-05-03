@@ -17,22 +17,23 @@ export default function ApprovePage() {
     "https://randomuser.me/api/?results=20&inc=name,gender,email,nat,picture&noinfo";
   const ContainerHeight = 500;
 
-  // const onClickApprove = (email: string) => { //승인하기
+  const onClickApprove = (address: string) => { //승인하기
 
-  //   const approvedUser = reqArvUser.find((data) => data.email === email); //승인하기 버튼 누른 유저정보
-  //   if (approvedUser) {
-  //     dispatch(addUser(approvedUser));
-  //     dispatch(deleteUser(approvedUser));
-  //   }
+    const approvedUser = requestUser.find((data) => data.address === address); //승인하기 버튼 누른 유저정보
+    if (approvedUser) {
+      dispatch(addUser(approvedUser));
+      dispatch(deleteUser(approvedUser));
+    }
 
-  // };
+  };
 
-  // const onClickReject = (email: string) => { //거절하기
-  //   const approvedUser = reqArvUser.find((data) => data.email === email); //승인하기 버튼 누른 유저정보
-  //   if (approvedUser) {
-  //     dispatch(deleteUser(approvedUser));
-  //   }
-  // };
+  const onClickReject = (address: string) => { //거절하기
+    
+    const approvedUser = requestUser.find((data) => data.address === address); //승인하기 버튼 누른 유저정보
+    if (approvedUser) {
+      dispatch(deleteUser(approvedUser));
+    }
+  };
 
   const appendData = async () => {
     try {
@@ -66,25 +67,24 @@ export default function ApprovePage() {
   return (
     <div>
       <div>Customers who requested approval</div>
-      <div>{}</div>
       <List>
         <VirtualList
           data={requestUser}
           height={ContainerHeight}
           itemHeight={47}
-          itemKey="email"
+          itemKey="address"
           onScroll={onScroll}
         >
           {(item) => (
-            <List.Item key="1">
+            <List.Item key={item.address}>
               <List.Item.Meta
-                title={<a href="https://ant.design">{item.address}</a>}
+                title={item.address}
                 description={item.requestDay}
               />
-              {/* <ButtonWrapper>
-                <Button id="btn1" type="primary" ghost onClick={() => onClickApprove(item.email)}>승인하기</Button>
-                <Button id="btn2" type="primary" danger ghost onClick={() => onClickReject(item.email)}>거절하기</Button>
-              </ButtonWrapper> */}
+              <ButtonWrapper>
+                <Button id="btn1" type="primary" ghost onClick={() => onClickApprove(item.address)}>승인하기</Button>
+                <Button id="btn2" type="primary" danger ghost onClick={() => onClickReject(item.address)}>거절하기</Button>
+              </ButtonWrapper>
             </List.Item>
 
 
