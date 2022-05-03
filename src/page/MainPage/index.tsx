@@ -6,6 +6,7 @@ import "./index.css"
 import GridLayout from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
+import InfoWidget from '../../widget/InfoWidget';
 export default function MainPage() {
 
   const layout = [
@@ -30,7 +31,9 @@ export default function MainPage() {
         margin={[30,30]}
        
       >
-        <div key="관리자 정보" style={{background:"red"}}>관리자 정보</div>
+        <div key="관리자 정보" style={{background:"red"}}>
+          <InfoWidget/>
+        </div>
         <div key="헬스장 이름" style={{background:"orange"}}>헬스장 이름</div>
         <div key="현재 회원들" style={{background:"blue"}}>현재 회원들</div>
         <div key="광고1" style={{background:"blue"}}>광고1</div>
