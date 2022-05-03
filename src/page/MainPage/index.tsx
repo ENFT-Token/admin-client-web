@@ -42,11 +42,15 @@ export default function MainPage() {
         <div key="광고1" style={{background:"gray"}}>광고1</div>
         <div key="광고2" style={{background:"gray"}}>광고2</div>
         <div key="현재" style={{background:"yellow"}}>현재 이용자 수 및 누적 이용자 수 </div>
-        <div key="할일" style={{background:"green"}}>할일</div>
+        <div key="할일" style={{background:"green"}}>
+          메모가 @개 있습니다.<br/>
+          현재 승인 요청한 유저가 @명입니다.
+
+        </div>
         <div key="관리자 메모" style={{background:"yellow"}}>
           <MemoWidget/>
         </div>
-        <div key="접속 중인 회원들" style={{background:"yellow"}}>접속중인 회원들</div>
+        <div key="접속 중인 회원들" style={{background:"yellow"}}>접속중인 회원들리스트</div>
         
       </GridLayout>
     </div>

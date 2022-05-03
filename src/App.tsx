@@ -14,6 +14,7 @@ import RegisterPage from "./page/RegisterPage";
 import { useDispatch, useSelector } from "react-redux";
 import { addInfo } from "./models/admin";
 import { Rootstate } from "./models";
+import CheckInPage from "./page/CheckInPage";
 
 
 const { Header, Content, Footer } = Layout;
@@ -45,8 +46,9 @@ function App() {
               <Menu.Item key="1"> <Link to="/home"> MAIN </Link> </Menu.Item>
               <Menu.Item key="2"> <Link to="/members"> MEMBERS </Link></Menu.Item>
               <Menu.Item key="3"> <Link to="/approve"> APPROVE </Link></Menu.Item>
-              <Menu.Item key="4"> <Link to="/profit"> PROFIT </Link> </Menu.Item>
-              <Menu.Item key="5"> <Link to="/memo"> MEMO </Link></Menu.Item>
+              <Menu.Item key="4"> <Link to="/checkin"> CHECK IN </Link></Menu.Item>
+              <Menu.Item key="5"> <Link to="/profit"> PROFIT </Link> </Menu.Item>
+              <Menu.Item key="6"> <Link to="/memo"> MEMO </Link></Menu.Item>
               
             </Menu>
           </Header>
@@ -60,6 +62,7 @@ function App() {
                 <Route path="/profit" element={<ProfitPage />}></Route>
                 <Route path="/memo" element={<MemoPage />}></Route>
                 <Route path="/register" element={<RegisterPage />}></Route>
+                <Route path="/checkin" element={<CheckInPage />}></Route>
               </Routes>
             </div>
           </Contents>
