@@ -6,10 +6,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { addUser, addAllUser, deleteUser, IUser } from "../../models/members";
 import { Rootstate } from "../../models";
 import styled from "styled-components";
+import { SERVER_URL } from "../../confing";
 export default function ApprovePage() {
   /////redux///////////
   const reqArvUser = useSelector((store: Rootstate) => store.members.user);
-
+  const admin = useSelector((store:Rootstate)=> store.admin.adminInfo);
   const dispatch = useDispatch();
 
   const fakeDataUrl =
@@ -35,7 +36,11 @@ export default function ApprovePage() {
 
   const appendData = async () => {
     try {
-      const response = await axios.get(fakeDataUrl);
+      const response = await axios.get(`http://${SERVER_URL}/admin/approve/list`,
+      {
+        headers:{"Authorization": `Bearer ${admin?.access_token}`}
+      });
+      console.log("실제 data",response)
       const info = response.data.results
       dispatch(addAllUser(info));
       message.success(`${response.data.results.length} more users loaded!`);

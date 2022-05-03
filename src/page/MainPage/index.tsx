@@ -38,7 +38,7 @@ export default function MainPage() {
         </div>
         <div key="헬스장 이름" style={{background:"orange"}}>{admin?.place}</div>
         <div key="현재 회원들" style={{background:"blue"}}>현재 회원들</div>
-        <div key="광고1" style={{background:"blue"}}>광고1</div>
+        <div key="광고1" style={{background:"gray"}}>광고1</div>
         <div key="광고2" style={{background:"gray"}}>광고2</div>
         <div key="현재" style={{background:"yellow"}}>현재 이용자 수 및 누적 이용자 수 </div>
         <div key="할일" style={{background:"green"}}>할일</div>
