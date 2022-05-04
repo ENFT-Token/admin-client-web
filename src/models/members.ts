@@ -22,14 +22,28 @@ import { createSlice, PayloadAction , createReducer } from "@reduxjs/toolkit";
 // }
 
 export interface IUser{
+  nickname : string;
+  location : string;
+  sex : string;
+  profile : IProfile;
+}
+export interface IProfile{
+  data:string;
+  type:any;
+}
+
+export interface IApprove{
   address:string;
   requestDay:string;
   requestPlace:string;
+  user:IUser;
+  
 }
 
+
 interface IState {
-  user: IUser[];
-  approvedUser: IUser[];
+  user: IApprove[];
+  approvedUser: IApprove[];
 }
 
 const initialState:IState = {
@@ -41,14 +55,14 @@ export const userSlice = createSlice({
   name:'user',
   initialState,
   reducers:{
-    addUser(state, action:PayloadAction<IUser>){
+    addUser(state, action:PayloadAction<IApprove>){
       state.approvedUser.push(action.payload);
 
     },
-    addAllUser(state, action:PayloadAction<IUser[]>){
+    addAllUser(state, action:PayloadAction<IApprove[]>){
       state.user = action.payload;
     },
-    deleteUser(state,action:PayloadAction<IUser>){
+    deleteUser(state,action:PayloadAction<IApprove>){
       state.user = state.user.filter((v)=>v.address !==action.payload.address)
     }
   },
