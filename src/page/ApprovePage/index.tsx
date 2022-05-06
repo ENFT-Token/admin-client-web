@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { List, message, Avatar, Button } from "antd";
 import VirtualList from "rc-virtual-list";
 import axios from "axios";
@@ -7,10 +7,12 @@ import { addUser, addAllUser, deleteUser, IUser } from "../../models/members";
 import { Rootstate } from "../../models";
 import styled from "styled-components";
 import { SERVER_URL } from "../../confing";
+import Lists from 'rc-virtual-list';
+import { isMetaProperty } from "typescript";
 export default function ApprovePage() {
   /////redux///////////
   const requestUser = useSelector((store: Rootstate) => store.members.user);
-  const admin = useSelector((store:Rootstate)=> store.admin.adminInfo);
+  const admin = useSelector((store: Rootstate) => store.admin.adminInfo);
   const dispatch = useDispatch();
 
   const fakeDataUrl =
@@ -28,7 +30,7 @@ export default function ApprovePage() {
   };
 
   const onClickReject = (address: string) => { //거절하기
-    
+
     const approvedUser = requestUser.find((data) => data.address === address); //승인하기 버튼 누른 유저정보
     if (approvedUser) {
       dispatch(deleteUser(approvedUser));
@@ -38,21 +40,22 @@ export default function ApprovePage() {
   const appendData = async () => {
     try {
       const response = await axios.get(`http://${SERVER_URL}/admin/approve/list`,
-      {
-        headers:{"Authorization": `Bearer ${admin?.access_token}`}
-      });
+        {
+          headers: { "Authorization": `Bearer ${admin?.access_token}` }
+        });
       const info = response.data
+      console.log(info)
       dispatch(addAllUser(info));
       //message.success(`${response.data.results.length} more users loaded!`);
 
-    } catch(e) {
-      console.log("Error",e);
+    } catch (e) {
+      console.log("Error", e);
     }
   };
- 
+
   useEffect(() => {
-    if(!admin) return;
-    
+    if (!admin) return;
+
     appendData();
   }, [admin]);
 
@@ -61,9 +64,17 @@ export default function ApprovePage() {
       appendData();
     }
   };
+
+
   return (
     <div>
+
+
       <div>Customers who requested approval</div>
+      {/* <Lists data={[0, 1, 2]} height={200} itemHeight={30} itemKey="id">
+  {index => <div>{index}</div>}
+</Lists>; */}
+      {requestUser.map(v => (<div>{v.user.location} {v.user.nickname}  {v.user.sex}</div>))}
       <List>
         <VirtualList
           data={requestUser}
