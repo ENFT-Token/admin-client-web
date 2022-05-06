@@ -16,18 +16,59 @@ function Table({ columns, data }: any) {
         prepareRow,
         page,
 
+        canPreviousPage,
+        canNextPage,
+        pageOptions,
+        pageCount,
+        gotoPage,
+        nextPage,
+        previousPage,
+        setPageSize,
         state: { pageIndex, pageSize },
     } =
-        useTable({
+        useTable(
+        {
             columns,
             data,
             initialState: { pageIndex: 2 },
         },
             usePagination
-        );
+    )
 
     return (
         <div>
+            <pre>
+                <code>
+                    {
+                        JSON.stringify({
+                            pageIndex,
+                            pageSize,
+                            pageCount,
+                            canNextPage,
+                            canPreviousPage,
+                        },
+                        null,
+                        2
+                        )}
+                </code>
+            </pre>
+
+            <table {...getTableProps()}>
+                <thead>
+                    {headerGroups.map(headerGroup=>(
+                        <tr {...headerGroup.getHeaderGroupProps()}>
+                            {headerGroup.headers.map(column=>(
+                                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                            ))}
+                        </tr>
+                    ))}
+                </thead>
+
+                <tbody>
+                    
+                </tbody>
+
+            </table>
         </div>
 
     )
