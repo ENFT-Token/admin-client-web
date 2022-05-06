@@ -3,13 +3,13 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { SERVER_URL } from '../../confing';
 import { Rootstate } from '../../models';
-import { addAllUser } from '../../models/members';
+import { addAllUser, addUser, deleteUser } from '../../models/members';
 import styled from "styled-components";
 import { usePagination, useTable } from 'react-table'
+import { Button } from "antd";
 
-
-export interface IApproveUser{
-    nickname:string;
+export interface IApproveUser {
+    nickname: string;
     sex: string;
     requestDay: number;
     address: string;
@@ -147,6 +147,23 @@ export default function ArrovePage() {
         appendData();
     }, [admin]);
 
+    const onClickApprove = (address: string) => { //승인하기
+
+        const approvedUser = requestUser.find((data) => data.address === address); //승인하기 버튼 누른 유저정보
+        if (approvedUser) {
+            dispatch(addUser(approvedUser));
+            dispatch(deleteUser(approvedUser));
+        }
+
+    };
+
+    const onClickReject = (address: string) => { //거절하기
+
+        const approvedUser = requestUser.find((data) => data.address === address); //승인하기 버튼 누른 유저정보
+        if (approvedUser) {
+            dispatch(deleteUser(approvedUser));
+        }
+    };
 
     //@@@@@ react-table@@@@@
     const columnData = [
@@ -165,21 +182,30 @@ export default function ArrovePage() {
         {
             Header: '지갑 주소',
             accessor: 'address'
+        },
+        {
+            Header: '버튼',
+            accessor: 'button'
         }
     ];
     const columns = useMemo(() => columnData, []);
-    
+
 
     const data = useMemo(() => requestUser.map(v => ({
         "nickname": v.user.nickname,
         "sex": v.user.sex,
         "requestDay": v.requestDay,
-        "address": v.address
+        "address": v.address,
+        "button": (
+            <ButtonWrapper>
+                <Button id="btn1" type="primary" ghost onClick={() => onClickApprove(v.address)}>승인하기</Button>
+                <Button id="btn2" type="primary" danger ghost onClick={() => onClickReject(v.address)}>거절하기</Button>
+            </ButtonWrapper>)
     })), [requestUser])
-    
-    useEffect(()=>{
-        console.log("data",data)
-    },[data])
+
+    useEffect(() => {
+        console.log("data", data)
+    }, [data])
 
 
     return (
@@ -189,5 +215,9 @@ export default function ArrovePage() {
 
     )
 }
+const ButtonWrapper = styled.div`
+   #btn1{
 
-
+     margin-right:10px;
+   }
+`
