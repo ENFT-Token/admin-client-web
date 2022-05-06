@@ -44,7 +44,6 @@ export default function ApprovePage() {
           headers: { "Authorization": `Bearer ${admin?.access_token}` }
         });
       const info = response.data
-      console.log(info)
       dispatch(addAllUser(info));
       //message.success(`${response.data.results.length} more users loaded!`);
 
