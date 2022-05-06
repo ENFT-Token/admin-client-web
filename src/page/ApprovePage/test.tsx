@@ -18,30 +18,28 @@ const Styles = styled.div`
   padding: 1rem;
 
   table {
+    width:100%;
+    text-align: center;
     border-spacing: 0;
     border: 1px solid black;
-
-    tr {
-      :last-child {
+   tr{
+    :last-child {
         td {
           border-bottom: 0;
         }
       }
-    }
-
-    th,
-    td {
-      margin: 0;
-      padding: 0.5rem;
+   }
+  }
+  th, td{
+      margin:0;
+      padding-right: 1rem;
       border-bottom: 1px solid black;
       border-right: 1px solid black;
-
+      
       :last-child {
         border-right: 0;
       }
-    }
   }
-
   .pagination {
     padding: 0.5rem;
   }
@@ -167,6 +165,10 @@ export default function ArrovePage() {
 
     //@@@@@ react-table@@@@@
     const columnData = [
+        // {
+        //     Header:'프로필',
+        //     accessor:'profile'
+        // },
         {
             Header: '닉네임',
             accessor: 'nickname'
@@ -192,6 +194,7 @@ export default function ArrovePage() {
 
 
     const data = useMemo(() => requestUser.map(v => ({
+        // "profile" : v.user.profile,
         "nickname": v.user.nickname,
         "sex": v.user.sex,
         "requestDay": v.requestDay,
@@ -216,8 +219,8 @@ export default function ArrovePage() {
     )
 }
 const ButtonWrapper = styled.div`
-   #btn1{
 
-     margin-right:10px;
-   }
+    #btn1{
+    margin-right:10px;
+    }
 `
