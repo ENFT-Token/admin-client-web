@@ -1,20 +1,35 @@
 import axios from 'axios';
-import React, { useEffect, useMemo,useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { SERVER_URL } from '../../confing';
 import { Rootstate } from '../../models';
 import { addAllUser } from '../../models/members';
 import styled from "styled-components";
+import { useTable } from 'react-table'
+
+
+function Table({ columns, data }: any){
+    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+        useTable({ columns, data });
+
+    return (
+        <div>
+        </div>
+
+    )
+}
+
+
 
 export default function ArrovePage() {
     const requestUser = useSelector((store: Rootstate) => store.members.user);
     const admin = useSelector((store: Rootstate) => store.admin.adminInfo);
     const dispatch = useDispatch();
-    const [user , setUser] = useState({
-        nickname:"",
-        sex : "",
-        requestDay:"",
-        address:""
+    const [user, setUser] = useState({
+        nickname: "",
+        sex: "",
+        requestDay: "",
+        address: ""
 
     })
     const appendData = async () => {
@@ -37,11 +52,6 @@ export default function ArrovePage() {
         appendData();
     }, [admin]);
 
-    useEffect(()=>{
-        setUser(requestUser.map((v)=>{
-            v.address
-        })
-    },[requestUser])
 
     //@@@@@ react-table@@@@@
     const columnData = [
@@ -64,13 +74,12 @@ export default function ArrovePage() {
     ];
     const columns = useMemo(() => columnData, []);
 
-    const data = useMemo(()=> requestUser.map(v =>[{
-        "nickname" : v.user.nickname,
-        "sex":v.user.sex,
-        "requestDay":v.requestDay,
-        "address":v.address
-    }]),[])
-
+    const data = useMemo(() => requestUser.map(v => [{
+        "nickname": v.user.nickname,
+        "sex": v.user.sex,
+        "requestDay": v.requestDay,
+        "address": v.address
+    }]), [])
 
     return (
         <div>test</div>
