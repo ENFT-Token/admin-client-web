@@ -5,12 +5,26 @@ import { SERVER_URL } from '../../confing';
 import { Rootstate } from '../../models';
 import { addAllUser } from '../../models/members';
 import styled from "styled-components";
-import { useTable } from 'react-table'
+import { usePagination, useTable, } from 'react-table'
 
 
-function Table({ columns, data }: any){
-    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-        useTable({ columns, data });
+function Table({ columns, data }: any) {
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        prepareRow,
+        page,
+
+        state: { pageIndex, pageSize },
+    } =
+        useTable({
+            columns,
+            data,
+            initialState: { pageIndex: 2 },
+        },
+            usePagination
+        );
 
     return (
         <div>
