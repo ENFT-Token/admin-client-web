@@ -10,11 +10,11 @@ import { usePagination, useTable, } from 'react-table'
 
 function Table({ columns, data }: any) {
     const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        prepareRow,
-        page,
+        getTableProps, //table head
+        getTableBodyProps, //table body
+        headerGroups, // header 부분에 들어갈 data 담고있음.
+        prepareRow, //각각의 data들을 한 줄씩 묶음으로 가공
+        page, //전달한 data를 받는 곳
 
         canPreviousPage,
         canNextPage,
@@ -64,10 +64,18 @@ function Table({ columns, data }: any) {
                     ))}
                 </thead>
 
-                <tbody>
-                    
+                <tbody {...getTableBodyProps()}>
+                    {page.map((row)=>{
+                        prepareRow(row)
+                        return(
+                            <tr {...row.getRowProps()}>
+                                {row.cells.map(cell =>{
+                                    return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                                })}
+                            </tr>
+                        )
+                    })}
                 </tbody>
-
             </table>
         </div>
 

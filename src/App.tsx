@@ -5,7 +5,7 @@ import "antd/dist/antd.css";
 import styled from "styled-components";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import MainPage from "./page/MainPage";
-import ApprovePage from "./page/ApprovePage";
+import ApprovePage from "./page/ApprovePage/test";
 import MemoPage from "./page/MemoPage";
 import ProfitPage from "./page/ProfitPage";
 import LoginPage from "./page/LoginPage";

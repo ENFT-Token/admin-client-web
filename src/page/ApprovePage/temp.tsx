@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { useTable, usePagination } from 'react-table'
 
-import makeData from './makeData'
 
 const Styles = styled.div`
   padding: 1rem;
@@ -37,7 +36,7 @@ const Styles = styled.div`
   }
 `
 
-function Table({ columns, data }) {
+function Table({ columns, data }:any) {
   // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
@@ -200,7 +199,7 @@ function App() {
     []
   )
 
-  const data = React.useMemo(() => makeData(100000), [])
+  const data ="hi"
 
   return (
     <Styles>
