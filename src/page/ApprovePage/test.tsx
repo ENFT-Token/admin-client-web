@@ -7,8 +7,10 @@ import { addAllUser, addUser, deleteUser } from '../../models/members';
 import styled from "styled-components";
 import { usePagination, useTable } from 'react-table'
 import { Button } from "antd";
+import ApprovePost from './ApprovePost';
 
 export interface IApproveUser {
+    profile:string;
     nickname: string;
     sex: string;
     requestDay: number;
@@ -198,6 +200,7 @@ export default function ArrovePage() {
             dispatch(addUser(approvedUser));
             dispatch(deleteUser(approvedUser));
         }
+        <ApprovePost user={approvedUser}/>
 
     };
 
@@ -211,10 +214,10 @@ export default function ArrovePage() {
 
     //@@@@@ react-table@@@@@
     const columnData = [
-        // {
-        //     Header:'프로필',
-        //     accessor:'profile'
-        // },
+        {
+            Header:'프로필',
+            accessor:'profile'
+        },
         {
             Header: '닉네임',
             accessor: 'nickname'

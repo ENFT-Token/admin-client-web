@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { SERVER_URL } from "../../confing";
 import Lists from 'rc-virtual-list';
 import { isMetaProperty } from "typescript";
+import ApprovePost from "./ApprovePost";
 export default function ApprovePage() {
   /////redux///////////
   const requestUser = useSelector((store: Rootstate) => store.members.user);
@@ -26,6 +27,7 @@ export default function ApprovePage() {
       dispatch(addUser(approvedUser));
       dispatch(deleteUser(approvedUser));
     }
+   
 
   };
 
