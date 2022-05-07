@@ -10,7 +10,7 @@ export default function Post({ user }:any) {
 
     const data = async ()=>{
         try{
-            const responce = await axios.post(`http:://${SERVER_URL}/admin/approve`,
+            const response = await axios.post(`http:://${SERVER_URL}/admin/approve`,
                 {
                     user
                 },
@@ -19,8 +19,6 @@ export default function Post({ user }:any) {
                         "Authorization": `Bearer ${admin?.access_token}`
                     }
                 }
-            
-            
             )
         }
         catch(e){
@@ -28,8 +26,8 @@ export default function Post({ user }:any) {
         }
     }
     useEffect(() => {
-
-
+        data();
     }, [])
+
     return null;
 }

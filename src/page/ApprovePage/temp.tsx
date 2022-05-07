@@ -1,211 +1,124 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useTable, usePagination } from 'react-table'
+import React, { useEffect, useRef,useState } from "react";
+import { List, message, Avatar, Button } from "antd";
+import VirtualList from "rc-virtual-list";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { addUser, addAllUser, deleteUser, IUser } from "../../models/members";
+import { Rootstate } from "../../models";
+import styled from "styled-components";
+import { SERVER_URL } from "../../confing";
+import Lists from 'rc-virtual-list';
+import { isMetaProperty } from "typescript";
+import ApprovePost from "./ApprovePost";
+export default function ApprovePage() {
+  /////redux///////////
+  const requestUser = useSelector((store: Rootstate) => store.members.user);
+  const admin = useSelector((store: Rootstate) => store.admin.adminInfo);
+  const dispatch = useDispatch();
 
+  const fakeDataUrl =
+    "https://randomuser.me/api/?results=20&inc=name,gender,email,nat,picture&noinfo";
+  const ContainerHeight = 500;
 
-const Styles = styled.div`
-  padding: 1rem;
+  const onClickApprove = (address: string) => { //승인하기
 
-  table {
-    border-spacing: 0;
-    border: 1px solid black;
-
-    tr {
-      :last-child {
-        td {
-          border-bottom: 0;
-        }
-      }
+    const approvedUser = requestUser.find((data) => data.address === address); //승인하기 버튼 누른 유저정보
+    if (approvedUser) {
+      dispatch(addUser(approvedUser));
+      dispatch(deleteUser(approvedUser));
     }
+   
 
-    th,
-    td {
-      margin: 0;
-      padding: 0.5rem;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
+  };
 
-      :last-child {
-        border-right: 0;
-      }
+  const onClickReject = (address: string) => { //거절하기
+
+    const approvedUser = requestUser.find((data) => data.address === address); //승인하기 버튼 누른 유저정보
+    if (approvedUser) {
+      dispatch(deleteUser(approvedUser));
     }
-  }
+  };
 
-  .pagination {
-    padding: 0.5rem;
-  }
-`
+  const appendData = async () => {
+    try {
+      const response = await axios.get(`http://${SERVER_URL}/admin/approve/list`,
+        {
+          headers: { "Authorization": `Bearer ${admin?.access_token}` }
+        });
+      const info = response.data
+      dispatch(addAllUser(info));
+      //message.success(`${response.data.results.length} more users loaded!`);
 
-function Table({ columns, data }:any) {
-  // Use the state and functions returned from useTable to build your UI
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    prepareRow,
-    page, // Instead of using 'rows', we'll use page,
-    // which has only the rows for the active page
+    } catch (e) {
+      console.log("Error", e);
+    }
+  };
 
-    // The rest of these things are super handy, too ;)
-    canPreviousPage,
-    canNextPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    nextPage,
-    previousPage,
-    setPageSize,
-    state: { pageIndex, pageSize },
-  } = useTable(
-    {
-      columns,
-      data,
-      initialState: { pageIndex: 2 },
-    },
-    usePagination
-  )
+  useEffect(() => {
+    if (!admin) return;
 
-  // Render the UI for your table
+    appendData();
+  }, [admin]);
+
+  const onScroll = (e: any) => {
+    if (e.target.scrollHeight - e.target.scrollTop === ContainerHeight) {
+      appendData();
+    }
+  };
+
+
   return (
-    <>
-      <pre>
-        <code>
-          {JSON.stringify(
-            {
-              pageIndex,
-              pageSize,
-              pageCount,
-              canNextPage,
-              canPreviousPage,
-            },
-            null,
-            2
-          )}
-        </code>
-      </pre>
-      <table {...getTableProps()}>
-        <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {page.map((row, i) => {
-            prepareRow(row)
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map(cell => {
-                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                })}
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
-      {/* 
-        Pagination can be built however you'd like. 
-        This is just a very basic UI implementation:
-      */}
-      <div className="pagination">
-        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-          {'<<'}
-        </button>{' '}
-        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          {'<'}
-        </button>{' '}
-        <button onClick={() => nextPage()} disabled={!canNextPage}>
-          {'>'}
-        </button>{' '}
-        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-          {'>>'}
-        </button>{' '}
-        <span>
-          Page{' '}
-          <strong>
-            {pageIndex + 1} of {pageOptions.length}
-          </strong>{' '}
-        </span>
-        <span>
-          | Go to page:{' '}
-          <input
-            type="number"
-            defaultValue={pageIndex + 1}
-            onChange={e => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0
-              gotoPage(page)
-            }}
-            style={{ width: '100px' }}
-          />
-        </span>{' '}
-        <select
-          value={pageSize}
-          onChange={e => {
-            setPageSize(Number(e.target.value))
-          }}
+    <div>
+
+
+      <div>Customers who requested approval</div>
+      {/* <Lists data={[0, 1, 2]} height={200} itemHeight={30} itemKey="id">
+  {index => <div>{index}</div>}
+</Lists>; */}
+      {requestUser.map(v => (<div>{v.user.location} {v.user.nickname}  {v.user.sex}</div>))}
+      <List>
+        <VirtualList
+          data={requestUser}
+          height={ContainerHeight}
+          itemHeight={47}
+          itemKey="address"
+          onScroll={onScroll}
         >
-          {[10, 20, 30, 40, 50].map(pageSize => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
-      </div>
-    </>
-  )
+          {(item) => (
+            <List.Item key={item.address}>
+              <List.Item.Meta
+                title={item.address}
+                description={item.requestDay}
+              />
+              <ButtonWrapper>
+                <Button id="btn1" type="primary" ghost onClick={() => onClickApprove(item.address)}>승인하기</Button>
+                <Button id="btn2" type="primary" danger ghost onClick={() => onClickReject(item.address)}>거절하기</Button>
+              </ButtonWrapper>
+            </List.Item>
+
+
+            //@@@@@@@ fakedata list @@@@@@@
+            // <List.Item key={item.email}>
+            //   <List.Item.Meta
+            //     avatar={<Avatar src={item.picture.large} />}
+            //     title={<a href="https://ant.design">{item.name.last}</a>}
+            //     description={item.email}
+            //   />
+            //   <ButtonWrapper>
+            //     <Button id="btn1" type="primary" ghost onClick={() => onClickApprove(item.email)}>승인하기</Button>
+            //     <Button id="btn2" type="primary" danger ghost onClick={() => onClickReject(item.email)}>거절하기</Button>
+            //   </ButtonWrapper>
+            // </List.Item>
+          )}
+        </VirtualList>
+      </List>
+    </div>
+  );
 }
 
-function App() {
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: 'Name',
-        columns: [
-          {
-            Header: 'First Name',
-            accessor: 'firstName',
-          },
-          {
-            Header: 'Last Name',
-            accessor: 'lastName',
-          },
-        ],
-      },
-      {
-        Header: 'Info',
-        columns: [
-          {
-            Header: 'Age',
-            accessor: 'age',
-          },
-          {
-            Header: 'Visits',
-            accessor: 'visits',
-          },
-          {
-            Header: 'Status',
-            accessor: 'status',
-          },
-          {
-            Header: 'Profile Progress',
-            accessor: 'progress',
-          },
-        ],
-      },
-    ],
-    []
-  )
+const ButtonWrapper = styled.div`
+   #btn1{
 
-  const data ="hi"
-
-  return (
-    <Styles>
-      <Table columns={columns} data={data} />
-    </Styles>
-  )
-}
-
-export default App
+     margin-right:10px;
+   }
+`

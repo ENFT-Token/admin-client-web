@@ -5,7 +5,7 @@ import "antd/dist/antd.css";
 import styled from "styled-components";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import MainPage from "./page/MainPage";
-import ApprovePage from "./page/ApprovePage/test";
+
 import MemoPage from "./page/MemoPage";
 import ProfitPage from "./page/ProfitPage";
 import LoginPage from "./page/LoginPage";
@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addInfo } from "./models/admin";
 import { Rootstate } from "./models";
 import CheckInPage from "./page/CheckInPage";
+import ApprovePage from "./page/ApprovePage";
 
 
 const { Header, Content, Footer } = Layout;
