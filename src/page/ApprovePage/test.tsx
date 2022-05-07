@@ -21,23 +21,24 @@ const Styles = styled.div`
     width:100%;
     text-align: center;
     border-spacing: 0;
-    border: 1px solid black;
+    border: 2px solid black;
    tr{
     :last-child {
         td {
-          border-bottom: 0;
+          /* border-bottom: 0; */
         }
       }
    }
   }
   th, td{
       margin:0;
-      padding-right: 1rem;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
+      /* padding-right: 1rem; */
+      padding:20px;
+      border-bottom: 2px solid black;
+      border-right: 2px solid black;
       
       :last-child {
-        border-right: 0;
+        /* border-right: 0; */
       }
   }
   .pagination {
@@ -51,7 +52,7 @@ function Table({ columns, data }: any) {
         getTableBodyProps, //table body
         headerGroups, // header 부분에 들어갈 data 담고있음.
         prepareRow, //각각의 data들을 한 줄씩 묶음으로 가공
-        rows, //전달한 data를 받는 곳
+        page, //전달한 data를 받는 곳
 
         canPreviousPage,
         canNextPage,
@@ -102,11 +103,11 @@ function Table({ columns, data }: any) {
                 </thead>
 
                 <tbody {...getTableBodyProps()}>
-                    {rows.map((row) => {
-                        prepareRow(row);
+                    {page.map((page:any) => {
+                        prepareRow(page);
                         return (
-                            <tr {...row.getRowProps()}>
-                                {row.cells.map(cell => (
+                            <tr {...page.getRowProps()}>
+                                {page.cells.map((cell:any) => (
                                     <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                                 ))}
                             </tr>
@@ -237,7 +238,34 @@ export default function ArrovePage() {
     ];
     const columns = useMemo(() => columnData, []);
 
+    const temp = useMemo(()=>[
+        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
+        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
+        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
+        {"nickname": 'ba',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
+        {"nickname": 'ba',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
+        {"nickname": 'ba',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
+        {"nickname": 'ba',"sex": '자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
+        {"nickname": 'ba',"sex": '자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
+        {"nickname": 'ba',"sex": '자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
+        {"nickname": 'ba',"sex": '자',"requestDay": 27,"address": '233333332'},
+        {"nickname": 'ba',"sex": '자',"requestDay": 27,"address": '0x21232nbnj23j2pnijo2203123223n2n32n32j3kd'},
+        {"nickname": 'ba',"sex": '자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
+        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
+        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
+        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
+        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '233'},
+        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
+        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
+        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": 'rrfefeeree'},
+        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
+        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '24242424'},
+        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
+        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": 'hgghggrg'},
+        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
+        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
 
+    ],[])
     const data = useMemo(() => requestUser.map(v => ({
         // "profile" : v.user.profile,
         "nickname": v.user.nickname,
@@ -258,7 +286,7 @@ export default function ArrovePage() {
 
     return (
         <Styles>
-            <Table columns={columns} data={data} />
+            <Table columns={columns} data={temp} />
         </Styles>
 
     )

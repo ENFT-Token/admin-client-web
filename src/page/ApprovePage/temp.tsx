@@ -25,7 +25,9 @@ const Styles = styled.div`
       border-bottom: 1px solid black;
       border-right: 1px solid black;
 
-     
+      :last-child {
+        border-right: 0;
+      }
     }
   }
 
