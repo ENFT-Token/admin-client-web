@@ -85,7 +85,7 @@ function Table({ columns, data }: any) {
                             canPreviousPage,
                         },
                             null,
-                            2
+                            1
                         )}
                 </code>
             </pre>

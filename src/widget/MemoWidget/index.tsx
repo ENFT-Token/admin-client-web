@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 interface IMemo {
   id: string;
@@ -8,16 +8,19 @@ interface IMemo {
 }
 
 export default function MemoWidget() {
-  const [list, setList] = useState<IMemo[]>([]);
- 
-  useEffect(()=>{
+  // const [list, setList] = useState<IMemo[]>([]);
+  // useEffect(()=>{
+  //   const bodyString = window.localStorage.getItem('body');
+  //   setList(JSON.parse(bodyString as string));
+  // },[])
+  const list = useMemo(()=>{
     const bodyString = window.localStorage.getItem('body');
-    setList(JSON.parse(bodyString as string));
+    return JSON.parse(bodyString as string);
   },[])
 
   return (
     <div>
-      {list.map((v) => (
+      {list.map((v:IMemo) => (
         <li>
           {v.text}
         </li>
