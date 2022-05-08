@@ -10,7 +10,7 @@ export default function Post({ user }:any) {
 
     const data = async ()=>{
         try{
-            const response = await axios.post(`http:://${SERVER_URL}/admin/approve`,
+            const response = await axios.post(`http:://${SERVER_URL}/admin/approve/complete`,
                 {
                     user
                 },
