@@ -5,13 +5,12 @@ import { SERVER_URL } from '../../confing';
 import { Rootstate } from '../../models';
 import { addAllUser, addUser, deleteUser } from '../../models/members';
 import styled from "styled-components";
-import { usePagination, useTable } from 'react-table'
 import { Button } from "antd";
 import ApprovePost from './ApprovePost';
 import Table from '../../widget/TableWidget';
 
 export interface IApproveUser {
-    profile:string;
+    profile: string;
     nickname: string;
     sex: string;
     requestDay: number;
@@ -84,7 +83,7 @@ export default function ArrovePage() {
             dispatch(addUser(approvedUser));
             dispatch(deleteUser(approvedUser));
         }
-        <ApprovePost user={approvedUser}/>
+        <ApprovePost user={approvedUser} />
 
     };
     const onClickReject = (address: string) => { //거절하기
@@ -93,14 +92,14 @@ export default function ArrovePage() {
         if (approvedUser) {
             dispatch(deleteUser(approvedUser));
         }
-        <ApprovePost user={approvedUser}/>
+        //<ApprovePost user={approvedUser} />
     };
 
     //@@@@@ react-table@@@@@
     const columnData = [
         {
-            Header:'프로필',
-            accessor:'profile'
+            Header: '프로필',
+            accessor: 'profile'
         },
         {
             Header: '닉네임',
@@ -125,34 +124,34 @@ export default function ArrovePage() {
     ];
     const columns = useMemo(() => columnData, []);
 
-    const temp = useMemo(()=>[
-        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
-        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
-        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
-        {"nickname": 'ba',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
-        {"nickname": 'ba',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
-        {"nickname": 'ba',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
-        {"nickname": 'ba',"sex": '자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
-        {"nickname": 'ba',"sex": '자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
-        {"nickname": 'ba',"sex": '자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
-        {"nickname": 'ba',"sex": '자',"requestDay": 27,"address": '233333332'},
-        {"nickname": 'ba',"sex": '자',"requestDay": 27,"address": '0x21232nbnj23j2pnijo2203123223n2n32n32j3kd'},
-        {"nickname": 'ba',"sex": '자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
-        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
-        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
-        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
-        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '233'},
-        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
-        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
-        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": 'rrfefeeree'},
-        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
-        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '24242424'},
-        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
-        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": 'hgghggrg'},
-        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
-        {"nickname": 'aa',"sex": '남자',"requestDay": 27,"address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd'},
+    const temp = useMemo(() => [
+        { "nickname": 'aa', "sex": '남자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' },
+        { "nickname": 'aa', "sex": '남자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' },
+        { "nickname": 'aa', "sex": '남자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' },
+        { "nickname": 'ba', "sex": '남자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' },
+        { "nickname": 'ba', "sex": '남자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' },
+        { "nickname": 'ba', "sex": '남자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' },
+        { "nickname": 'ba', "sex": '자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' },
+        { "nickname": 'ba', "sex": '자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' },
+        { "nickname": 'ba', "sex": '자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' },
+        { "nickname": 'ba', "sex": '자', "requestDay": 27, "address": '233333332' },
+        { "nickname": 'ba', "sex": '자', "requestDay": 27, "address": '0x21232nbnj23j2pnijo2203123223n2n32n32j3kd' },
+        { "nickname": 'ba', "sex": '자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' },
+        { "nickname": 'aa', "sex": '남자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' },
+        { "nickname": 'aa', "sex": '남자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' },
+        { "nickname": 'aa', "sex": '남자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' },
+        { "nickname": 'aa', "sex": '남자', "requestDay": 27, "address": '233' },
+        { "nickname": 'aa', "sex": '남자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' },
+        { "nickname": 'aa', "sex": '남자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' },
+        { "nickname": 'aa', "sex": '남자', "requestDay": 27, "address": 'rrfefeeree' },
+        { "nickname": 'aa', "sex": '남자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' },
+        { "nickname": 'aa', "sex": '남자', "requestDay": 27, "address": '24242424' },
+        { "nickname": 'aa', "sex": '남자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' },
+        { "nickname": 'aa', "sex": '남자', "requestDay": 27, "address": 'hgghggrg' },
+        { "nickname": 'aa', "sex": '남자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' },
+        { "nickname": 'aa', "sex": '남자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' },
 
-    ],[])
+    ], [])
     const data = useMemo(() => requestUser.map(v => ({
         // "profile" : v.user.profile,
         "nickname": v.user.nickname,
