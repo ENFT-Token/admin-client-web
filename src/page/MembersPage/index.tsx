@@ -5,6 +5,7 @@ import axios from "axios";
 import { SERVER_URL } from "../../confing";
 import styled from "styled-components";
 import Table from "../../widget/TableWidget";
+import { Button } from "antd";
 
 
 
@@ -92,9 +93,13 @@ export default function MembersPage() {
   const columns = useMemo(() => columnData, []);
 
   const temp = useMemo(() => [
-    { "nickname": 'aa', "sex": '남자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' },
-    { "nickname": 'aa', "sex": '남자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' },
-    { "nickname": 'aa', "sex": '남자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' },
+    { "nickname": 'member', "sex": '남자', "requestDay": 27, "address": '0x21232nbnj2j2pnijo2203123223n2n32n32j3kd' , "button": (
+      <ButtonWrapper>
+          <Button id="btn1" type="primary" ghost >승인하기</Button>
+          <Button id="btn2" type="primary" danger >거절하기</Button>
+      </ButtonWrapper>)},
+    { "nickname": 'member', "sex": '남자', "requestDay": 27, "address": 'member' },
+    { "nickname": 'member', "sex": '남자', "requestDay": 27, "address": 'member' },
   ], [])
 
 
@@ -114,3 +119,10 @@ export default function MembersPage() {
     </div>
   );
 }
+
+const ButtonWrapper = styled.div`
+
+    #btn1{
+    margin-right:10px;
+    }
+`
