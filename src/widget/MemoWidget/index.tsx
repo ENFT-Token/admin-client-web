@@ -20,6 +20,7 @@ export default function MemoWidget() {
 
   return (
     <div>
+      <h1>관리자 메모</h1>
       {list.map((v:IMemo) => (
         <li>
           {v.text}

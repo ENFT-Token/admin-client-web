@@ -52,7 +52,7 @@ const Styles = styled.div`
 
 
 
-export default function ArrovePage() {
+export default function ApprovePage() {
     const requestUser = useSelector((store: Rootstate) => store.members.user);
     const admin = useSelector((store: Rootstate) => store.admin.adminInfo);
     const dispatch = useDispatch();
