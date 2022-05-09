@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 
 import "antd/dist/antd.css";
 import { Form, Input, Button, Checkbox } from "antd";
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import styled from "styled-components";
-
 
 import MainPage from "../../page/MainPage";
 import { Link, useNavigate } from "react-router-dom";
@@ -21,27 +20,27 @@ export default function LoginWidget() {
     password: "",
   });
 
-
   const onFinish = (values: any) => {
-
     const fetch = async () => {
       try {
         if (account.email && account.password) {
-          const response = await axios.post(`http://${SERVER_URL}/auth/admin/login`, account);
+          const response = await axios.post(
+            `http://${SERVER_URL}/auth/admin/login`,
+            account
+          );
+          console.log(response);
           if (response.status === 201) {
             const tempLogin = JSON.stringify(response.data);
-            window.localStorage.setItem('login',tempLogin);
+            window.localStorage.setItem("login", tempLogin);
             dispatch(addInfo(response.data));
             navigate("/home", { replace: true });
           }
         }
-      }
-      catch (e) {
+      } catch (e) {
         console.log(e);
-        (alert("로그인 실패"));
-
+        alert("로그인 실패");
       }
-    }
+    };
     fetch();
   };
   const onChangeAccount = (e: any) => {
@@ -49,7 +48,6 @@ export default function LoginWidget() {
       ...account,
       [e.target.name]: e.target.value,
     });
-
   };
 
   return (
@@ -61,16 +59,20 @@ export default function LoginWidget() {
         onFinish={onFinish}
       >
         <Form.Item
-
-          rules={[{ required: true, message: 'Please input your Username!' }]}
+          rules={[{ required: true, message: "Please input your Username!" }]}
         >
-          <Input name="email" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" onChange={onChangeAccount} />
+          <Input
+            name="email"
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder="Username"
+            onChange={onChangeAccount}
+          />
         </Form.Item>
         <Form.Item
-
-          rules={[{ required: true, message: 'Please input your Password!' }]}
+          rules={[{ required: true, message: "Please input your Password!" }]}
         >
-          <Input name="password"
+          <Input
+            name="password"
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
             placeholder="Password"
@@ -88,38 +90,33 @@ export default function LoginWidget() {
         </Form.Item>
 
         <Form.Item>
-
-
-          <Button type="primary" htmlType="submit" className="login-form-button">
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="login-form-button"
+          >
             Log in
           </Button>
-
-
           Or <Link to="/register">회원 가입</Link>
         </Form.Item>
-
       </Forms>
-
-
     </div>
   );
 }
 
 const Forms = styled(Form)`
-
-.login-form{
-  max-width:300px;
-}
-.login-form-forgot{
-  float:right;
-}
-.ant-col-rtl .login-form-forgot{
-  float:left;
-}
-.login-form-button{
-  width:100%;
-}
-
+  .login-form {
+    max-width: 300px;
+  }
+  .login-form-forgot {
+    float: right;
+  }
+  .ant-col-rtl .login-form-forgot {
+    float: left;
+  }
+  .login-form-button {
+    width: 100%;
+  }
 `;
 
 const Checkboxs = styled(Checkbox)`
