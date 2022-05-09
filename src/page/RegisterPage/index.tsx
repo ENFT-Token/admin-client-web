@@ -3,6 +3,7 @@ import DaumPostCode from "react-daum-postcode";
 // import ReCAPTCHA from 'react-google-recaptcha';
 import { Form, Modal, Input, Checkbox, Button } from "antd";
 import KlipButton from "../../components/KlipButton";
+import KlipWidget from "../../widget/KlipWidget";
 
 const formItemLayout = {
   labelCol: {
@@ -27,13 +28,11 @@ const tailFormItemLayout = {
   },
 };
 
-export default function Register() {
+function RegisterPanel({ walletAddress }: { walletAddress: string }) {
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [location, setLocation] = useState("");
   const [admin, setAdmin] = useState({
-    email: "",
-    password: "",
     nickname: "",
     location: "",
     place: "",
@@ -90,63 +89,6 @@ export default function Register() {
       onFinish={onFinish}
       scrollToFirstError
     >
-      <KlipButton type="register" />
-      <Form.Item
-        name="email"
-        label="E-mail"
-        rules={[
-          {
-            type: "email",
-            message: "형식이 맞지 않는 E-mail 입니다!",
-          },
-          {
-            required: true,
-            message: "E-mail을 입력하세요!",
-          },
-        ]}
-      >
-        <Input name="email" onChange={handleChangeState} />
-      </Form.Item>
-
-      <Form.Item
-        name="password"
-        label="Password"
-        rules={[
-          {
-            required: true,
-            message: "패스워드를 입력하세요!",
-          },
-        ]}
-        hasFeedback
-      >
-        <Input.Password name="password" onChange={handleChangeState} />
-      </Form.Item>
-
-      <Form.Item
-        name="confirm"
-        label="Confirm Password"
-        dependencies={["password"]}
-        hasFeedback
-        rules={[
-          {
-            required: true,
-            message: "패스워드를 입력하세요!",
-          },
-          ({ getFieldValue }) => ({
-            validator(_, value) {
-              if (!value || getFieldValue("password") === value) {
-                return Promise.resolve();
-              }
-              return Promise.reject(
-                new Error("The two passwords that you entered do not match!")
-              );
-            },
-          }),
-        ]}
-      >
-        <Input.Password />
-      </Form.Item>
-
       <Form.Item
         name="nickname"
         label="닉네임"
@@ -222,5 +164,29 @@ export default function Register() {
         </Button>
       </Form.Item>
     </Form>
+  );
+}
+
+export default function Register() {
+  const [panel, setPanel] = useState(0);
+  const [walletAddress, setWalletAddress] = useState("");
+
+  const onNextPanel = (walletAddress: string) => {
+    setWalletAddress(walletAddress);
+    setPanel(1);
+  };
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "80%",
+      }}
+    >
+      {panel === 0 && <KlipWidget type="register" onSuccess={onNextPanel} />}
+      {panel === 1 && <RegisterPanel walletAddress={walletAddress} />}
+    </div>
   );
 }
