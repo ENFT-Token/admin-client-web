@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from "react";
 
 interface IMemo {
   id: string;
   name: string;
   text: string;
-  createdAt: string
+  createdAt: string;
 }
 
 export default function MemoWidget() {
@@ -13,20 +13,16 @@ export default function MemoWidget() {
   //   const bodyString = window.localStorage.getItem('body');
   //   setList(JSON.parse(bodyString as string));
   // },[])
-  const list = useMemo(()=>{
-    const bodyString = window.localStorage.getItem('body');
+  const list = useMemo(() => {
+    const bodyString = window.localStorage.getItem("body");
     return JSON.parse(bodyString as string);
-  },[])
+  }, []);
 
   return (
     <div>
-      <h1>관리자 메모</h1>
-      {list.map((v:IMemo) => (
-        <li>
-          {v.text}
-        </li>
+      {list?.map((v: IMemo) => (
+        <li>{v.text}</li>
       ))}
-
     </div>
-  )
+  );
 }

@@ -1,7 +1,7 @@
-import React from 'react'
-import { Layout } from 'antd';
+import React from "react";
+import { Layout } from "antd";
 import styled from "styled-components";
-import "./index.css"
+import "./index.css";
 
 import GridLayout from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
@@ -24,6 +24,7 @@ export default function MainPage() {
     { i: "접속 중인 회원들", x: 1, y: 0, w: 3, h: 4 },
     { i: "현재", x: 1, y: 0, w: 3, h: 3 },
   ];
+
   return (
     <div className="container">
       <GridLayout
@@ -53,7 +54,6 @@ export default function MainPage() {
           알림<br />
           메모가 @개 있습니다.<br />
           현재 승인 요청한 유저가 @명입니다.
-
         </div>
         <div key="관리자 메모" className="widget" style={{ background: "yellow" }}>
           <MemoWidget />
@@ -64,7 +64,7 @@ export default function MainPage() {
       
       </GridLayout>
     </div>
-  )
+  );
 }
 
 
