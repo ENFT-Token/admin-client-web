@@ -45,8 +45,12 @@ export default function MainPage() {
         </div>
         <div key="광고1" className="widget" style={{ background: "gray" }}>광고1</div>
         <div key="광고2" className="widget" style={{ background: "gray" }}>광고2</div>
-        <div key="현재" className="widget" style={{ background: "yellow" }}>현재 이용자 수 및 누적 이용자 수 </div>
+        <div key="현재" className="widget" style={{ background: "yellow" }}>
+          현재 이용자 수 : 0명 <br />
+          하루 누적 이용자 수 : 0명
+          </div>
         <div key="할일" className="widget" style={{ background: "green" }}>
+          알림<br />
           메모가 @개 있습니다.<br />
           현재 승인 요청한 유저가 @명입니다.
 
@@ -54,8 +58,10 @@ export default function MainPage() {
         <div key="관리자 메모" className="widget" style={{ background: "yellow" }}>
           <MemoWidget />
         </div>
-        <div key="접속 중인 회원들" className="widget" style={{ background: "yellow" }}>접속중인 회원들리스트</div>
-       
+        <div key="접속 중인 회원들" className="widget" style={{ background: "yellow" }}>
+          접속중인 회원들리스트 : 소켓이용
+          </div>
+      
       </GridLayout>
     </div>
   )
