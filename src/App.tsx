@@ -17,47 +17,63 @@ import { Rootstate } from "./models";
 import CheckInPage from "./page/CheckInPage";
 import ApprovePage from "./page/ApprovePage";
 
-
 const { Header, Content, Footer } = Layout;
-
 
 function App() {
   const dispatch = useDispatch();
-  const admin = useSelector((store:Rootstate)=> store.admin.adminInfo);
-  
-  useEffect(()=>{
-    const loginLocal = window.localStorage.getItem('login');
-    if(!admin){
-      console.log("loginLocal",JSON.parse(loginLocal as string))
-      dispatch(addInfo(JSON.parse(loginLocal as string)))
+  const admin = useSelector((store: Rootstate) => store.admin.adminInfo);
+
+  useEffect(() => {
+    const loginLocal = window.localStorage.getItem("login");
+    if (!admin) {
+      console.log("loginLocal", JSON.parse(loginLocal as string));
+      dispatch(addInfo(JSON.parse(loginLocal as string)));
     }
-  },[])
-  
+  }, []);
+
   return (
     <div className="App">
-
-{/********** Header-bar **********/}
+      {/********** Header-bar **********/}
 
       <BrowserRouter>
-      
         <Layout>
-        
           <Header>
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["0"]}>
-              <Menu.Item key="1"> <Link to="/home"> MAIN </Link> </Menu.Item>
-              <Menu.Item key="2"> <Link to="/members"> MEMBERS </Link></Menu.Item>
-              <Menu.Item key="3"> <Link to="/approve"> APPROVE </Link></Menu.Item>
-              <Menu.Item key="4"> <Link to="/checkin"> CHECK IN </Link></Menu.Item>
-              <Menu.Item key="5"> <Link to="/profit"> PROFIT </Link> </Menu.Item>
-              <Menu.Item key="6"> <Link to="/memo"> MEMO </Link></Menu.Item>
-              
+              <Menu.Item key="1">
+                <Link to="/"> MAIN </Link>{" "}
+              </Menu.Item>
+              <Menu.Item key="2">
+                <Link to="/members"> MEMBERS </Link>
+              </Menu.Item>
+              <Menu.Item key="3">
+                <Link to="/approve"> APPROVE </Link>
+              </Menu.Item>
+              <Menu.Item key="4">
+                <Link to="/checkin"> CHECK IN </Link>
+              </Menu.Item>
+              <Menu.Item key="5">
+                <Link to="/profit"> PROFIT </Link>{" "}
+              </Menu.Item>
+              <Menu.Item key="6">
+                <Link to="/memo"> MEMO </Link>
+              </Menu.Item>
+              {admin === null && (
+                <>
+                  <Menu.Item key="7">
+                    <Link to="/login"> LOGIN </Link>{" "}
+                  </Menu.Item>
+                  <Menu.Item key="8">
+                    <Link to="/register"> REGISTER </Link>
+                  </Menu.Item>
+                </>
+              )}
             </Menu>
           </Header>
           <Contents className="site-layout">
             <div className="site-layout-background">
               <Routes>
-                <Route path="/" element={<LoginPage/>}></Route>  
-                <Route path="/home" element={<MainPage />}></Route>
+                <Route path="/login" element={<LoginPage />}></Route>
+                <Route path="/" element={<MainPage />}></Route>
                 <Route path="/members" element={<MembersPage />}></Route>
                 <Route path="/approve" element={<ApprovePage />}></Route>
                 <Route path="/profit" element={<ProfitPage />}></Route>
@@ -69,7 +85,7 @@ function App() {
           </Contents>
         </Layout>
       </BrowserRouter>
-{/********** Header-bar **********/}
+      {/********** Header-bar **********/}
     </div>
   );
 }

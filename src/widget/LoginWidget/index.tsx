@@ -25,7 +25,7 @@ export default function LoginWidget() {
       const response = await axios.post(
         `http://${SERVER_URL}/auth/admin/login`,
         {
-          walletAddress,
+          address: walletAddress,
         }
       );
       console.log(response);
@@ -33,7 +33,7 @@ export default function LoginWidget() {
         const tempLogin = JSON.stringify(response.data);
         window.localStorage.setItem("login", tempLogin);
         dispatch(addInfo(response.data));
-        navigate("/home", { replace: true });
+        navigate("/", { replace: true });
       }
     } catch (e) {
       console.log(e);

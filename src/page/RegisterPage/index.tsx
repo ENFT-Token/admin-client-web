@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DaumPostCode from "react-daum-postcode";
 // import ReCAPTCHA from 'react-google-recaptcha';
 import { Form, Modal, Input, Checkbox, Button } from "antd";
-import KlipButton from "../../components/KlipButton";
 import KlipWidget from "../../widget/KlipWidget";
+import { Request } from "../../models/Request";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addInfo } from "../../models/admin";
 
 const formItemLayout = {
   labelCol: {
@@ -15,6 +18,7 @@ const formItemLayout = {
     sm: { span: 16 },
   },
 };
+
 const tailFormItemLayout = {
   wrapperCol: {
     xs: {
@@ -29,6 +33,9 @@ const tailFormItemLayout = {
 };
 
 function RegisterPanel({ walletAddress }: { walletAddress: string }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [location, setLocation] = useState("");
@@ -38,9 +45,24 @@ function RegisterPanel({ walletAddress }: { walletAddress: string }) {
     place: "",
     phone: "",
   });
-  const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
+
+  const onFinish = async () => {
+    try {
+      const response = await Request("POST", "/auth/admin/register", {
+        ...admin,
+        address: walletAddress,
+      });
+      if (response.status === 201) {
+        const tempLogin = JSON.stringify(response.data);
+        window.localStorage.setItem("login", tempLogin);
+        dispatch(addInfo(response.data));
+        navigate("/", { replace: true });
+      }
+    } catch (e) {
+      alert("회원가입 실패");
+    }
   };
+
   const showModal = () => {
     setIsModalVisible(true);
   };
