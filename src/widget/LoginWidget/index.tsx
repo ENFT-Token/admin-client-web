@@ -11,6 +11,9 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addInfo } from "../../models/admin";
 import { SERVER_URL } from "../../confing";
+import KlipButton from "../../components/KlipButton";
+import QRCode from "qrcode.react";
+import useUserKilp from "../../klip/useUserKlip";
 
 export default function LoginWidget() {
   const navigate = useNavigate();
@@ -50,9 +53,25 @@ export default function LoginWidget() {
     });
   };
 
+  const { prepareQr, qrValue } = useUserKilp();
+
   return (
-    <div>
-      <Forms
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {qrValue !== "" && (
+        <div style={{ textAlign: "center" }}>
+          <QRCode value={qrValue} style={{ marginBottom: "10px" }} />
+          <p>QR 코드를 통해 카카오톡에 연동해주세요 !</p>
+        </div>
+      )}
+      <KlipButton type="login" onClick={() => prepareQr()} />
+      {/* <Forms
         name="normal_login"
         className="login-form"
         initialValues={{ remember: true }}
@@ -99,7 +118,7 @@ export default function LoginWidget() {
           </Button>
           Or <Link to="/register">회원 가입</Link>
         </Form.Item>
-      </Forms>
+      </Forms> */}
     </div>
   );
 }
