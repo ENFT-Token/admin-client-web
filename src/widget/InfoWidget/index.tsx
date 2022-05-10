@@ -8,7 +8,6 @@ export default function InfoWidget() {
     <div>
       <CgProfile className="profile" size="70"/>
       <div className="nickname info">안녕하세요 {admin?.nickname}님</div>
-      <div className="email info">이메일 : {admin?.email}</div>
       <div className="location info">헬스장 주소 : {admin?.location}</div>
       <div className="phone info">헬스장 번호 : {admin?.phone}</div>
       <div className="walletAddress info">{admin?.nickname} 님의 지갑 주소 : {admin?.address}</div>

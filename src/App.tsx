@@ -91,9 +91,9 @@ function App() {
 }
 const Contents = styled(Content)`
   .site-layout-background {
-    background: #fff;
-    height: 100vh;
-    padding: 24px;
+    background: #eaf2e6;
+    height: 90vh;
+    padding:15px;
     min-height: 380px;
   }
   .site-layout {

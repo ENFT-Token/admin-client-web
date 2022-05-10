@@ -22,7 +22,7 @@ export default function CheckCount() {
                 })
                 .then((v)=>{
                     if(v.status ===200){
-                        console.log(v.data);
+                        //console.log(v.data);
                         setCount(v.data.count);
                     }
                     else{
