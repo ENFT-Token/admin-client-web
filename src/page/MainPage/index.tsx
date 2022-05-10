@@ -12,6 +12,7 @@ import { Rootstate } from '../../models';
 import { useSelector } from 'react-redux';
 import MemberWidget from '../../widget/MemberWidget';
 import CheckCount from "../../widget/CheckCountWidget";
+import Alarm from "../../widget/AlarmWidget";
 export default function MainPage() {
   const admin = useSelector((store: Rootstate) => store.admin.adminInfo);
   const layout = [
@@ -41,20 +42,21 @@ export default function MainPage() {
         <div key="관리자 정보" className="widget" style={{ background: "red" }}>
           <InfoWidget />
         </div>
-        <div key="헬스장 이름" className="widget" style={{ background: "orange" }}>{admin?.place}</div>
+        <div key="헬스장 이름" className="widget" style={{ background: "orange" }}>
+          {admin?.place}
+        </div>
         <div key="현재 회원들" className="widget" style={{ background: "blue" }}>
           <MemberWidget/>
         </div>
         <div key="광고1" className="widget" style={{ background: "gray" }}>광고1</div>
         <div key="광고2" className="widget" style={{ background: "gray" }}>광고2</div>
         <div key="현재" className="widget" style={{ background: "yellow" }}>
-          하루 누적 이용자 수 : 0명
+          하루 누적 이용자 수 : 0명 아직 구현 x
           <CheckCount/> 
           </div>
         <div key="할일" className="widget" style={{ background: "green" }}>
-          알림<br />
-          메모가 @개 있습니다.<br />
-          현재 승인 요청한 유저가 @명입니다.
+          <h1>알림</h1>
+          <Alarm/>
         </div>
         <div key="관리자 메모" className="widget" style={{ background: "yellow" }}>
           <MemoWidget />
