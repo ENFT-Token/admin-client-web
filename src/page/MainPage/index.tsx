@@ -11,6 +11,7 @@ import MemoWidget from '../../widget/MemoWidget';
 import { Rootstate } from '../../models';
 import { useSelector } from 'react-redux';
 import MemberWidget from '../../widget/MemberWidget';
+import CheckCount from "../../widget/CheckCountWidget";
 export default function MainPage() {
   const admin = useSelector((store: Rootstate) => store.admin.adminInfo);
   const layout = [
@@ -47,8 +48,8 @@ export default function MainPage() {
         <div key="광고1" className="widget" style={{ background: "gray" }}>광고1</div>
         <div key="광고2" className="widget" style={{ background: "gray" }}>광고2</div>
         <div key="현재" className="widget" style={{ background: "yellow" }}>
-          현재 이용자 수 : 0명 <br />
           하루 누적 이용자 수 : 0명
+          <CheckCount/> 
           </div>
         <div key="할일" className="widget" style={{ background: "green" }}>
           알림<br />
