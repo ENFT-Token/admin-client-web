@@ -14,8 +14,8 @@ export default function MemoWidget() {
   //   setList(JSON.parse(bodyString as string));
   // },[])
   const list = useMemo(() => {
-    const bodyString = window.localStorage.getItem("body");
-    return JSON.parse(bodyString as string);
+    const bodyString = window.localStorage.getItem("memo");
+    return JSON.parse(bodyString as string).list;
   }, []);
 
   return (
