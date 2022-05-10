@@ -3,8 +3,8 @@ import { useState, useRef, useEffect } from 'react'
 
 
 export default function NestedTable() {
-  const [inputBody, setInputBody] = useState([] as any);
-  const [inputHead, setInputHead] = useState([] as any);
+  const [inputBody, setInputBody] = useState("");
+  const [inputHead, setInputHead] = useState("");
   const [localMemoList, setlocalMemoList] = useState([] as any);
   const date = new Date();
   //input 
@@ -76,6 +76,7 @@ export default function NestedTable() {
         className="components-table-demo-nested"
         columns={columns}
         dataSource={localMemoList}
+        scroll={{ y: 350 }}
       />
       <Input placeholder="작성자 이름" onChange={onChangeHead} value={inputHead} />
       <TextArea placeholder="내용"
