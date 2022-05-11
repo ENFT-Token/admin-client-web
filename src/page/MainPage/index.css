@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap');
 *{
     margin: 0px;
     padding: 0px;
@@ -7,17 +8,17 @@
     /* background-color: rgb(243, 224, 224); */
     width: 100%;
     height: 100%;
-    overflow: auto;
+   
     display:flex;
     align-items: center;
    
 }
 .widget{
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0px 5px 10px 0px rgba(123, 120, 120, 0.2);
-    background: rgba(255, 255, 255, 0.7); 
-
-    
+    background: rgba(255, 255, 255, 0.4); 
+ 
+   
 }
 
 #checkin{
@@ -26,4 +27,26 @@
     justify-content: center;
     padding-left: 50px;
     font-size:25px;
+}
+/* Alarm */
+#alarmText{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30px;
+    font-size:20px;
+}
+#alarmTitle{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+/* memo */
+#memo{
+    overflow: auto;
 }

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
+import styled from 'styled-components';
 import { SERVER_URL } from '../../confing';
 import { Rootstate } from '../../models';
 export default function CheckCount() {
@@ -41,6 +42,18 @@ export default function CheckCount() {
 
     
     return (
-    <div>현재 이용자 수 : {count}</div>
+    <Container>현재 이용자 수 : <span id="count">{count} 명</span></Container>
   )
 }
+
+const Container = styled.div`
+
+    #count{
+        color:white;
+        border:10px;
+        border-radius: 5px;
+        background-color: #009416;
+        padding:5px 10px;
+    }
+
+`
