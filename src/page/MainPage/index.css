@@ -44,7 +44,18 @@
     align-items: center;
 }
 
+#title{
+    font-family: 'Nanum Brush Script';
+    font-size:60px;
+    text-align: center;
 
+    overflow:hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border:0;
+
+}
 
 /* memo */
 #memo{
