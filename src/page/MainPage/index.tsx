@@ -20,15 +20,15 @@ export default function MainPage() {
   const {a,b}={a:0,b:0};
   const layout = [
     { i: "현재", x: 0, y: 0, w: 3, h: 3,isResizable: false },
-    { i: "헬스장 이름", x: 3, y: 0, w: 5, h: 2 ,isResizable: false},
+    { i: "헬스장 이름", x: 3, y: 0, w: 5, h: 1.5 ,isResizable: false},
     { i: "관리자 정보", x: 8, y: 0, w: 4, h: 6 ,isResizable: false},
    
     { i: "알림", x: 0, y: 0, w: 3, h: 3,isResizable: false },
-    { i: "현재 회원들", x: 3, y: 0, w: 5, h: 4 ,isResizable: false},
+    { i: "현재 회원들", x: 3, y: 0, w: 5, h: 5.5 ,isResizable: false},
 
 
     { i: "접속 중인 회원들", x: 0, y: 0, w: 3, h: 4 ,isResizable: false},
-    { i: "관리자 메모", x: 3, y: 0, w: 5, h: 4 ,isResizable: false},
+    { i: "관리자 메모", x: 3, y: 0, w: 5, h: 3 ,isResizable: false},
     { i: "광고1", x: 8, y: 0, w: 4, h: 2 ,isResizable: false},
     { i: "광고2", x: 8, y: 0, w: 4, h: 2 ,isResizable: false},
     
