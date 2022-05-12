@@ -51,5 +51,9 @@ const Title = styled.span`
 const Form = styled.div`
     hr{
         margin-top:5px;
+        background-color:green;
+        height:5px;
+        border:0;
+        opacity:30%;
     }
 `

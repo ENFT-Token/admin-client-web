@@ -11,9 +11,9 @@
    
     display:flex;
     align-items: center;
-    margin-top:-50px;
-   
+    margin-top:-50px;   
 }
+
 .widget{
     border-radius: 5px;
     box-shadow: 0px 5px 10px 0px rgba(123, 120, 120, 0.2);
@@ -69,6 +69,15 @@
     background-color:#363B3E;
     color :white;
     overflow:scroll;
-    overflow-y:hidden;
-  
+    overflow-y:hidden; 
+}
+#adminInfo::-webkit-scrollbar{
+    width:2px;
+}
+#adminInfo::-webkit-scrollbar-thumb{
+    background-color: grey;
+}
+#adminInfo::-webkit-scrollbar-track{
+    background-color: rgb(255, 255, 255);
+
 }
