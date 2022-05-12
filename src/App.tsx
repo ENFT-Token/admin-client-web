@@ -91,10 +91,12 @@ function App() {
 }
 const Contents = styled(Content)`
   .site-layout-background {
-    background: #eaf2e6;
-    height: 90vh;
+    //background: #eaf2e6;
+    background:#6EB08F;
+    height: 100vh;
     padding:15px;
     min-height: 380px;
+   
   }
   .site-layout {
     padding: 0 50px;

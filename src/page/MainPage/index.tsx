@@ -50,7 +50,7 @@ export default function MainPage() {
 
       >
        
-        <div key="관리자 정보" className="widget" >
+        <div key="관리자 정보" className="widget" id="adminInfo" >
           <InfoWidget />
         </div>
         <div key="헬스장 이름" className="widget" id="title" >

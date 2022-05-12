@@ -11,6 +11,7 @@
    
     display:flex;
     align-items: center;
+    margin-top:-50px;
    
 }
 .widget{
@@ -60,4 +61,14 @@
 /* memo */
 #memo{
     overflow: auto;
+}
+
+/* Info */
+
+#adminInfo{
+    background-color:#363B3E;
+    color :white;
+    overflow:scroll;
+    overflow-y:hidden;
+  
 }
