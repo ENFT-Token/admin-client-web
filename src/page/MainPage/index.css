@@ -19,30 +19,37 @@
  
    
 }
-
+/* checkIn */
 #checkin{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: 50px;
-    font-size:25px;
+    align-items: center;
+    font-size:35px;
+   
+}
+#checkinText{
+    margin: auto;
 }
 /* Alarm */
 #alarmText{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-left: 30px;
-    font-size:20px;
+   
+    font-size:25px;
 }
-#alarmTitle{
+#alarmHeader{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
+    
+}
+#alarmBody{
+   
+  margin-top:10px;
+   
 }
 
+/* title */
 #title{
     font-family: 'Nanum Brush Script';
     font-size:60px;
@@ -61,7 +68,7 @@
     overflow: auto;
 }
 
-/* Info */
+/* adminInfo */
 
 #adminInfo{
     background-color:#363B3E;
@@ -69,7 +76,7 @@
     overflow:scroll;
     overflow-y:hidden; 
 }
-#adminInfo::-webkit-scrollbar{
+/* #adminInfo::-webkit-scrollbar{
     width:2px;
 }
 #adminInfo::-webkit-scrollbar-thumb{
@@ -78,4 +85,4 @@
 #adminInfo::-webkit-scrollbar-track{
     background-color: rgb(255, 255, 255);
 
-}
+} */
