@@ -17,6 +17,7 @@ import { Rootstate } from "./models";
 import CheckInPage from "./page/CheckInPage";
 import ApprovePage from "./page/ApprovePage";
 
+import './index.css';
 const { Header, Content, Footer } = Layout;
 
 function App() {
@@ -36,7 +37,7 @@ function App() {
       {/********** Header-bar **********/}
 
       <BrowserRouter>
-        <Layout>
+        <Layouts>
           <Header>
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["0"]}>
               <Menu.Item key="1">
@@ -69,38 +70,51 @@ function App() {
               )}
             </Menu>
           </Header>
-          <Contents className="site-layout">
-            <div className="site-layout-background">
-              <Routes>
-                <Route path="/login" element={<LoginPage />}></Route>
-                <Route path="/" element={<MainPage />}></Route>
-                <Route path="/members" element={<MembersPage />}></Route>
-                <Route path="/approve" element={<ApprovePage />}></Route>
-                <Route path="/profit" element={<ProfitPage />}></Route>
-                <Route path="/memo" element={<MemoPage />}></Route>
-                <Route path="/register" element={<RegisterPage />}></Route>
-                <Route path="/checkin" element={<CheckInPage />}></Route>
-              </Routes>
+          <Contents>
+            <div className="site-layout">
+              <div className="site-layout-background">
+                <Routes>
+                  <Route path="/login" element={<LoginPage />}></Route>
+                  <Route path="/" element={<MainPage />}></Route>
+                  <Route path="/members" element={<MembersPage />}></Route>
+                  <Route path="/approve" element={<ApprovePage />}></Route>
+                  <Route path="/profit" element={<ProfitPage />}></Route>
+                  <Route path="/memo" element={<MemoPage />}></Route>
+                  <Route path="/register" element={<RegisterPage />}></Route>
+                  <Route path="/checkin" element={<CheckInPage />}></Route>
+                </Routes>
+              </div>
             </div>
           </Contents>
-        </Layout>
+        </Layouts>
       </BrowserRouter>
       {/********** Header-bar **********/}
     </div>
   );
 }
 const Contents = styled(Content)`
-  .site-layout-background {
-    //background: #eaf2e6;
+
+.site-layout{
+    /* height: 100%;
+    width:100%; */
     background:#6EB08F;
-    height: 100vh;
+  }
+  .site-layout-background {
+
+   
+    /* height: 100%;
+    width:100%; */
     padding:15px;
     min-height: 380px;
-   
+  
   }
-  .site-layout {
-    padding: 0 50px;
-    margin-top: 64px;
-  }
+
+  
 `;
+
+const Layouts = styled(Layout)`
+  height: 100vh;
+  width:100vw;
+  
+`
 export default App;
