@@ -17,6 +17,8 @@ import Alarm from "../../widget/AlarmWidget";
 
 
 import { MdChecklist } from "react-icons/md";
+import Footer from "../../widget/Footer/Footer";
+
 const ResponsiveGridLayout = WidthProvider(Responsive);
 export default function MainPage() {
   const admin = useSelector((store: Rootstate) => store.admin.adminInfo);
@@ -86,6 +88,8 @@ export default function MainPage() {
         </div>
 
       </ResponsiveGridLayout>
+
+      <Footer/>
     </div>
 
   );
