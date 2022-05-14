@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Layout, Menu, Breadcrumb } from "antd";
-import "antd/dist/antd.css";
 
 import styled from "styled-components";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 
 
-
-import './index.css';
+import './Navbar.css';
 export default function Navbar() {
     const [click, setClick] = useState(false);
 
 
     const closeMobileMenu = () => setClick(false);
+    const handleClick = () => setClick(!click);
     return (
         <div className="navbar">
             <div className='navbar-container'>
                 <Link to='/' className='navbar-logo'>
                     ENFT
-                    <i className='fab fa-typo3' />
                 </Link>
+                <div className='menu-icon' onClick={handleClick}>
+                    <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
+                </div>
                 <ul className={click ? 'nav-menu active' : 'nav-menu'}>
                     <li className='nav-item'>
                         <Link to='/' className='nav-links' onClick={closeMobileMenu}>
@@ -71,7 +72,7 @@ export default function Navbar() {
                             MEMO
                         </Link>
                     </li>
-                    <li>
+                    <li className='nav-item'>
                         <Link
                             to='/register'
                             className='nav-links-mobile'
