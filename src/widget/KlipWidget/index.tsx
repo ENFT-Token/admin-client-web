@@ -1,6 +1,7 @@
 import axios from "axios";
 import QRCode from "qrcode.react";
 import React, { useEffect } from "react";
+import styled from "styled-components";
 import KlipButton from "../../components/KlipButton";
 import { SERVER_URL } from "../../confing";
 import useUserKilp from "../../klip/useUserKlip";
@@ -8,8 +9,8 @@ import useUserKilp from "../../klip/useUserKlip";
 interface IKlipWidgetProps {
   type: "login" | "register";
   onSuccess?:
-    | ((walletAddress: string) => Promise<void>)
-    | ((walletAddress: string) => void);
+  | ((walletAddress: string) => Promise<void>)
+  | ((walletAddress: string) => void);
 }
 
 function KlipWidget({ type, onSuccess }: IKlipWidgetProps) {
@@ -24,23 +25,40 @@ function KlipWidget({ type, onSuccess }: IKlipWidgetProps) {
   }, [walletAddress]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      {qrValue !== "" && (
-        <div style={{ textAlign: "center" }}>
-          <QRCode value={qrValue} style={{ marginBottom: "10px" }} />
-          <p>QR 코드를 통해 카카오톡에 연동해주세요 !</p>
-        </div>
-      )}
-      <KlipButton type={type} onClick={() => prepareQr()} />
-    </div>
+    <Form>
+      <Container>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {qrValue !== "" && (
+          <div style={{ textAlign: "center" }}>
+            <QRCode value={qrValue} style={{ marginBottom: "10px" }} />
+            <p>QR 코드를 통해 카카오톡에 연동해주세요 !</p>
+          </div>
+        )}
+
+        <KlipButton type={type} onClick={() => prepareQr()} />
+
+      </div>
+      </Container>
+    </Form>
+
   );
 }
+const Container = styled.div`
+  width : 100%;
+  height : 100%;
+`
+const Form = styled.div`
+  
+  width : 100%;
+  height : 100%;
+ 
+`
 
 export default KlipWidget;

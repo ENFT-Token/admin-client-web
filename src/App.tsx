@@ -18,6 +18,7 @@ import CheckInPage from "./page/CheckInPage";
 import ApprovePage from "./page/ApprovePage";
 import './index.css';
 import Navbar from "./widget/Navbar/Navbar";
+import './App.css'
 export default function App2() {
 
     const dispatch = useDispatch();
@@ -32,6 +33,7 @@ export default function App2() {
     }, []);
   return (
     <div className="App">
+      <div className="container">
          <BrowserRouter>
             <Navbar/>
             <Routes>
@@ -46,7 +48,7 @@ export default function App2() {
                 </Routes>
          </BrowserRouter>
 
-
+         </div>
 
     </div>
   )

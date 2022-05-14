@@ -23,8 +23,10 @@ const StyleButton = styled.button`
   }
 `;
 
+
 function KlipButton({ type, width, onClick }: IKlipButtonProps) {
   return (
+
     <StyleButton style={{ width }} onClick={onClick}>
       <img
         src="/klip_logo.svg"
@@ -32,6 +34,7 @@ function KlipButton({ type, width, onClick }: IKlipButtonProps) {
       />
       {`Klip으로 ${type === "login" ? "로그인" : "시작"}`}
     </StyleButton>
+
   );
 }
 
