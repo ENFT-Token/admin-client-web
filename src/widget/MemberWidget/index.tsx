@@ -44,8 +44,9 @@ const Title = styled.span`
     border-radius: 5px;
     font-size:25px;
    
-    padding:5px 30px 5px 30px;
+    padding:5px 20px 5px 20px;
     margin-top:5px;
+    background-color: rgba(255,255,255,0.3);
 `
 
 const Form = styled.div`
