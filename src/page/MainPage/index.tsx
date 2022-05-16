@@ -76,7 +76,7 @@ export default function MainPage() {
         </div>
         <div key="알림" className="widget" id="alarm">
           <div id="alarmText">
-            <h1 id="alarmHeader"><MdChecklist style={{marginRight:"15px"}}/>알림</h1>
+            <h1 id="alarmHeader">알림<MdChecklist style={{marginLeft:"15px"}}/></h1>
             <div id="alarmBody"><Alarm /></div>
           </div>
         </div>

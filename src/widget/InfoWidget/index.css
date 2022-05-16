@@ -2,10 +2,13 @@
     width: 100%;
     align-items: center;
     text-align: center;
-
+    margin-bottom:2rem;
    
 }
-
-.bodyInfo{
-    font-size: 20px;
+.headerInfo > div{
+    font-size:30px;
+}
+.info{
+    font-size: 30px;
+    margin-bottom:15px;
 }

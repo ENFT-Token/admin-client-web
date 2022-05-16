@@ -11,16 +11,18 @@ export default function Alarm() {
     const userCount = useSelector((store: Rootstate) => store.members.approvedUser.length)
 
     return (
-        <div>
+        <Form>
             <div><FcCheckmark style={{ marginRight: "15px" }} />현재 관리자 메모가 <Text>{list} 개</Text> 있습니다</div>
             <div><FcCheckmark style={{ marginRight: "15px" }} />현재 승인 요청한 유저가 <Text>{userCount} 명</Text> 입니다.</div>
-        </div>
+        </Form>
     )
 }
 
 
 
-
+const Form = styled.div`
+    div{margin-bottom:20px};
+`
 const Text = styled.span`
         color:white;
         border:10px;

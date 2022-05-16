@@ -14,14 +14,18 @@ export default function InfoWidget() {
       </div>
       <div className="bodyInfo">
         <div className="nickname info">안녕하세요 {admin?.nickname}님</div>
-        <div className="location info">헬스장 주소 : {admin?.location}</div>
-        <div className="phone info">헬스장 번호 : {admin?.phone}</div>
-        <div className="walletAddress info">{admin?.nickname} 님의 지갑 주소 : {admin?.address}</div>
+        <div className="location info"><Header>헬스장 주소</Header>{admin?.location}</div>
+        <div className="phone info"><Header>헬스장 번호</Header>{admin?.phone}</div>
+        <div className="walletAddress info"><Header>{admin?.nickname} 님의 지갑 주소</Header>{admin?.address}</div>
       </div>
     </div>
   )
 }
 
+const Header = styled.span`
+   color:rgb(148, 143, 143);
+   margin-right: 30px;
+`
 
  
   
