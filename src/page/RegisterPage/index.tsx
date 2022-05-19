@@ -7,7 +7,7 @@ import { Request } from "../../models/Request";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addInfo } from "../../models/admin";
-
+import "./register.css";
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
@@ -104,88 +104,91 @@ function RegisterPanel({ walletAddress }: { walletAddress: string }) {
   };
 
   return (
-    <Form
-      {...formItemLayout}
-      form={form}
-      name="register"
-      onFinish={onFinish}
-      scrollToFirstError
-    >
-      <Form.Item
-        name="nickname"
-        label="닉네임"
-        tooltip="다른 사람들이 당신을 뭐라고 부르기를 원하십니까?"
-        rules={[
-          { required: true, message: "닉네임을 입력하세요!", whitespace: true },
-        ]}
-      >
-        <Input name="nickname" onChange={handleChangeState} />
-      </Form.Item>
+    <div className="forms">
+      <Form
+        {...formItemLayout}
+        form={form}
+        name="register"
+        onFinish={onFinish}
+        scrollToFirstError
 
-      <Form.Item
-        name="phone"
-        label="연락처"
-        tooltip="연락가능한 헬스장 유/무선 번호는 무엇입니까?"
-        rules={[
-          { required: true, message: "번호를 입력하세요!", whitespace: true },
-        ]}
       >
-        <Input name="phone" onChange={handleChangeState} />
-      </Form.Item>
-
-      <Form.Item
-        name="location"
-        label="주소"
-        rules={[{ required: false, message: "헬스장 주소를 입력하세요!" }]}
-      >
-        <Input type="text" value={location} name="location" />
-        <Button type="ghost" onClick={showModal}>
-          주소 찾기
-        </Button>
-
-        <Modal
-          title="Basic Modal"
-          visible={isModalVisible}
-          onOk={handleOk}
-          onCancel={handleCancel}
+        <Form.Item
+          name="nickname"
+          label="닉네임"
+          tooltip="다른 사람들이 당신을 뭐라고 부르기를 원하십니까?"
+          rules={[
+            { required: true, message: "닉네임을 입력하세요!", whitespace: true },
+          ]}
         >
-          <DaumPostCode autoClose={false} onComplete={handleComplete} />
-        </Modal>
-      </Form.Item>
+          <Input name="nickname" onChange={handleChangeState} />
+        </Form.Item>
 
-      <Form.Item
-        name="place"
-        label="지점명"
-        rules={[{ required: true, message: "회사 이름을 입력하세요!" }]}
-      >
-        <Input
-          placeholder="헬스장 이름"
+        <Form.Item
+          name="phone"
+          label="연락처"
+          tooltip="연락가능한 헬스장 유/무선 번호는 무엇입니까?"
+          rules={[
+            { required: true, message: "번호를 입력하세요!", whitespace: true },
+          ]}
+        >
+          <Input name="phone" onChange={handleChangeState} />
+        </Form.Item>
+
+        <Form.Item
+          name="location"
+          label="주소"
+          rules={[{ required: false, message: "헬스장 주소를 입력하세요!" }]}
+        >
+          <Input type="text" value={location} name="location" />
+          <Button type="ghost" onClick={showModal}>
+            주소 찾기
+          </Button>
+
+          <Modal
+            title="Basic Modal"
+            visible={isModalVisible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+          >
+            <DaumPostCode autoClose={false} onComplete={handleComplete} />
+          </Modal>
+        </Form.Item>
+
+        <Form.Item
           name="place"
-          onChange={handleChangeState}
-        />
-      </Form.Item>
+          label="지점명"
+          rules={[{ required: true, message: "회사 이름을 입력하세요!" }]}
+        >
+          <Input
+            placeholder="헬스장 이름"
+            name="place"
+            onChange={handleChangeState}
+          />
+        </Form.Item>
 
-      <Form.Item
-        name="agreement"
-        valuePropName="checked"
-        rules={[
-          {
-            validator: (_, value) =>
-              value
-                ? Promise.resolve()
-                : Promise.reject(new Error("Should accept agreement")),
-          },
-        ]}
-        {...tailFormItemLayout}
-      >
-        <Checkbox>모든 정보를 올바르게 입력하셨습니까?</Checkbox>
-      </Form.Item>
-      <Form.Item {...tailFormItemLayout}>
-        <Button type="primary" htmlType="submit">
-          Register
-        </Button>
-      </Form.Item>
-    </Form>
+        <Form.Item
+          name="agreement"
+          valuePropName="checked"
+          rules={[
+            {
+              validator: (_, value) =>
+                value
+                  ? Promise.resolve()
+                  : Promise.reject(new Error("Should accept agreement")),
+            },
+          ]}
+          {...tailFormItemLayout}
+        >
+          <Checkbox>모든 정보를 올바르게 입력하셨습니까?</Checkbox>
+        </Form.Item>
+        <Form.Item {...tailFormItemLayout}>
+          <Button type="primary" htmlType="submit">
+            Register
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
   );
 }
 

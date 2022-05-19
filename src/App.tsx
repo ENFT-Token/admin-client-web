@@ -18,6 +18,12 @@ import ApprovePage from "./page/ApprovePage";
 import './index.css';
 import Navbar from "./widget/Navbar/Navbar";
 import './App.css'
+
+const Layout = styled.div`
+    height: calc(100vh - 80px);
+   // background:#6EB08F;
+   background: #fff;
+`
 export default function App2() {
 
     const dispatch = useDispatch();
@@ -35,6 +41,7 @@ export default function App2() {
       <div className="container">
          <BrowserRouter>
             <Navbar/>
+            <Layout>
             <Routes>
                   <Route path="/login" element={<LoginPage />}></Route>
                   <Route path="/" element={<MainPage />}></Route>
@@ -45,6 +52,7 @@ export default function App2() {
                   <Route path="/register" element={<RegisterPage />}></Route>
                   <Route path="/checkin" element={<CheckInPage />}></Route>
                 </Routes>
+                </Layout>
          </BrowserRouter>
 
          </div>

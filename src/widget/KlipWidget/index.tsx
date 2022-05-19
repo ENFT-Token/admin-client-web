@@ -51,13 +51,11 @@ function KlipWidget({ type, onSuccess }: IKlipWidgetProps) {
   );
 }
 const Container = styled.div`
-  width : 100%;
-  height : 100%;
+
 `
 const Form = styled.div`
   
-  width : 100%;
-  height : 100%;
+
  
 `
 
