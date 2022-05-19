@@ -3,12 +3,22 @@
     align-items: center;
     text-align: center;
     margin-bottom:2rem;
+    overflow-x:hidden;
    
 }
 .headerInfo > div{
     font-size:30px;
 }
 .info{
-    font-size: 30px;
+    font-size: 25px;
     margin-bottom:15px;
+   
+}
+
+.nickname{
+    text-align: center;
+    font-size: 40px;
+}
+.location{
+    white-space:nowrap;
 }

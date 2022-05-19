@@ -18,6 +18,9 @@ export default function InfoWidget() {
         <div className="phone info"><Header>헬스장 번호</Header>{admin?.phone}</div>
         <div className="walletAddress info"><Header>{admin?.nickname} 님의 지갑 주소</Header>{admin?.address}</div>
       </div>
+      <table>
+     
+      </table>
     </div>
   )
 }
