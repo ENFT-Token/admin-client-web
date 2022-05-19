@@ -28,10 +28,10 @@ export default function MainPage() {
     { i: "관리자 정보", x: 8, y: 0, w: 4, h: 6, isResizable: false },
 
     { i: "알림", x: 0, y: 0, w: 3, h: 3, isResizable: false },
-    { i: "현재 회원들", x: 3, y: 0, w: 5, h: 5.5, isResizable: false },
+    { i: "현재 회원들", x: 3, y: 0, w: 5, h: 4.5, isResizable: false },
 
     { i: "접속 중인 회원들", x: 0, y: 0, w: 3, h: 4, isResizable: false },
-    { i: "관리자 메모", x: 3, y: 0, w: 5, h: 3, isResizable: false },
+    { i: "관리자 메모", x: 3, y: 0, w: 5, h: 4, isResizable: false },
     { i: "광고1", x: 8, y: 0, w: 4, h: 2, isResizable: false },
     { i: "광고2", x: 8, y: 0, w: 4, h: 2, isResizable: false },
   ];
@@ -43,9 +43,9 @@ export default function MainPage() {
         layouts={{ lg: layout }}
         breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
         cols={{ lg: 12, md: 12, sm: 12, xs: 8, xxs: 2 }}
-        rowHeight={80}
+        rowHeight={60}
         width={1500}
-        margin={[25, 25]}
+        margin={[20, 20]}
       >
         <div key="관리자 정보" className="widget" id="adminInfo">
           <InfoWidget />
@@ -87,7 +87,7 @@ export default function MainPage() {
         </div>
       </ResponsiveGridLayout>
 
-      <Footer />
+      {/* <Footer/> */}
     </div>
   );
 }
