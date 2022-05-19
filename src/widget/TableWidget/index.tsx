@@ -30,7 +30,7 @@ export default function Table({ columns, data }: any) {
 
     return (
         <div>
-            <pre>
+            {/* <pre>
                 <code>
                     {
                         JSON.stringify({
@@ -44,7 +44,7 @@ export default function Table({ columns, data }: any) {
                             1
                         )}
                 </code>
-            </pre>
+            </pre> */}
 
             <table {...getTableProps()}>
                 <thead>

@@ -24,20 +24,20 @@ const Styles = styled.div`
     text-align: center;
     border-spacing: 0;
     border: 2px solid black;
-   tr{
-    :last-child {
-        td {
-          /* border-bottom: 0; */
+     tr{
+      :last-child {
+          td {
+            /* border-bottom: 0; */
+          }
         }
-      }
-   }
+     }
   }
   th, td{
       margin:0;
       /* padding-right: 1rem; */
       padding:20px;
       border-bottom: 2px solid black;
-      border-right: 2px solid black;
+      border-right: 2px solid white;
       
       :last-child {
         /* border-right: 0; */
