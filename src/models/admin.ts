@@ -1,17 +1,16 @@
 import { createSlice, PayloadAction, createReducer } from "@reduxjs/toolkit";
 
-
 //admin : id, password, nickname, phone number, email
 //company : company, address, company number, ceo
 
 export interface IAdmin {
   access_token: string;
-  address: string; 
-  email: string; 
-  location: string; 
-  nickname:string;
-  phone:string;
-  place: string; 
+  address: string;
+  email: string;
+  location: string;
+  nickname: string;
+  phone: string;
+  place: string;
   privateKey: string;
   status: string;
   //회원가입하고 post할 것
@@ -21,11 +20,19 @@ export interface IAdmin {
   //nickname
 }
 
+interface IPriceInfo {
+  month: number;
+  klay: number;
+}
+
 interface IState {
   adminInfo: IAdmin | null;
+  priceInfo: IPriceInfo[];
 }
+
 const initialState: IState = {
-  adminInfo: null ,
+  adminInfo: null,
+  priceInfo: [],
 };
 
 export const adminSlice = createSlice({
@@ -33,11 +40,14 @@ export const adminSlice = createSlice({
   initialState,
   reducers: {
     addInfo(state, action: PayloadAction<IAdmin>) {
-      state.adminInfo = (action.payload);
+      state.adminInfo = action.payload;
+    },
+    setPriceInfo(state, action: PayloadAction<IPriceInfo[]>) {
+      state.priceInfo = action.payload;
     },
   },
 });
 
 const { reducer, actions } = adminSlice;
-export const { addInfo } = actions;
+export const { addInfo, setPriceInfo } = actions;
 export default reducer;

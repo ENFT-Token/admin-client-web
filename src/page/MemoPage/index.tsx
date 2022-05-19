@@ -1,13 +1,12 @@
-import { Table, Input, Button, Popconfirm } from 'antd';
-import { useState, useRef, useEffect } from 'react'
-
+import { Table, Input, Button, Popconfirm } from "antd";
+import { useState, useRef, useEffect } from "react";
 
 export default function NestedTable() {
   const [inputBody, setInputBody] = useState("");
   const [inputHead, setInputHead] = useState("");
   const [localMemoList, setlocalMemoList] = useState([] as any);
   const date = new Date();
-  //input 
+  //input
   const { TextArea } = Input;
   let num = useRef(1);
   const onChangeBody = (e: any) => {
@@ -28,47 +27,55 @@ export default function NestedTable() {
         },
       ];
 
-      setlocalMemoList(addMemoList); 
+      setlocalMemoList(addMemoList);
       setInputHead("");
       setInputBody("");
-      const tempObjBody = JSON.stringify({num:num.current,list:addMemoList});
-      window.localStorage.setItem('memo', tempObjBody);
+      const tempObjBody = JSON.stringify({
+        num: num.current,
+        list: addMemoList,
+      });
+      window.localStorage.setItem("memo", tempObjBody);
     }
-  }
+  };
   const handleDelete = (id: number) => {
-    const addMemoList = localMemoList.filter((v: any) => v.id !== id)
+    const addMemoList = localMemoList.filter((v: any) => v.id !== id);
     setlocalMemoList(addMemoList);
     num.current--;
-    const tempObjBody = JSON.stringify({num:num.current,list:addMemoList});
-    window.localStorage.setItem('memo', tempObjBody);
-
-  }
+    const tempObjBody = JSON.stringify({ num: num.current, list: addMemoList });
+    window.localStorage.setItem("memo", tempObjBody);
+  };
   const columns = [
-    { title: 'Name', dataIndex: 'name', key: 'name' },
-    { title: 'text', dataIndex: 'text', key: 'upgradeNum' },
-    { title: 'Date', dataIndex: 'createdAt', key: 'createdAt' },
+    { title: "Name", dataIndex: "name", key: "name" },
+    { title: "text", dataIndex: "text", key: "upgradeNum" },
+    { title: "Date", dataIndex: "createdAt", key: "createdAt" },
     {
-      title: 'Action', dataIndex: 'id', key: 'operation', render: (id: number) =>
-        <Popconfirm title="삭제하시겠습니까?" onConfirm={() => handleDelete(id)}>
-          <Button danger ghost>Delete</Button>
+      title: "Action",
+      dataIndex: "id",
+      key: "operation",
+      render: (id: number) => (
+        <Popconfirm
+          title="삭제하시겠습니까?"
+          onConfirm={() => handleDelete(id)}
+        >
+          <Button danger ghost>
+            Delete
+          </Button>
         </Popconfirm>
+      ),
     },
   ];
 
   useEffect(() => {
-    let memo = (JSON.parse(window.localStorage.getItem('memo') as string))
-    if(memo==null){
-      const tempObjBody = JSON.stringify({num:0,list:[]});
-      window.localStorage.setItem('memo', tempObjBody);
-      memo = (JSON.parse(window.localStorage.getItem('memo') as string))
-
+    let memo = JSON.parse(window.localStorage.getItem("memo") as string);
+    if (memo == null) {
+      const tempObjBody = JSON.stringify({ num: 0, list: [] });
+      window.localStorage.setItem("memo", tempObjBody);
+      memo = JSON.parse(window.localStorage.getItem("memo") as string);
     }
-    setlocalMemoList(memo.list)
+    setlocalMemoList(memo.list);
     const numStorage = memo.num;
-    num.current = numStorage
-  }, [])
-
-
+    num.current = numStorage;
+  }, []);
 
   return (
     <div>
@@ -78,16 +85,21 @@ export default function NestedTable() {
         dataSource={localMemoList}
         scroll={{ y: 350 }}
       />
-      <Input placeholder="작성자 이름" onChange={onChangeHead} value={inputHead} />
-      <TextArea placeholder="내용"
-        value={inputBody} showCount maxLength={100} autoSize={{ minRows: 5, maxRows: 5 }} onChange={onChangeBody} />
+      <Input
+        placeholder="작성자 이름"
+        onChange={onChangeHead}
+        value={inputHead}
+      />
+      <TextArea
+        placeholder="내용"
+        value={inputBody}
+        showCount
+        maxLength={100}
+        autoSize={{ minRows: 5, maxRows: 5 }}
+        onChange={onChangeBody}
+      />
 
       <Button onClick={OnClickBtn}>확인</Button>
-
-    </div >
+    </div>
   );
 }
-
-
-
-

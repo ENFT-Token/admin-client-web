@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 interface IKlipButtonProps {
-  type: "login" | "register";
   width?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
@@ -23,18 +22,15 @@ const StyleButton = styled.button`
   }
 `;
 
-
-function KlipButton({ type, width, onClick }: IKlipButtonProps) {
+function KlipButton({ width, onClick }: IKlipButtonProps) {
   return (
-
     <StyleButton style={{ width }} onClick={onClick}>
       <img
         src="/klip_logo.svg"
         style={{ height: "13px", marginBottom: "3px", marginRight: "5px" }}
       />
-      {`Klip으로 ${type === "login" ? "로그인" : "시작"}`}
+      Klip으로 시작
     </StyleButton>
-
   );
 }
 
