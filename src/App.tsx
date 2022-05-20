@@ -18,6 +18,7 @@ import "./index.css";
 import Navbar from "./widget/Navbar/Navbar";
 import "./App.css";
 import PriceInfoPage from "./page/PriceInfoPage";
+import jwt_decode from "jwt-decode";
 
 const Layout = styled.div`
   height: calc(100vh - 80px);
@@ -26,13 +27,25 @@ const Layout = styled.div`
 `;
 export default function App2() {
   const dispatch = useDispatch();
-  const admin = useSelector((store: Rootstate) => store.admin.adminInfo);
 
   useEffect(() => {
+    // 로그인 체킹. (만료시간 체크)
     const loginLocal = window.localStorage.getItem("login");
-    if (!admin) {
-      console.log("loginLocal", JSON.parse(loginLocal as string));
-      dispatch(addInfo(JSON.parse(loginLocal as string)));
+    console.log("loginLocal", loginLocal);
+
+    if (loginLocal) {
+      const data = JSON.parse(loginLocal);
+
+      if (data?.access_token) {
+        const _decoded: any = jwt_decode(data?.access_token);
+        const expiredData = new Date(_decoded.exp * 1000);
+        if (new Date() > expiredData) {
+          alert("로그인 만료. 재로그인 해주세요.");
+          delete localStorage["login"];
+        } else {
+          dispatch(addInfo(data)); // 로그인 데이터 유지
+        }
+      }
     }
   }, []);
   return (
