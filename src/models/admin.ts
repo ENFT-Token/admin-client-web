@@ -13,6 +13,7 @@ export interface IAdmin {
   place: string;
   privateKey: string;
   status: string;
+  cover_img: string;
   //회원가입하고 post할 것
   //이메일
   //헬스장 주소

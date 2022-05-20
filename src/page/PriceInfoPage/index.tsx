@@ -1,16 +1,18 @@
-import { Button, Input, InputNumber } from "antd";
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import { Button, Input, InputNumber, message, Upload } from "antd";
+import { UploadChangeParam } from "antd/lib/upload";
+import { UploadFile } from "antd/lib/upload/interface";
+import axios from "axios";
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
+import { SERVER_URL } from "../../confing";
 import { Rootstate } from "../../models";
 import { setPriceInfo } from "../../models/admin";
-import { Request, RequestAuth } from "../../models/Request";
+import { getAccessToken, Request, RequestAuth } from "../../models/Request";
 import store from "../../models/store";
 import Table from "../../widget/TableWidget";
 import { StylesTable } from "../MembersPage";
-
-function PriceInfo({ month, klay }: { month: number; klay: number }) {
-  return <div></div>;
-}
+import "./index.css";
 
 function DeleteItem({
   month,
@@ -139,7 +141,68 @@ function PriceInfoPage() {
     ],
     []
   );
+  const [imageData, setImageData] = useState({
+    imageUrl: "",
+    loading: false,
+  });
 
+  useEffect(() => {
+    if (adminInfo) {
+      setImageData({
+        imageUrl: `http://${SERVER_URL}${adminInfo.cover_img}`,
+        loading: false,
+      });
+    }
+  }, [adminInfo]);
+  const uploadButton = (
+    <div>
+      {imageData.loading ? <LoadingOutlined /> : <PlusOutlined />}
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </div>
+  );
+
+  const uploadImage = async (options: any) => {
+    const { file } = options;
+    // action={`http://${SERVER_URL}/admin/upload_cover`}
+
+    const fmData = new FormData();
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+        Authorization: `Bearer ${getAccessToken()}`,
+      },
+    };
+    fmData.append("image", file);
+    try {
+      setImageData({
+        imageUrl: "",
+        loading: true,
+      });
+      const response = await axios.post(
+        `http://${SERVER_URL}/admin/upload_cover`,
+        fmData,
+        config
+      );
+      const makeURI = `${response.data.cover_img}`;
+
+      const authInfo = JSON.parse(localStorage["login"]);
+      authInfo.cover_img = makeURI;
+      localStorage["login"] = JSON.stringify(authInfo);
+
+      setImageData({
+        imageUrl: `http://${SERVER_URL}${makeURI}`,
+        loading: false,
+      });
+    } catch (err) {
+      console.log("Eroor: ", err);
+      // const error = new Error("Some error");
+      message.error("Upload Error");
+      setImageData({
+        imageUrl: "",
+        loading: false,
+      });
+    }
+  };
   return (
     <div
       style={{
@@ -149,23 +212,60 @@ function PriceInfoPage() {
         flexDirection: "column",
       }}
     >
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <InputNumber
-          value={monthAndKlay.month}
-          onChange={(num) => setMonthAndKlay({ ...monthAndKlay, month: num })}
-          addonBefore="달"
-          style={{ marginTop: "10px", marginBottom: "10px" }}
-        />
-        <InputNumber
-          value={monthAndKlay.klay}
-          onChange={(num) => setMonthAndKlay({ ...monthAndKlay, klay: num })}
-          addonBefore="KLAY"
-          style={{ marginBottom: "10px" }}
-        />
+      <div
+        style={{ display: "flex", flexDirection: "column", marginTop: "10px" }}
+      >
+        <div style={{ display: "flex" }}>
+          <div style={{ marginTop: "10px", marginRight: "50px" }}>
+            <h2 style={{ textAlign: "center" }}>커버 사진 등록</h2>
+            <Upload
+              name="avatar"
+              listType="picture-card"
+              className="avatar-uploader upload"
+              showUploadList={false}
+              customRequest={uploadImage}
+            >
+              {imageData.imageUrl ? (
+                <img
+                  src={imageData.imageUrl}
+                  alt="avatar"
+                  style={{ width: "100%" }}
+                />
+              ) : (
+                uploadButton
+              )}
+            </Upload>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+            }}
+          >
+            <h2 style={{ textAlign: "center" }}>가격 설정</h2>
+            <InputNumber
+              value={monthAndKlay.month}
+              onChange={(num) =>
+                setMonthAndKlay({ ...monthAndKlay, month: num })
+              }
+              addonBefore="달"
+              style={{ marginBottom: "10px" }}
+            />
+            <InputNumber
+              value={monthAndKlay.klay}
+              onChange={(num) =>
+                setMonthAndKlay({ ...monthAndKlay, klay: num })
+              }
+              addonBefore="KLAY"
+              style={{ marginBottom: "10px" }}
+            />
 
-        <Button type="primary" onClick={handleAdd}>
-          추가
-        </Button>
+            <Button type="primary" onClick={handleAdd}>
+              추가
+            </Button>
+          </div>
+        </div>
       </div>
       <StylesTable>
         <Table
