@@ -6,7 +6,8 @@ export const getAccessToken = () =>
   JSON.parse(localStorage["login"])?.access_token;
 
 export function RequestAuth(method: Method, url: string, data?: any) {
-  if (getAccessToken() === undefined) {
+  const accessToken = getAccessToken();
+  if (accessToken === undefined) {
     throw new Error("[AuthFetch ERROR] Not Login");
   }
   return axios.request({
@@ -14,7 +15,7 @@ export function RequestAuth(method: Method, url: string, data?: any) {
     baseURL: `http://${SERVER_URL}`,
     url,
     headers: {
-      Authorization: `Bearer ${store.getState().admin.adminInfo?.access_token}`,
+      Authorization: `Bearer ${accessToken}`,
     },
     data: method.toUpperCase() !== "GET" ? data : undefined,
     params: method.toUpperCase() === "GET" ? data : undefined,
