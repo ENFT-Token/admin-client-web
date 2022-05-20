@@ -2,8 +2,11 @@ import axios, { Method } from "axios";
 import { SERVER_URL } from "../confing";
 import store from "./store";
 
+export const getAccessToken = () =>
+  JSON.parse(localStorage["login"])?.access_token;
+
 export function RequestAuth(method: Method, url: string, data?: any) {
-  if (store.getState().admin.adminInfo?.access_token === undefined) {
+  if (getAccessToken() === undefined) {
     throw new Error("[AuthFetch ERROR] Not Login");
   }
   return axios.request({

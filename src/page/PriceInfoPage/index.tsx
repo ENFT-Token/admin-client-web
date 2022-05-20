@@ -34,17 +34,22 @@ function DeleteItem({
   );
 }
 
-function KlayItem({ month, klay }: { month: number; klay: number }) {
+function KlayItem({
+  month,
+  klay,
+  handleSave,
+}: {
+  month: number;
+  klay: number;
+  handleSave: (month: number, klay: number) => Promise<boolean>;
+}) {
   const [isEdit, setEdit] = useState(false);
 
   const [_klay, setKlay] = useState(klay);
 
-  const handleSave = async () => {
-    const response = await Request("PUT", "/admin/priceInfo", {
-      month,
-      klay,
-    });
-    console.log(response);
+  const handleSaved = async () => {
+    const ret = await handleSave(month, _klay);
+    if (ret) setEdit(false);
   };
 
   return (
@@ -65,7 +70,7 @@ function KlayItem({ month, klay }: { month: number; klay: number }) {
             addonBefore="KLAY"
             style={{ marginBottom: "10px" }}
           />{" "}
-          <Button type="primary" onClick={handleSave}>
+          <Button type="primary" onClick={handleSaved}>
             SAVE
           </Button>
           <Button type="primary" danger onClick={() => setEdit(false)}>
@@ -106,6 +111,17 @@ function PriceInfoPage() {
     handleList();
   };
 
+  const handleSave = async (month: number, klay: number) => {
+    const response = await RequestAuth("PUT", "/admin/priceInfo", {
+      month,
+      klay,
+    });
+    if (response.status === 200) {
+      handleList();
+      return true;
+    }
+    return false;
+  };
   const columns = useMemo(
     () => [
       {
@@ -156,7 +172,13 @@ function PriceInfoPage() {
           columns={columns}
           data={priceInfo.map((elem) => ({
             month: elem.month,
-            klay: <KlayItem klay={elem.klay} month={elem.month} />,
+            klay: (
+              <KlayItem
+                klay={elem.klay}
+                month={elem.month}
+                handleSave={handleSave}
+              />
+            ),
             run: <DeleteItem month={elem.month} handleList={handleList} />,
           }))}
         />
