@@ -19,7 +19,8 @@ import Navbar from "./widget/Navbar/Navbar";
 import "./App.css";
 import PriceInfoPage from "./page/PriceInfoPage";
 import jwt_decode from "jwt-decode";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Layout = styled.div`
   height: calc(100vh - 80px);
   // background:#6EB08F;
@@ -67,6 +68,7 @@ export default function App2() {
           </Layout>
         </BrowserRouter>
       </div>
+      <ToastContainer />
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { SERVER_URL } from "../../confing";
 import styled from "styled-components";
 import Table from "../../widget/TableWidget";
 import { Button } from "antd";
+import { RequestAuth } from "../../models/Request";
 
 interface IListData {
   //렌더링계속되므로 함수밖에 작성
@@ -19,17 +20,17 @@ interface IListData {
 export default function MembersPage() {
   const arvUser = useSelector((store: Rootstate) => store.members.approvedUser);
   const [listData, setListData] = useState<IListData[]>([]);
-  const getMembers = async () => {
-    try {
-      const response = await axios.get(
-        `http://${SERVER_URL}/admin/memberAddress`
-      );
-    } catch (e) {
-      console.log("error", e);
-    }
-  };
+
   useEffect(() => {
-    getMembers();
+    const fetch = async () => {
+      try {
+        const response = await RequestAuth("GET", "/admin/member");
+        console.log(response.data);
+      } catch (e) {
+        console.log("error", e);
+      }
+    };
+    fetch();
   }, []);
 
   const columns = useMemo(

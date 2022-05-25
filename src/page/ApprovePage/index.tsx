@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { Button } from "antd";
 import Table from "../../widget/TableWidget";
 import { RequestAuth } from "../../models/Request";
+import { toast } from "react-toastify";
 
 export interface IApproveUser {
   profile: string;
@@ -59,12 +60,15 @@ export default function ApprovePage() {
       //     {
       //         headers: { "Authorization": `Bearer ${admin?.access_token}` }
       //     });
+
       const response = await RequestAuth("GET", "/admin/approve/list");
       const info = response.data;
       console.log("dd", response);
       dispatch(addAllUser(info));
       //message.success(`${response.data.results.length} more users loaded!`);
     } catch (e) {
+      toast.error("승인 실패");
+
       console.log("Error", e);
     }
   };
@@ -74,19 +78,27 @@ export default function ApprovePage() {
     appendData();
   }, [admin]);
 
-  const onClickApprove = (address: string) => {
+  const onClickApprove = async (address: string) => {
     //승인하기
 
     const approvedUser = requestUser.find((data) => data.address === address); //승인하기 버튼 누른 유저정보
-    if (approvedUser) {
-      dispatch(addUser(approvedUser));
-      dispatch(deleteUser(approvedUser));
+
+    try {
+      const response = await RequestAuth("POST", "/admin/approve/complete", {
+        address: approvedUser?.address,
+        requestDay: approvedUser?.requestDay,
+        requestPlace: approvedUser?.requestPlace,
+      });
+      if (response.status === 201) {
+        if (approvedUser) {
+          dispatch(addUser(approvedUser));
+          dispatch(deleteUser(approvedUser));
+        }
+      }
+    } catch (e: any) {
+      console.log(e);
+      toast.error("승인 실패");
     }
-    RequestAuth("POST", "/admin/approve/complete", {
-      address: approvedUser?.address,
-      requestDay: approvedUser?.requestDay,
-      requestPlace: approvedUser?.requestPlace,
-    });
   };
   const onClickReject = (address: string) => {
     //거절하기
@@ -131,146 +143,146 @@ export default function ApprovePage() {
   ];
   const columns = useMemo(() => columnData, []);
 
-  const temp = useMemo(
-    () => [
-      {
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-        button: (
-          <ButtonWrapper>
-            <Button id="btn1" type="primary" ghost>
-              승인하기
-            </Button>
-            <Button id="btn2" type="primary" danger>
-              거절하기
-            </Button>
-          </ButtonWrapper>
-        ),
-      },
-      {
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        nickname: "ba",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        nickname: "ba",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        nickname: "ba",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        nickname: "ba",
-        sex: "자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        nickname: "ba",
-        sex: "자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        nickname: "ba",
-        sex: "자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      { nickname: "ba", sex: "자", requestDay: 27, address: "233333332" },
-      {
-        nickname: "ba",
-        sex: "자",
-        requestDay: 27,
-        address: "0x21232nbnj23j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        nickname: "ba",
-        sex: "자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      { nickname: "aa", sex: "남자", requestDay: 27, address: "233" },
-      {
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      { nickname: "aa", sex: "남자", requestDay: 27, address: "rrfefeeree" },
-      {
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      { nickname: "aa", sex: "남자", requestDay: 27, address: "24242424" },
-      {
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      { nickname: "aa", sex: "남자", requestDay: 27, address: "hgghggrg" },
-      {
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-    ],
-    []
-  );
+  // const temp = useMemo(
+  //   () => [
+  //     {
+  //       nickname: "aa",
+  //       sex: "남자",
+  //       requestDay: 27,
+  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+  //       button: (
+  //         <ButtonWrapper>
+  //           <Button id="btn1" type="primary" ghost>
+  //             승인하기
+  //           </Button>
+  //           <Button id="btn2" type="primary" danger>
+  //             거절하기
+  //           </Button>
+  //         </ButtonWrapper>
+  //       ),
+  //     },
+  //     {
+  //       nickname: "aa",
+  //       sex: "남자",
+  //       requestDay: 27,
+  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+  //     },
+  //     {
+  //       nickname: "aa",
+  //       sex: "남자",
+  //       requestDay: 27,
+  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+  //     },
+  //     {
+  //       nickname: "ba",
+  //       sex: "남자",
+  //       requestDay: 27,
+  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+  //     },
+  //     {
+  //       nickname: "ba",
+  //       sex: "남자",
+  //       requestDay: 27,
+  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+  //     },
+  //     {
+  //       nickname: "ba",
+  //       sex: "남자",
+  //       requestDay: 27,
+  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+  //     },
+  //     {
+  //       nickname: "ba",
+  //       sex: "자",
+  //       requestDay: 27,
+  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+  //     },
+  //     {
+  //       nickname: "ba",
+  //       sex: "자",
+  //       requestDay: 27,
+  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+  //     },
+  //     {
+  //       nickname: "ba",
+  //       sex: "자",
+  //       requestDay: 27,
+  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+  //     },
+  //     { nickname: "ba", sex: "자", requestDay: 27, address: "233333332" },
+  //     {
+  //       nickname: "ba",
+  //       sex: "자",
+  //       requestDay: 27,
+  //       address: "0x21232nbnj23j2pnijo2203123223n2n32n32j3kd",
+  //     },
+  //     {
+  //       nickname: "ba",
+  //       sex: "자",
+  //       requestDay: 27,
+  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+  //     },
+  //     {
+  //       nickname: "aa",
+  //       sex: "남자",
+  //       requestDay: 27,
+  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+  //     },
+  //     {
+  //       nickname: "aa",
+  //       sex: "남자",
+  //       requestDay: 27,
+  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+  //     },
+  //     {
+  //       nickname: "aa",
+  //       sex: "남자",
+  //       requestDay: 27,
+  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+  //     },
+  //     { nickname: "aa", sex: "남자", requestDay: 27, address: "233" },
+  //     {
+  //       nickname: "aa",
+  //       sex: "남자",
+  //       requestDay: 27,
+  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+  //     },
+  //     {
+  //       nickname: "aa",
+  //       sex: "남자",
+  //       requestDay: 27,
+  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+  //     },
+  //     { nickname: "aa", sex: "남자", requestDay: 27, address: "rrfefeeree" },
+  //     {
+  //       nickname: "aa",
+  //       sex: "남자",
+  //       requestDay: 27,
+  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+  //     },
+  //     { nickname: "aa", sex: "남자", requestDay: 27, address: "24242424" },
+  //     {
+  //       nickname: "aa",
+  //       sex: "남자",
+  //       requestDay: 27,
+  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+  //     },
+  //     { nickname: "aa", sex: "남자", requestDay: 27, address: "hgghggrg" },
+  //     {
+  //       nickname: "aa",
+  //       sex: "남자",
+  //       requestDay: 27,
+  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+  //     },
+  //     {
+  //       nickname: "aa",
+  //       sex: "남자",
+  //       requestDay: 27,
+  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+  //     },
+  //   ],
+  //   []
+  // );
   const data = useMemo(
     () =>
       requestUser.map((v) => ({
@@ -310,7 +322,7 @@ export default function ApprovePage() {
 
   return (
     <Styles>
-      <Table columns={columns} data={temp} pagination />
+      <Table columns={columns} data={data} pagination />
     </Styles>
   );
 }
