@@ -11,12 +11,13 @@ import InfoWidget from "../../widget/ProfileWidget";
 import MemoWidget from "../../widget/MemoWidget";
 import { Rootstate } from "../../models";
 import { useSelector } from "react-redux";
-import MemberWidget from "../../widget/MemberWidget";
+import MemberWidget from "../../widget/ApproveWidget";
 import CheckCount from "../../widget/CheckCountWidget";
 import Alarm from "../../widget/AlarmWidget";
 
 import { MdChecklist } from "react-icons/md";
 import Footer from "../../widget/Footer/Footer";
+import ListWidget from "../../widget/ListWidget";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 export default function MainPage() {
@@ -28,7 +29,7 @@ export default function MainPage() {
     { i: "관리자 정보", x: 8, y: 0, w: 6, h: 6, isResizable: false },
 
     { i: "알림", x: 0, y: 0, w: 3, h: 3, isResizable: false },
-    { i: "현재 회원들", x: 3, y: 0, w: 3, h: 4.5, isResizable: false },
+    { i: "현재 회원들", x: 3, y: 0, w: 2, h: 7, isResizable: false },
 
     { i: "접속 중인 회원들", x: 0, y: 0, w: 3, h: 4, isResizable: false },
     { i: "관리자 메모", x: 3, y: 0, w: 3, h: 4, isResizable: false },
@@ -54,7 +55,7 @@ export default function MainPage() {
           <div>{admin?.place}</div>
         </div>
         <div key="현재 회원들" className="widget">
-          <MemberWidget />
+          <ListWidget title="승인 요청 리스트" />
         </div>
         <div key="광고1" className="widget">
           광고1

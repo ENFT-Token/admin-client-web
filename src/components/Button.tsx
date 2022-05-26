@@ -2,7 +2,7 @@ import React, { InputHTMLAttributes } from "react";
 import styled from "styled-components";
 
 interface IButtonProps extends InputHTMLAttributes<HTMLInputElement> {
-  type: "ghost";
+  type: "ghost" | "blue" | "green" | "black";
   width?: number;
   height?: number;
 }
@@ -25,15 +25,38 @@ const StyledButton = styled.input<IStyleProps>`
   ${({ _height }) =>
     _height && typeof _height === "string" && `height: ${_height};`}
 
+  border-radius: 15px;
+  transition: 0.2s;
   &.ghost {
     font-size: 16px;
-    border-radius: 20px;
     background: #f5f5f5 0% 0% no-repeat padding-box;
     color: #585858;
     font-weight: 300;
     &:hover {
       color: #5858588f;
     }
+  }
+
+  &.blue,
+  &.green,
+  &.red {
+    box-shadow: 0px 4px 8px #0000001f;
+    color: #ffffff;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &.blue {
+    background: #1879c3;
+  }
+
+  &.green {
+    background: #c0d437;
+  }
+
+  &.black {
+    background: #6a6a6a;
   }
 `;
 
