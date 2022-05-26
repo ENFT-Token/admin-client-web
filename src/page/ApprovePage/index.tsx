@@ -18,36 +18,40 @@ export interface IApproveUser {
   address: string;
 }
 const Styles = styled.div`
-  padding: 1rem;
+  margin: 4rem;
 
+  border:2px solid black;
   table {
     width: 100%;
     text-align: center;
     border-spacing: 0;
-    border: 2px solid black;
-    tr {
+    /* tr {
       :last-child {
         td {
-          /* border-bottom: 0; */
+          border-bottom: 0;
         }
       }
-    }
-  }
-  th,
-  td {
+    } */
+    th { //head
     margin: 0;
     /* padding-right: 1rem; */
     padding: 20px;
-    border-bottom: 2px solid black;
-    border-right: 2px solid white;
+    border-bottom: 2px solid rgba(214, 215, 217,0.5);
+    
 
     :last-child {
-      /* border-right: 0; */
+      border-right: 0;
     }
   }
-  .pagination {
-    padding: 0.5rem;
+  td{ // body
+    padding: 20px;
+    border-bottom: 2px solid rgba(214, 215, 217,0.5);
   }
+  /* .pagination {
+    padding: 0.5rem;
+  } */
+  }
+  
 `;
 
 export default function ApprovePage() {
@@ -125,32 +129,177 @@ export default function ApprovePage() {
       accessor: "nickname",
     },
     {
-      Header: "성별",
-      accessor: "sex",
-    },
-    {
       Header: "만료일",
       accessor: "requestDay",
     },
+    {
+      Header: "성별",
+      accessor: "sex",
+    },
+    
     {
       Header: "지갑 주소",
       accessor: "address",
     },
     {
-      Header: "버튼",
+      Header: "",
       accessor: "button",
     },
   ];
   const columns = useMemo(() => columnData, []);
-
+  const temp = useMemo(
+    () => [
+      // {
+      //   nickname: "aa",
+      //   sex: "남자",
+      //   requestDay: 27,
+      //   address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+      //   button: (
+      //     <ButtonWrapper>
+      //       <Button id="btn1" type="primary" ghost>
+      //         승인하기
+      //       </Button>
+      //       <Button id="btn2" type="primary" danger>
+      //         거절하기
+      //       </Button>
+      //     </ButtonWrapper>
+      //   ),
+      // },
+      {
+        profile: <img  width="60" height="60" src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
+        nickname: "aa",
+        sex: "남자",
+        requestDay: 27,
+        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+      },
+      {
+        profile: <img  width="60" height="60" src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
+        nickname: "aa",
+        sex: "남자",
+        requestDay: 27,
+        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+      },
+      {
+        nickname: "ba",
+        sex: "남자",
+        requestDay: 27,
+        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+      },
+      {
+        nickname: "ba",
+        sex: "남자",
+        requestDay: 27,
+        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+      },
+      {
+        nickname: "ba",
+        sex: "남자",
+        requestDay: 27,
+        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+      },
+      {
+        profile: <img  width="60" height="60" src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
+        nickname: "ba",
+        sex: "자",
+        requestDay: 27,
+        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+      },
+      {
+        nickname: "ba",
+        sex: "자",
+        requestDay: 27,
+        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+      },
+      {
+        nickname: "ba",
+        sex: "자",
+        requestDay: 27,
+        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+      },
+      { nickname: "ba", sex: "자", requestDay: 27, address: "233333332" },
+      {
+        nickname: "ba",
+        sex: "자",
+        requestDay: 27,
+        address: "0x21232nbnj23j2pnijo2203123223n2n32n32j3kd",
+      },
+      {
+        nickname: "ba",
+        sex: "자",
+        requestDay: 27,
+        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+      },
+      {
+        profile: <img  width="60" height="60" src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
+        nickname: "aa",
+        sex: "남자",
+        requestDay: 27,
+        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+      },
+      {
+        nickname: "aa",
+        sex: "남자",
+        requestDay: 27,
+        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+      },
+      {
+        nickname: "aa",
+        sex: "남자",
+        requestDay: 27,
+        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+      },
+      { nickname: "aa", sex: "남자", requestDay: 27, address: "233" },
+      {
+        nickname: "aa",
+        sex: "남자",
+        requestDay: 27,
+        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+      },
+      {
+        nickname: "aa",
+        sex: "남자",
+        requestDay: 27,
+        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+      },
+      { nickname: "aa", sex: "남자", requestDay: 27, address: "rrfefeeree" },
+      {
+        nickname: "aa",
+        sex: "남자",
+        requestDay: 27,
+        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+      },
+      { nickname: "aa", sex: "남자", requestDay: 27, address: "24242424" },
+      {
+        nickname: "aa",
+        sex: "남자",
+        requestDay: 27,
+        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+      },
+      { nickname: "aa", sex: "남자", requestDay: 27, address: "hgghggrg" },
+      {
+        nickname: "aa",
+        sex: "남자",
+        requestDay: 27,
+        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+      },
+      {
+        nickname: "aa",
+        sex: "남자",
+        requestDay: 27,
+        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+      },
+    ],
+    []
+  );
 
   const data = useMemo(
     () =>
       requestUser.map((v) => ({
-        // "profile" : v.user.profile,
+  
+        profile : (<img  width="60" height="60" src={`http://${SERVER_URL}${v.user.profile}`}></img>),
         nickname: v.user.nickname,
-        sex: v.user.sex,
         requestDay: v.requestDay,
+        sex: v.user.sex,
         address: v.address,
         button: (
           <ButtonWrapper>
@@ -183,7 +332,7 @@ export default function ApprovePage() {
 
   return (
     <Styles>
-      <Table columns={columns} data={data} pagination />
+      <Table columns={columns} data={temp} pagination />
     </Styles>
   );
 }
@@ -196,143 +345,4 @@ const ButtonWrapper = styled.div`
 
 
 
-  // const temp = useMemo(
-  //   () => [
-  //     {
-  //       nickname: "aa",
-  //       sex: "남자",
-  //       requestDay: 27,
-  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-  //       button: (
-  //         <ButtonWrapper>
-  //           <Button id="btn1" type="primary" ghost>
-  //             승인하기
-  //           </Button>
-  //           <Button id="btn2" type="primary" danger>
-  //             거절하기
-  //           </Button>
-  //         </ButtonWrapper>
-  //       ),
-  //     },
-  //     {
-  //       nickname: "aa",
-  //       sex: "남자",
-  //       requestDay: 27,
-  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-  //     },
-  //     {
-  //       nickname: "aa",
-  //       sex: "남자",
-  //       requestDay: 27,
-  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-  //     },
-  //     {
-  //       nickname: "ba",
-  //       sex: "남자",
-  //       requestDay: 27,
-  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-  //     },
-  //     {
-  //       nickname: "ba",
-  //       sex: "남자",
-  //       requestDay: 27,
-  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-  //     },
-  //     {
-  //       nickname: "ba",
-  //       sex: "남자",
-  //       requestDay: 27,
-  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-  //     },
-  //     {
-  //       nickname: "ba",
-  //       sex: "자",
-  //       requestDay: 27,
-  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-  //     },
-  //     {
-  //       nickname: "ba",
-  //       sex: "자",
-  //       requestDay: 27,
-  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-  //     },
-  //     {
-  //       nickname: "ba",
-  //       sex: "자",
-  //       requestDay: 27,
-  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-  //     },
-  //     { nickname: "ba", sex: "자", requestDay: 27, address: "233333332" },
-  //     {
-  //       nickname: "ba",
-  //       sex: "자",
-  //       requestDay: 27,
-  //       address: "0x21232nbnj23j2pnijo2203123223n2n32n32j3kd",
-  //     },
-  //     {
-  //       nickname: "ba",
-  //       sex: "자",
-  //       requestDay: 27,
-  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-  //     },
-  //     {
-  //       nickname: "aa",
-  //       sex: "남자",
-  //       requestDay: 27,
-  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-  //     },
-  //     {
-  //       nickname: "aa",
-  //       sex: "남자",
-  //       requestDay: 27,
-  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-  //     },
-  //     {
-  //       nickname: "aa",
-  //       sex: "남자",
-  //       requestDay: 27,
-  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-  //     },
-  //     { nickname: "aa", sex: "남자", requestDay: 27, address: "233" },
-  //     {
-  //       nickname: "aa",
-  //       sex: "남자",
-  //       requestDay: 27,
-  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-  //     },
-  //     {
-  //       nickname: "aa",
-  //       sex: "남자",
-  //       requestDay: 27,
-  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-  //     },
-  //     { nickname: "aa", sex: "남자", requestDay: 27, address: "rrfefeeree" },
-  //     {
-  //       nickname: "aa",
-  //       sex: "남자",
-  //       requestDay: 27,
-  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-  //     },
-  //     { nickname: "aa", sex: "남자", requestDay: 27, address: "24242424" },
-  //     {
-  //       nickname: "aa",
-  //       sex: "남자",
-  //       requestDay: 27,
-  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-  //     },
-  //     { nickname: "aa", sex: "남자", requestDay: 27, address: "hgghggrg" },
-  //     {
-  //       nickname: "aa",
-  //       sex: "남자",
-  //       requestDay: 27,
-  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-  //     },
-  //     {
-  //       nickname: "aa",
-  //       sex: "남자",
-  //       requestDay: 27,
-  //       address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-  //     },
-  //   ],
-  //   []
-  // );
+  
