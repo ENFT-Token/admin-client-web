@@ -39,7 +39,7 @@ const StyledButton = styled.input<IStyleProps>`
 
   &.blue,
   &.green,
-  &.red {
+  &.black {
     box-shadow: 0px 4px 8px #0000001f;
     color: #ffffff;
     &:hover {
