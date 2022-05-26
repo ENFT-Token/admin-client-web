@@ -123,6 +123,12 @@ export default function Table({ columns, data, pagination }: any) {
             ))}
           </select> */}
           
+          {pageOptions.map((v) => (
+            <button onClick={(()=>gotoPage(v))}>
+              {v}
+            </button>
+          ))}
+
         </div>
       )}
     </div>

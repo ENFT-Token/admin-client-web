@@ -183,12 +183,14 @@ export default function ApprovePage() {
         address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
       },
       {
+        profile: <img  width="60" height="60" src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
         nickname: "ba",
         sex: "남자",
         requestDay: 27,
         address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
       },
       {
+        profile: <img  width="60" height="60" src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
         nickname: "ba",
         sex: "남자",
         requestDay: 27,
