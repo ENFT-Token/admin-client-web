@@ -3,6 +3,7 @@ import { CgProfile } from "react-icons/cg";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Button from "../../components/Button";
+import UserInfo from "../../components/UserInfo";
 import { SERVER_URL } from "../../confing";
 import { Rootstate } from "../../models";
 import "./index.css";
@@ -61,55 +62,6 @@ const StyledProfileWidget = styled.div`
   }
 `;
 
-const StyleUserInfo = styled.div`
-  display: flex;
-  margin-bottom: 13px;
-  .icon_wrapper {
-    width: 50px;
-    height: 50px;
-    margin-right: 20px;
-    background-color: #f5f5f5;
-    border-radius: 50px;
-
-    text-align: center;
-    line-height: 45px;
-    img {
-      height: 24px;
-    }
-  }
-
-  .label {
-    color: #c7c7c7;
-    font-size: 16px;
-    margin-bottom: 3px;
-  }
-  .value {
-    color: #202020;
-    font-size: 16px;
-    font-weight: bold;
-  }
-`;
-
-interface IUserInfoProps {
-  src: string;
-  label: string;
-  value: string;
-}
-
-function UserInfo({ src, label, value }: IUserInfoProps) {
-  return (
-    <StyleUserInfo>
-      <div className="icon_wrapper">
-        <img src={src} />
-      </div>
-      <div>
-        <div className="label">{label}</div>
-        <div className="value">{value}</div>
-      </div>
-    </StyleUserInfo>
-  );
-}
-
 export default function ProfileWidget() {
   const admin = useSelector((store: Rootstate) => store.admin.adminInfo);
   return (
@@ -154,26 +106,7 @@ export default function ProfileWidget() {
           />
         </div>
       </div>
-      {/* <div className="headerInfo">
-        <CgProfile className="profile" size="85" />
-        <div>관리자</div>
-      </div>
-      <div className="bodyInfo">
-        <div className="nickname info">안녕하세요 {admin?.nickname}님</div>
-        <div className="location info">
-          <Header>헬스장 주소</Header>
-          {admin?.location}
-        </div>
-        <div className="phone info">
-          <Header>헬스장 번호</Header>
-          {admin?.phone}
-        </div>
-        <div className="walletAddress info">
-          <Header>{admin?.nickname} 님의 지갑 주소</Header>
-          {admin?.address}
-        </div>
-      </div>
-      <table></table> */}
+      {}
     </StyledProfileWidget>
   );
 }
