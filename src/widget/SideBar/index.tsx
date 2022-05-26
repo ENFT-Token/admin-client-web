@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Layout, Menu, Breadcrumb } from "antd";
 
 import styled from "styled-components";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 
 const StyledSideBar = styled.div`
   position: fixed;
@@ -21,10 +27,8 @@ const StyledSideBar = styled.div`
     .hamburger {
       position: absolute;
       top: 43px;
-      right: 13px;
+      right: 33px;
       cursor: pointer;
-      width: 46px;
-      height: 46px;
       div {
         width: 26px;
         height: 3px;
@@ -83,6 +87,7 @@ const StyledSideBar = styled.div`
           content: "";
           float: right;
           height: 49px;
+          opacity: 1;
           display: block;
           transform: translateX(0px);
         }
@@ -107,10 +112,15 @@ export default function SideBar() {
 
   const closeMobileMenu = () => setClick(false);
   const handleClick = () => setClick(!click);
+
+  const location = useLocation();
+
   return (
     <StyledSideBar>
       <div className="logo">
-        <img src="/svg/logo.svg" />
+        <Link to="/">
+          <img src="/svg/logo.svg" />
+        </Link>
         <div className="hamburger">
           <div></div>
           <div></div>
@@ -118,28 +128,66 @@ export default function SideBar() {
         </div>
       </div>
       <div className="menu">
-        <Link to="/" className="menuItem select">
+        <Link
+          to="/"
+          className={`menuItem ${location.pathname === "/" ? "select" : ""}`}
+        >
           Home
         </Link>
-        <Link to="/price_info" className="menuItem">
+        <Link
+          to="/price_info"
+          className={`menuItem ${
+            location.pathname === "/price_info" ? "select" : ""
+          }`}
+        >
           Setting
         </Link>
-        <Link to="/members" className="menuItem">
+        <Link
+          to="/members"
+          className={`menuItem ${
+            location.pathname === "/members" ? "select" : ""
+          }`}
+        >
           Members
         </Link>
-        <Link to="/approve" className="menuItem">
+        <Link
+          to="/approve"
+          className={`menuItem ${
+            location.pathname === "/approve" ? "select" : ""
+          }`}
+        >
           Approve
         </Link>
-        <Link to="/checkin" className="menuItem">
+        <Link
+          to="/checkin"
+          className={`menuItem ${
+            location.pathname === "/checkin" ? "select" : ""
+          }`}
+        >
           Check In
         </Link>
-        <Link to="/profit" className="menuItem">
+        <Link
+          to="/profit"
+          className={`menuItem ${
+            location.pathname === "/profit" ? "select" : ""
+          }`}
+        >
           Profit
         </Link>
-        <Link to="/memo" className="menuItem">
+        <Link
+          to="/memo"
+          className={`menuItem ${
+            location.pathname === "/memo" ? "select" : ""
+          }`}
+        >
           Memo
         </Link>
-        <Link to="/login" className="menuItem">
+        <Link
+          to="/login"
+          className={`menuItem ${
+            location.pathname === "/login" ? "select" : ""
+          }`}
+        >
           Sign up & Login
         </Link>
 
