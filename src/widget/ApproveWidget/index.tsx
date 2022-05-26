@@ -5,7 +5,7 @@ import { SERVER_URL } from "../../confing";
 import { IApprove } from "../../models/members";
 import { RequestAuth } from "../../models/Request";
 
-export default function MemberWidget() {
+export default function ApproveWidget() {
   const [list, setList] = useState<any>([]);
 
   return (
