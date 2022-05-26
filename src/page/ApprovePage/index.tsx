@@ -9,6 +9,7 @@ import { Button } from "antd";
 import Table from "../../widget/TableWidget";
 import { RequestAuth } from "../../models/Request";
 import { toast } from "react-toastify";
+import { arrayBuffer } from "stream/consumers";
 
 export interface IApproveUser {
   profile: string;
@@ -17,7 +18,7 @@ export interface IApproveUser {
   requestDay: number;
   address: string;
 }
-const Styles = styled.div`
+export const Styles = styled.div`
   
   padding: 3rem;
   width: 100%;
@@ -48,6 +49,7 @@ const Styles = styled.div`
   td{ // body
     padding: 20px;
     border-bottom: 2px solid rgba(214, 215, 217,0.5);
+    height:100px;
   }
   /* .pagination {
     padding: 0.5rem;
@@ -148,152 +150,29 @@ export default function ApprovePage() {
       accessor: "button",
     },
   ];
+  let arr:any=[]
+  let i=0;
+  for(let i=0; i<100; i++){
+    arr.push({ 
+      profile: <img  width="60" height="60" style={{borderRadius:"30%"}}src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
+    nickname: "aa",
+    sex: "남자",
+    requestDay: i,
+    address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+    button: 
+      <ButtonWrapper>
+        <Button id="btn1" type="primary" ghost>
+          승인하기
+        </Button>
+        <Button id="btn2" type="primary" danger>
+          거절하기
+        </Button>
+      </ButtonWrapper>})
+   
+  };
   const columns = useMemo(() => columnData, []);
   const temp = useMemo(
-    () => [
-      {
-        profile: <img  width="60" height="60" style={{borderRadius:"30%"}}src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-        button: (
-          <ButtonWrapper>
-            <Button id="btn1" type="primary" ghost>
-              승인하기
-            </Button>
-            <Button id="btn2" type="primary" danger>
-              거절하기
-            </Button>
-          </ButtonWrapper>
-        ),
-       },
-      {
-        profile: <img  width="60" height="60" style={{borderRadius:"30%"}}src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        profile: <img  width="60" height="60"style={{borderRadius:"30%"}} src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        profile: <img  width="60" height="60" src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
-        nickname: "ba",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        profile: <img  width="60" height="60" src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
-        nickname: "ba",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        nickname: "ba",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        profile: <img  width="60" height="60" style={{borderRadius:"30%"}}src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
-        nickname: "ba",
-        sex: "자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        nickname: "ba",
-        sex: "자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        nickname: "ba",
-        sex: "자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      { nickname: "ba", sex: "자", requestDay: 27, address: "233333332" },
-      {
-        nickname: "ba",
-        sex: "자",
-        requestDay: 27,
-        address: "0x21232nbnj23j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        nickname: "ba",
-        sex: "자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        profile: <img  width="60" height="60" src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      { nickname: "aa", sex: "남자", requestDay: 27, address: "233" },
-      {
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      { nickname: "aa", sex: "남자", requestDay: 27, address: "rrfefeeree" },
-      {
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      { nickname: "aa", sex: "남자", requestDay: 27, address: "24242424" },
-      {
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      { nickname: "aa", sex: "남자", requestDay: 27, address: "hgghggrg" },
-      {
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-      {
-        nickname: "aa",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      },
-    ],
+    () => arr,
     []
   );
 

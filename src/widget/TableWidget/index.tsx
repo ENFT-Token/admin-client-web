@@ -1,7 +1,9 @@
-import React from "react";
-import { usePagination, useTable } from "react-table";
+import React, { useEffect, useState } from "react";
+import { usePagination, useTable, } from "react-table";
 import styled from "styled-components";
+import Pagination from "@material-ui/lab/Pagination";
 
+const MAX_PAGE_NUM = 5;
 export default function Table({ columns, data, pagination }: any) {
   const {
     getTableProps, //table head
@@ -27,6 +29,8 @@ export default function Table({ columns, data, pagination }: any) {
     },
     usePagination
   );
+    const [ pageNum,setPageNum] = useState(1);
+
 
   return (
     <div>
@@ -77,21 +81,8 @@ export default function Table({ columns, data, pagination }: any) {
      </div>
      { (
         <div className="pagination">
-          <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-            {"<<"}
-          </button>{" "}
-          <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-            {"<"}
-          </button>{" "}
-          <button onClick={() => nextPage()} disabled={!canNextPage}>
-            {">"}
-          </button>{" "}
-          <button
-            onClick={() => gotoPage(pageCount - 1)}
-            disabled={!canNextPage}
-          >
-            {">>"}
-          </button>{" "}
+
+
           <span>
             Page{" "}
             <strong>
@@ -109,7 +100,7 @@ export default function Table({ columns, data, pagination }: any) {
               }}
               style={{ width: "100px" }}
             ></input> */}
-          </span>{" "}
+          </span>
           {/* <select
             value={pageSize}
             onChange={(e) => {
@@ -122,13 +113,13 @@ export default function Table({ columns, data, pagination }: any) {
               </option>
             ))}
           </select> */}
-          
-          {pageOptions.map((v) => (
-            <button onClick={(()=>gotoPage(v))}>
-              {v}
-            </button>
-          ))}
-
+          <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>{"<<"}</button>
+          <button onClick={() => setPageNum((v)=>Math.max(0,v-1))} disabled={!canPreviousPage}>{"<"}</button>
+          {pageOptions.filter(v=>v<=MAX_PAGE_NUM*pageNum && MAX_PAGE_NUM*(pageNum-1)<v)
+          .map((v) =>(<button onClick={(()=>gotoPage(v))}>{v}</button>))
+          }
+          <button onClick={() => setPageNum((v)=>Math.min(pageCount/5,v+1))} disabled={!canNextPage}>{">"}</button>
+          <button onClick={() => gotoPage(pageCount - 1)}disabled={!canNextPage}>{">>"}</button>
         </div>
       )}
     </div>
