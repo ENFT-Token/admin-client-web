@@ -15,18 +15,24 @@ import { Rootstate } from "./models";
 import CheckInPage from "./page/CheckInPage";
 import ApprovePage from "./page/ApprovePage";
 import "./index.css";
-import Navbar from "./widget/Navbar/Navbar";
-import "./App.css";
 import PriceInfoPage from "./page/PriceInfoPage";
 import jwt_decode from "jwt-decode";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SideBar from "./widget/SideBar";
 const Layout = styled.div`
   height: calc(100vh - 80px);
   // background:#6EB08F;
-  background: #fff;
+  background: #f9f9f9;
+  margin-left: 345px;
 `;
-export default function App2() {
+
+const StyledApp = styled.div`
+  .container {
+  }
+`;
+
+export default function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -50,10 +56,10 @@ export default function App2() {
     }
   }, []);
   return (
-    <div className="App">
+    <StyledApp>
       <div className="container">
         <BrowserRouter>
-          <Navbar />
+          <SideBar />
           <Layout>
             <Routes>
               <Route path="/" element={<MainPage />}></Route>
@@ -69,6 +75,6 @@ export default function App2() {
         </BrowserRouter>
       </div>
       <ToastContainer />
-    </div>
+    </StyledApp>
   );
 }
