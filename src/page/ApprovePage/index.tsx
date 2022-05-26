@@ -143,6 +143,59 @@ export default function ApprovePage() {
   ];
   const columns = useMemo(() => columnData, []);
 
+
+  const data = useMemo(
+    () =>
+      requestUser.map((v) => ({
+        // "profile" : v.user.profile,
+        nickname: v.user.nickname,
+        sex: v.user.sex,
+        requestDay: v.requestDay,
+        address: v.address,
+        button: (
+          <ButtonWrapper>
+            <Button
+              id="btn1"
+              type="primary"
+              ghost
+              onClick={() => onClickApprove(v.address)}
+            >
+              승인하기
+            </Button>
+            <Button
+              id="btn2"
+              type="primary"
+              danger
+              ghost
+              onClick={() => onClickReject(v.address)}
+            >
+              거절하기
+            </Button>
+          </ButtonWrapper>
+        ),
+      })),
+    [requestUser]
+  );
+
+  useEffect(() => {
+    console.log("data", data);
+  }, [data]);
+
+  return (
+    <Styles>
+      <Table columns={columns} data={data} pagination />
+    </Styles>
+  );
+}
+const ButtonWrapper = styled.div`
+  #btn1 {
+    margin-right: 10px;
+  }
+`;
+
+
+
+
   // const temp = useMemo(
   //   () => [
   //     {
@@ -283,51 +336,3 @@ export default function ApprovePage() {
   //   ],
   //   []
   // );
-  const data = useMemo(
-    () =>
-      requestUser.map((v) => ({
-        // "profile" : v.user.profile,
-        nickname: v.user.nickname,
-        sex: v.user.sex,
-        requestDay: v.requestDay,
-        address: v.address,
-        button: (
-          <ButtonWrapper>
-            <Button
-              id="btn1"
-              type="primary"
-              ghost
-              onClick={() => onClickApprove(v.address)}
-            >
-              승인하기
-            </Button>
-            <Button
-              id="btn2"
-              type="primary"
-              danger
-              ghost
-              onClick={() => onClickReject(v.address)}
-            >
-              거절하기
-            </Button>
-          </ButtonWrapper>
-        ),
-      })),
-    [requestUser]
-  );
-
-  useEffect(() => {
-    console.log("data", data);
-  }, [data]);
-
-  return (
-    <Styles>
-      <Table columns={columns} data={data} pagination />
-    </Styles>
-  );
-}
-const ButtonWrapper = styled.div`
-  #btn1 {
-    margin-right: 10px;
-  }
-`;
