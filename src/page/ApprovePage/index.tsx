@@ -18,10 +18,12 @@ export interface IApproveUser {
   address: string;
 }
 const Styles = styled.div`
-  margin: 4rem;
-
-  border:2px solid black;
+  
+  padding: 3rem;
+  width: 100%;
+  border: 2px solid #0000007f;
   table {
+    text-align: center;
     width: 100%;
     text-align: center;
     border-spacing: 0;
@@ -149,31 +151,32 @@ export default function ApprovePage() {
   const columns = useMemo(() => columnData, []);
   const temp = useMemo(
     () => [
-      // {
-      //   nickname: "aa",
-      //   sex: "남자",
-      //   requestDay: 27,
-      //   address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-      //   button: (
-      //     <ButtonWrapper>
-      //       <Button id="btn1" type="primary" ghost>
-      //         승인하기
-      //       </Button>
-      //       <Button id="btn2" type="primary" danger>
-      //         거절하기
-      //       </Button>
-      //     </ButtonWrapper>
-      //   ),
-      // },
       {
-        profile: <img  width="60" height="60" src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
+        profile: <img  width="60" height="60" style={{borderRadius:"30%"}}src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
+        nickname: "aa",
+        sex: "남자",
+        requestDay: 27,
+        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+        button: (
+          <ButtonWrapper>
+            <Button id="btn1" type="primary" ghost>
+              승인하기
+            </Button>
+            <Button id="btn2" type="primary" danger>
+              거절하기
+            </Button>
+          </ButtonWrapper>
+        ),
+       },
+      {
+        profile: <img  width="60" height="60" style={{borderRadius:"30%"}}src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
         nickname: "aa",
         sex: "남자",
         requestDay: 27,
         address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
       },
       {
-        profile: <img  width="60" height="60" src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
+        profile: <img  width="60" height="60"style={{borderRadius:"30%"}} src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
         nickname: "aa",
         sex: "남자",
         requestDay: 27,
@@ -198,7 +201,7 @@ export default function ApprovePage() {
         address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
       },
       {
-        profile: <img  width="60" height="60" src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
+        profile: <img  width="60" height="60" style={{borderRadius:"30%"}}src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
         nickname: "ba",
         sex: "자",
         requestDay: 27,
@@ -296,7 +299,7 @@ export default function ApprovePage() {
     () =>
       requestUser.map((v) => ({
   
-        profile : (<img  width="60" height="60" src={`http://${SERVER_URL}${v.user.profile}`}></img>),
+        profile : (<Profile  width="60" height="60" src={`http://${SERVER_URL}${v.user.profile}`}></Profile>),
         nickname: v.user.nickname,
         requestDay: v.requestDay,
         sex: v.user.sex,
@@ -331,18 +334,26 @@ export default function ApprovePage() {
   }, [data]);
 
   return (
+    <div>
     <Styles>
       <Table columns={columns} data={temp} pagination />
     </Styles>
+    </div>
   );
 }
 const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
   #btn1 {
     margin-right: 10px;
+  
   }
 `;
 
 
 
-
-  
+const Profile = styled.img`
+  width: 60px;
+  height: 60px;
+  border-radius: 30%;
+`

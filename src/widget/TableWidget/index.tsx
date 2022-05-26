@@ -1,5 +1,6 @@
 import React from "react";
 import { usePagination, useTable } from "react-table";
+import styled from "styled-components";
 
 export default function Table({ columns, data, pagination }: any) {
   const {
@@ -22,13 +23,14 @@ export default function Table({ columns, data, pagination }: any) {
     {
       columns,
       data,
-      initialState: { pageIndex: 0 },
+      initialState: { pageIndex: 0,pageSize:5},
     },
     usePagination
   );
 
   return (
     <div>
+      <div>
       {/* <pre>
                 <code>
                     {
@@ -69,7 +71,11 @@ export default function Table({ columns, data, pagination }: any) {
           })}
         </tbody>
       </table>
-      {pagination && (
+
+
+      
+     </div>
+     { (
         <div className="pagination">
           <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
             {"<<"}
@@ -94,7 +100,7 @@ export default function Table({ columns, data, pagination }: any) {
           </span>
           <span>
             | Go to page:{" "}
-            <input
+            {/* <input
               type="number"
               defaultValue={pageIndex + 1}
               onChange={(e) => {
@@ -102,9 +108,9 @@ export default function Table({ columns, data, pagination }: any) {
                 gotoPage(page);
               }}
               style={{ width: "100px" }}
-            ></input>
+            ></input> */}
           </span>{" "}
-          <select
+          {/* <select
             value={pageSize}
             onChange={(e) => {
               setPageSize(Number(e.target.value));
@@ -115,9 +121,14 @@ export default function Table({ columns, data, pagination }: any) {
                 Show {pageSize}
               </option>
             ))}
-          </select>
+          </select> */}
+          
         </div>
       )}
     </div>
   );
 }
+
+// const Pagination = styled(pagination)`
+  
+// `
