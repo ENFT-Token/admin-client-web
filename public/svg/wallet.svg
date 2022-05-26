@@ -1,0 +1,5 @@
+<svg id="office_1" data-name="office 1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <path id="office_1_Background_Mask_" data-name="office 1 (Background/Mask)" d="M0,0H20V20H0Z" fill="none"/>
+  <path id="Vector" d="M7.458.567A.845.845,0,0,0,6.667,0H2.5A2.507,2.507,0,0,0,0,2.5V4.167H5.492L7.867,1.792Z" transform="translate(1.667 2.5)" fill="#1879c3"/>
+  <path id="Vector-2" data-name="Vector" d="M9.707,0,6.554,3.215a.869.869,0,0,1-.6.251H0V10.4a2.634,2.634,0,0,0,.749,1.836A2.533,2.533,0,0,0,2.55,13h11.9a2.533,2.533,0,0,0,1.8-.764A2.634,2.634,0,0,0,17,10.4V2.6A2.634,2.634,0,0,0,16.251.764,2.533,2.533,0,0,0,14.45,0H9.707Z" transform="translate(2 5)" fill="#1879c3"/>
+</svg>
