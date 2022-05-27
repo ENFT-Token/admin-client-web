@@ -90,7 +90,7 @@ export default function Table({ columns, data, pagination }: any) {
                   return (pageNum * LIST_NUM) - 1 < v && v <= (LIST_NUM * (pageNum + 1)) - 1
                 } 
               })
-                .map((v) => (<button id="btnEach" onClick={(() => gotoPage(v))}>{v + 1}</button>))
+                .map((v) => (<button className={`btnEach ${"~~~" === "?" ? "select" : "" }`} onClick={(() => gotoPage(v))}>{v + 1}</button>))
               }
             </span>
             <IoIosArrowForward className="arrow" onClick={() => setPageNum((v) => (Math.min(Math.floor(pageCount / LIST_NUM), v + 1)))}>{">"}</IoIosArrowForward>
@@ -131,13 +131,8 @@ const Paginations = styled.div`
   border:1px solid rgba(117,147,170,0.4);
   border-radius: 10px;
 
-    #btnEach:focus{
-      background: #1879C3 0% 0% no-repeat padding-box;
-    transition: 0.2s;
-    color:white;
-    box-shadow: 0px 7px 16px #00000024;
-    }
-    #btnEach{
+   
+    .btnEach{
       background-color:#f9f9f9;
       width:60px;
       height:35px;
@@ -147,6 +142,12 @@ const Paginations = styled.div`
       font-size: 15px;
       text-align: center;
   }
+  .btnEach:hover{
+      background: #1879C3 0% 0% no-repeat padding-box;
+    transition: 0.2s;
+    color:white;
+    box-shadow: 0px 7px 16px #00000024;
+    }
   }
 `
 

@@ -29,16 +29,9 @@ export const Styles = styled.div`
     width: 100%;
     text-align: center;
     border-spacing: 0;
-    /* tr {
-      :last-child {
-        td {
-          border-bottom: 0;
-        }
-      }
-    } */
+   
     th { //head
     margin: 0;
-    /* padding-right: 1rem; */
     padding: 20px;
     border-bottom: 2px solid rgba(214, 215, 217,0.5);
     
@@ -52,9 +45,7 @@ export const Styles = styled.div`
     border-bottom: 1px solid rgba(214, 215, 217,0.5);
     height:50px;
   }
-  /* .pagination {
-    padding: 0.5rem;
-  } */
+
   }
   
 `;
