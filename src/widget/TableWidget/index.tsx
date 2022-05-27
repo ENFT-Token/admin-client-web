@@ -80,8 +80,9 @@ export default function Table({ columns, data, pagination }: any) {
      </div>
 
 
-     { 
+     <div >dd</div>
         <Paginations>
+        
           <div className="buttonWrap">
             <IoIosArrowBack className="arrow"  onClick={() => setPageNum((v) => (Math.max(0, v - 1)))} >{"<"}</IoIosArrowBack>
             <span id="buttonList">
@@ -98,7 +99,7 @@ export default function Table({ columns, data, pagination }: any) {
             <IoIosArrowForward className="arrow" onClick={() => setPageNum((v) => (Math.min(Math.floor(pageCount / LIST_NUM), v + 1)))}>{">"}</IoIosArrowForward>
           </div>
         </Paginations>
-      }
+
     </div>
   );
 }
