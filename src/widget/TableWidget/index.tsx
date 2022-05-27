@@ -148,3 +148,48 @@ export default function Table({ columns, data, pagination }: any) {
 }
 
 
+
+const ButtonWrap = styled.div`
+
+  *{
+  
+    background-color: white;
+  }
+  .arrow{
+    border:1px solid rgba(117,147,170,0.4);
+    border-radius: 10px;
+    width:45px;
+    height:35px;
+    margin:10px;
+    font-size: 15px;
+    
+    
+  
+  }
+
+  #buttonList{
+  border:1px solid rgba(117,147,170,0.4);
+  border-radius: 10px;
+  padding-top:8px;
+  padding-bottom:8px;
+  
+    #btnEach:hover{
+    background-color:rgba(132,166,208);
+    transition: 0.2s;
+    }
+    #btnEach{
+      width:45px;
+      height:35px;
+      border:none;
+      border-radius: 10px;
+      cursor: pointer; 
+      font-size: 15px;
+      text-align: center;
+  }
+  }
+ 
+
+  
+
+`
+
