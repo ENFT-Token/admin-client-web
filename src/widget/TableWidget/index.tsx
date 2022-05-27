@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { usePagination, useTable, } from "react-table";
+import styled from "styled-components";
+import Pagination from "@material-ui/lab/Pagination";
 
 const LIST_NUM = 6;
 export default function Table({ columns, data, pagination }: any) {
@@ -124,7 +126,7 @@ export default function Table({ columns, data, pagination }: any) {
               </option>
             ))}
           </select> */}
-          <div>
+          <ButtonWrap>
             <button className="arrow" onClick={() => setPageNum((v) => (Math.max(0, v - 1)))} >{"<"}</button>
             <span id="buttonList">
               {pageOptions.filter(v => {
@@ -138,20 +140,16 @@ export default function Table({ columns, data, pagination }: any) {
               }
             </span>
             <button className="arrow" onClick={() => setPageNum((v) => (Math.min(Math.ceil(pageCount / LIST_NUM), v + 1)))} >{">"}</button>
-          </div>
+          </ButtonWrap>
         </div>
       )}
     </div>
   );
 }
-
-
-
 const ButtonWrap = styled.div`
 
   *{
-  
-    background-color: white;
+    margin:0;
   }
   .arrow{
     border:1px solid rgba(117,147,170,0.4);
@@ -160,8 +158,7 @@ const ButtonWrap = styled.div`
     height:35px;
     margin:10px;
     font-size: 15px;
-    
-    
+
   
   }
 
@@ -170,7 +167,7 @@ const ButtonWrap = styled.div`
   border-radius: 10px;
   padding-top:8px;
   padding-bottom:8px;
-  
+
     #btnEach:hover{
     background-color:rgba(132,166,208);
     transition: 0.2s;
@@ -190,4 +187,6 @@ const ButtonWrap = styled.div`
   
 
 `
+
+
 
