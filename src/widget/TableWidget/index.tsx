@@ -29,9 +29,11 @@ export default function Table({ columns, data, pagination }: any) {
     },
     usePagination
   );
-    const [ pageNum,setPageNum] = useState(1);
+    const [ pageNum,setPageNum] = useState(0);
 
-
+    useEffect(()=>{
+      console.log("num",pageNum,pageCount,pageIndex)
+    },[])
   return (
     <div>
       <div>
@@ -134,7 +136,7 @@ const Paginations = styled.div`
    
     .btnEach{
       background-color:#f9f9f9;
-      width:60px;
+      width:45px;
       height:35px;
       border:none;
       border-radius: 10px;
