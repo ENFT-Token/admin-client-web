@@ -3,7 +3,7 @@ import { usePagination, useTable, } from "react-table";
 import styled from "styled-components";
 import Pagination from "@material-ui/lab/Pagination";
 
-const MAX_PAGE_NUM = 5;
+const LIST_NUM = 6;
 export default function Table({ columns, data, pagination }: any) {
   const {
     getTableProps, //table head
@@ -25,13 +25,26 @@ export default function Table({ columns, data, pagination }: any) {
     {
       columns,
       data,
-      initialState: { pageIndex: 0,pageSize:5},
+      initialState: { pageIndex: 0, pageSize: 6 },
     },
     usePagination
   );
     const [ pageNum,setPageNum] = useState(1);
 
+  useEffect(() => {
+    console.log("pageOptions", pageOptions.filter(v => {
+      if (pageNum === 0)
+        return 0 <= v && v <= LIST_NUM - 1
+      else {
+        return (pageNum * LIST_NUM) - 1 < v && v <= (LIST_NUM * (pageNum + 1)) - 1
+      }
+    }))
 
+
+
+    console.log("pageNum", pageNum, pageCount);
+
+  }, [pageNum])
   return (
     <div>
       <div>
@@ -113,19 +126,25 @@ export default function Table({ columns, data, pagination }: any) {
               </option>
             ))}
           </select> */}
-          <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>{"<<"}</button>
-          <button onClick={() => setPageNum((v)=>Math.max(0,v-1))} disabled={!canPreviousPage}>{"<"}</button>
-          {pageOptions.filter(v=>v<=MAX_PAGE_NUM*pageNum && MAX_PAGE_NUM*(pageNum-1)<v)
-          .map((v) =>(<button onClick={(()=>gotoPage(v))}>{v}</button>))
-          }
-          <button onClick={() => setPageNum((v)=>Math.min(pageCount/5,v+1))} disabled={!canNextPage}>{">"}</button>
-          <button onClick={() => gotoPage(pageCount - 1)}disabled={!canNextPage}>{">>"}</button>
+          <div>
+            <button className="arrow" onClick={() => setPageNum((v) => (Math.max(0, v - 1)))} >{"<"}</button>
+            <span id="buttonList">
+              {pageOptions.filter(v => {
+                if (pageNum === 0)
+                  return 0 <= v && v <= LIST_NUM - 1
+                else {
+                  return (pageNum * LIST_NUM) - 1 < v && v <= (LIST_NUM * (pageNum + 1)) - 1
+                } 
+              })
+                .map((v) => (<button id="btnEach" onClick={(() => gotoPage(v))}>{v + 1}</button>))
+              }
+            </span>
+            <button className="arrow" onClick={() => setPageNum((v) => (Math.min(Math.ceil(pageCount / LIST_NUM), v + 1)))} >{">"}</button>
+          </div>
         </div>
       )}
     </div>
   );
 }
 
-// const Pagination = styled(pagination)`
-  
-// `
+
