@@ -4,16 +4,13 @@ import styled from "styled-components";
 import { IoChevronForward } from "react-icons/io5";
 import AlramIcon from "../../components/AlramIcon";
 import {useNavigate} from "react-router-dom";
-interface IMemo {
-  id: string;
-  name: string;
-  text: string;
-  createdAt: string;
-}
+import { IMemo } from "../../page/MemoPage";
+import moment from "moment";
 
 const StyleMemo = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
     padding: 30px 30px 30px 30px;
    .line {
      cursor: pointer;
@@ -36,6 +33,7 @@ const StyleMemo = styled.div`
 
 const StyleMemoItem = styled.div`
   display: flex;
+  margin-bottom: 10px;
   .timestamp {
     display: flex;
     align-items: center;
@@ -44,6 +42,7 @@ const StyleMemoItem = styled.div`
       margin-right: 40px;
     }
     .bar {
+      border-radius: 5px;
       display: inline-block;
       background: #E8E8E8;
       width: 7px;
@@ -79,10 +78,10 @@ function MemoItem({timestamp,value} : IMemoItemProps) {
     </div>
     <div className={"memo"}>
       <div className={"body"}>
-        안녕하세요.
+        {value}
       </div>
       <div className={"date"}>
-        yyyy-MM-ss HH:MM:SS
+        {moment(timestamp).format("yyyy-MM-ss HH:MM:SS")}
       </div>
     </div>
   </StyleMemoItem>
@@ -117,8 +116,8 @@ export default function MemoWidget() {
           <AlramIcon src={"/svg/memo.svg"} count={memoList.length} />
           <div className={"dashed"}/>
         </div>
-      <div style={{marginTop:'20px'}}>
-        <MemoItem value={"sad"} timestamp={123} />
+      <div style={{marginTop:'20px',overflow:'auto'}}>
+        {memoList.map((memo,idx) =>   <MemoItem value={memo.value} key={`memo-${idx}`} timestamp={memo.timestamp} />)}
       </div>
     </StyleMemo>
   );

@@ -51,7 +51,7 @@ function ListWidget({ title,items,onViewMoreClick }: IListItemProps) {
             <div className="title" >{title}</div>
             <div className="count">You have total list of {items.length}</div>
         </div>
-        <div style={{flex: 7}}>
+        <div style={{flex: 7,overflow:'auto'}}>
             {items.map((item,idx) => (
                 <div className={"userList"} key={`userList=${idx}`}>
                     <UserInfo src={"/svg/logo.svg"} name={"asds"} subname={"sd"}/>
