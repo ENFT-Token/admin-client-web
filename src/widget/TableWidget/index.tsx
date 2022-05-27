@@ -19,7 +19,7 @@ const StyleTable = styled.table`
 
   text-align: center;
   width: 100%;
-  text-align: center;
+
   border-spacing: 0;
 
   th { //head

@@ -3,15 +3,24 @@ import { SERVER_URL } from '../../confing';
 import { RequestAuth } from '../../models/Request';
 import Table, { Title } from '../../widget/TableWidget';
 import { Profile } from '../ApprovePage';
-import { IListData } from '../MembersPage';
-
+import moment from "moment";
+interface ICheckList{
+  address :string;
+  profile :string;
+  location :string;
+  sex :string;
+  nickname :string;
+  updateAt :string;
+  createAt :string;
+  privateKey :string;
+}
 
 export default function CheckIn()  {
-  const [checkList,setCheckList] = useState<IListData[]>([]);
+  const [checkList,setCheckList] = useState<ICheckList[]>([]);
   useEffect(()=>{
     const fetch = async ()=>{
       try{
-        const response = await RequestAuth("GET","/check/count");
+        const response = await RequestAuth("GET","/check");
         setCheckList(response.data)
         console.log("response",response.data)
       }
@@ -32,8 +41,8 @@ export default function CheckIn()  {
         accessor: "nickname",
       },
       {
-        Header: "만료일",
-        accessor: "requestDay",
+        Header: "입장 시간",
+        accessor: "checktime",
       },
       {
         Header: "성별",
@@ -53,7 +62,7 @@ export default function CheckIn()  {
       return{
         profile : (<Profile  width="60" height="60" src={`http://${SERVER_URL}${v.profile}`}></Profile>),
         nickname: v.nickname,
-        //requestDay: v.,
+        checktime: moment(v.updateAt).format("hh시 mm분"),
         sex: v.sex,
         address: v.address,
       }
