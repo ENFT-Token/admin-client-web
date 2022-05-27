@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { usePagination, useTable, } from "react-table";
+import { Column, usePagination, useTable, } from "react-table";
 import styled from "styled-components";
 
 import { IoIosArrowBack,IoIosArrowForward } from "react-icons/io";
 const LIST_NUM = 6;
-export default function Table({ columns, data, pagination }: any) {
+
+type ColumnType = "Header" | "accessor";
+export interface ITableProps {
+  columns:Record<ColumnType, string>[]; 
+  data:any;
+} 
+export default function Table({ columns, data } : ITableProps) {
   const {
     getTableProps, //table head
     getTableBodyProps, //table body
@@ -37,21 +43,7 @@ export default function Table({ columns, data, pagination }: any) {
   return (
     <div>
       <div>
-      {/* <pre>
-                <code>
-                    {
-                        JSON.stringify({
-                            pageIndex,
-                            pageSize,
-                            pageCount,
-                            canNextPage,
-                            canPreviousPage,
-                        },
-                            null,
-                            1
-                        )}
-                </code>
-            </pre> */}
+     
 
       <table {...getTableProps()}>
         <thead>
@@ -65,11 +57,11 @@ export default function Table({ columns, data, pagination }: any) {
         </thead>
 
         <tbody {...getTableBodyProps()}>
-          {page.map((page: any) => {
-            prepareRow(page);
+          {page.map((_page) => {
+            prepareRow(_page);
             return (
-              <tr {...page.getRowProps()}>
-                {page.cells.map((cell: any) => (
+              <tr {..._page.getRowProps()}>
+                {_page.cells.map((cell) => (
                   <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                 ))}
               </tr>
@@ -80,7 +72,7 @@ export default function Table({ columns, data, pagination }: any) {
      </div>
 
 
-     <div className="total">dd</div>
+     <div className="totalCount">Total Count : {}</div>
         <Paginations>
         
           <div className="buttonWrap">

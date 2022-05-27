@@ -115,7 +115,26 @@ export default function ApprovePage() {
   };
 
   //@@@@@ react-table@@@@@
-  const columnData = [
+
+  let arr:any=[]
+  let i=0;
+  for(let i=0; i<125; i++){
+    arr.push({ 
+      profile: <img  width="50" height="50" style={{borderRadius:"30%"}}src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
+    nickname: "sdsdwdwdw",
+    sex: "남자",
+    requestDay: i,
+    address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
+    button: 
+      <ButtonWrapper>
+        <Button id="btn1" type={"green"} width={85} height={32} value={"승인하기"}></Button>
+        <Button type={"black"} width={85} height={32} value={"거절하기"}></Button>
+        
+      </ButtonWrapper>})
+   
+  };
+  
+  const columns = useMemo(() => [
     {
       Header: "프로필",
       accessor: "profile",
@@ -141,25 +160,7 @@ export default function ApprovePage() {
       Header: "",
       accessor: "button",
     },
-  ];
-  let arr:any=[]
-  let i=0;
-  for(let i=0; i<125; i++){
-    arr.push({ 
-      profile: <img  width="50" height="50" style={{borderRadius:"30%"}}src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
-    nickname: "sdsdwdwdw",
-    sex: "남자",
-    requestDay: i,
-    address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-    button: 
-      <ButtonWrapper>
-        <Button id="btn1" type={"green"} width={85} height={32} value={"승인하기"}></Button>
-        <Button type={"black"} width={85} height={32} value={"거절하기"}></Button>
-        
-      </ButtonWrapper>})
-   
-  };
-  const columns = useMemo(() => columnData, []);
+  ], []);
   const temp = useMemo(
     () => arr,
     []
@@ -193,7 +194,7 @@ export default function ApprovePage() {
   return (
     <div>
     <Styles>
-      <Table columns={columns} data={temp} pagination />
+      <Table columns={columns} data={temp} />
     </Styles>
     </div>
   );

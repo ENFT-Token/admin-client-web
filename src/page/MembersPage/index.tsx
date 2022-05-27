@@ -94,7 +94,7 @@ export default function MembersPage() {
   return (
     <div>
       <StylesTable>
-        <Table columns={columns} data={temp} pagination />
+        <Table columns={columns} data={temp} />
       </StylesTable>
     </div>
   );
