@@ -5,11 +5,12 @@ import { SERVER_URL } from "../../confing";
 import { Rootstate } from "../../models";
 import { addAllUser, addUser, deleteUser } from "../../models/members";
 import styled from "styled-components";
-import { Button } from "antd";
+
 import Table from "../../widget/TableWidget";
 import { RequestAuth } from "../../models/Request";
 import { toast } from "react-toastify";
 import { arrayBuffer } from "stream/consumers";
+import Button from "../../components/Button";
 
 export interface IApproveUser {
   profile: string;
@@ -161,12 +162,8 @@ export default function ApprovePage() {
     address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
     button: 
       <ButtonWrapper>
-        <Button id="btn1" type="primary" ghost>
-          승인하기
-        </Button>
-        <Button id="btn2" type="primary" danger>
-          거절하기
-        </Button>
+        <Button type={"black"} width={85} height={32} value={"거절하기"}></Button>
+        <Button type={"green"} width={85} height={32} value={"승인하기"}></Button> 
       </ButtonWrapper>})
    
   };
@@ -187,7 +184,7 @@ export default function ApprovePage() {
         address: v.address,
         button: (
           <ButtonWrapper>
-            <Button
+            {/* <Button
               id="btn1"
               type="primary"
               ghost
@@ -203,7 +200,11 @@ export default function ApprovePage() {
               onClick={() => onClickReject(v.address)}
             >
               거절하기
-            </Button>
+            </Button> */}
+            <Button type={"black"} width={85} height={32} value={"거절하기"}
+              onClick={() => onClickApprove(v.address)} />
+            <Button type={"green"} width={85} height={32} value={"승인하기"}
+              onClick={() => onClickReject(v.address)} />
           </ButtonWrapper>
         ),
       })),
