@@ -2,6 +2,7 @@ body{
    margin:0;
    padding:0;
    font-family: 'Noto Sans KR', sans-serif;
-   user-select:none
+   user-select:none;
+   background: #f9f9f9;
 }
 
