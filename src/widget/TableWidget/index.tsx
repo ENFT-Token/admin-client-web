@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { usePagination, useTable, } from "react-table";
 import styled from "styled-components";
-import Pagination from "@material-ui/lab/Pagination";
+
 import { IoIosArrowBack,IoIosArrowForward } from "react-icons/io";
 const LIST_NUM = 6;
 export default function Table({ columns, data, pagination }: any) {
@@ -80,7 +80,7 @@ export default function Table({ columns, data, pagination }: any) {
      </div>
 
 
-     <div >dd</div>
+     <div className="total">dd</div>
         <Paginations>
         
           <div className="buttonWrap">
