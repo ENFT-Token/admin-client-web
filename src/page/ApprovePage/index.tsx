@@ -21,7 +21,7 @@ export interface IApproveUser {
 }
 export const Styles = styled.div`
   
-  padding: 3rem;
+  padding: 1.5rem;
   width: 100%;
 
   table {
@@ -193,6 +193,7 @@ export default function ApprovePage() {
 
   return (
     <div>
+      <h1 style={{fontSize:"30px", margin:"10px 0 0 40px"}}>Approval Requests List</h1>
     <Styles>
       <Table columns={columns} data={temp} />
     </Styles>
@@ -208,9 +209,6 @@ export const ButtonWrapper = styled.div`
 
 
 `;
-
-
-
 const Profile = styled.img`
   width: 60px;
   height: 60px;

@@ -72,7 +72,7 @@ export default function Table({ columns, data } : ITableProps) {
      </div>
 
 
-     <div className="totalCount">Total Count : {}</div>
+     <div className="totalCount" style={{float:"right", fontSize:"20px", marginTop:"5px"}}>Total Count : {data.length}</div>
         <Paginations>
         
           <div className="buttonWrap">
@@ -100,7 +100,7 @@ const Paginations = styled.div`
   &{
   display: flex;
   justify-content: center;
-  margin-top:50px;
+  margin-top:20px;
   }
   .buttonWrap{
   display: flex;
@@ -146,7 +146,7 @@ const Paginations = styled.div`
       }
   }
   .btnEach:hover{
-      background: #1879C3 0% 0% no-repeat padding-box;
+    background: #1879C3 0% 0% no-repeat padding-box;
     transition: 0.2s;
     color:white;
     box-shadow: 0px 7px 16px #00000024;
