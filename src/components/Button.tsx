@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 interface IButtonProps extends InputHTMLAttributes<HTMLInputElement> {
   type: "ghost" | "blue" | "green" | "black" | "outline";
-  width?: number;
-  height?: number;
+  width?: number | string;
+  height?: number | string;
 }
 
 interface IStyleProps {
@@ -45,7 +45,8 @@ const StyledButton = styled.input<IStyleProps>`
     background: #fff;
     font-weight: bold;
     &:hover {
-      color: rgba(24, 121, 195, 0.6);
+      background: #1879c3;
+      color:white;
     }
   }
 

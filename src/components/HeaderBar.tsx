@@ -13,6 +13,7 @@ import {IUserInfoProps} from "./components-type";
 import {useSelector} from "react-redux";
 import {Rootstate} from "../models";
 import {SERVER_URL} from "../confing";
+import UserInfo from "./UserInfo";
 
 const StyledHeaderBar = styled.div`
   position: fixed;
@@ -44,7 +45,6 @@ const StyledSearchBar = styled.div`
   }
 `;
 
-
 function SearchBar() {
     return <StyledSearchBar>
                 <img src={"/svg/search.svg"} />
@@ -53,34 +53,16 @@ function SearchBar() {
 }
 
 
-const StyleUserInfo = styled.div`
+
+const StyleProfile = styled.div`
+  display: flex;
   margin-top: 15px;
   float: right;
-  display: flex;
-  margin-bottom: 13px;
   cursor: pointer;
+  margin-bottom: 13px;
   margin-right: 20px;
   padding: 15px;
   border-radius: 10px;
-
-  img {
-    width: 57px;
-    height: 57px;
-    border-radius: 10px;
-    margin-right: 24px;
-  }
-
-  .place {
-    color: #000000;
-    font-size: 16px;
-    margin-bottom: 3px;
-  }
-
-  .role {
-    color: #8F8F8F;
-    font-size: 14px;
-  }
-
   svg {
     margin-left: 30px;
     margin-top: 20px;
@@ -90,23 +72,17 @@ const StyleUserInfo = styled.div`
   &:hover {
     background: #e9e9e9;
   }
-`;
 
+`
 
 function SmallProfile({ src, place }: { src: string, place: string }) {
     return (
-        <StyleUserInfo>
-            <div className="icon_wrapper">
-                <img src={src} />
-            </div>
-            <div>
-                <div className="place">{place}</div>
-                <div className="role">Super Admin</div>
-            </div>
+        <StyleProfile>
+            <UserInfo src={src} name={place}  subname={"Super Admin"}/>
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="8" viewBox="0 0 15 8">
                 <path id="arrow" d="M15,0,7.5,8,0,0Z" fill="#c4c4c4"/>
             </svg>
-        </StyleUserInfo>
+        </StyleProfile>
     )
 }
 

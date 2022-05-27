@@ -5,6 +5,8 @@ import {
     Link,
     useLocation,
 } from "react-router-dom";
+import {useSelector} from "react-redux";
+import {Rootstate} from "../models";
 
 const StyledSideBar = styled.div`
   position: fixed;
@@ -105,6 +107,7 @@ const StyledSideBar = styled.div`
 `;
 export default function SideBar() {
     const location = useLocation();
+    const admin = useSelector((store: Rootstate) => store.admin.adminInfo);
 
     return (
         <StyledSideBar>
@@ -119,69 +122,71 @@ export default function SideBar() {
                 </div>
             </div>
             <div className="menu">
-                <Link
-                    to="/"
-                    className={`menuItem ${location.pathname === "/" ? "select" : ""}`}
-                >
-                    Home
-                </Link>
-                <Link
-                    to="/price_info"
-                    className={`menuItem ${
-                        location.pathname === "/price_info" ? "select" : ""
-                    }`}
-                >
-                    Setting
-                </Link>
-                <Link
-                    to="/members"
-                    className={`menuItem ${
-                        location.pathname === "/members" ? "select" : ""
-                    }`}
-                >
-                    Members
-                </Link>
-                <Link
-                    to="/approve"
-                    className={`menuItem ${
-                        location.pathname === "/approve" ? "select" : ""
-                    }`}
-                >
-                    Approve
-                </Link>
-                <Link
-                    to="/checkin"
-                    className={`menuItem ${
-                        location.pathname === "/checkin" ? "select" : ""
-                    }`}
-                >
-                    Check In
-                </Link>
-                <Link
-                    to="/profit"
-                    className={`menuItem ${
-                        location.pathname === "/profit" ? "select" : ""
-                    }`}
-                >
-                    Profit
-                </Link>
-                <Link
-                    to="/memo"
-                    className={`menuItem ${
-                        location.pathname === "/memo" ? "select" : ""
-                    }`}
-                >
-                    Memo
-                </Link>
-                <Link
+                {admin ? (
+                    <>
+                        <Link
+                            to="/"
+                            className={`menuItem ${location.pathname === "/" ? "select" : ""}`}
+                        >
+                            Home
+                        </Link>
+                        <Link
+                            to="/price_info"
+                            className={`menuItem ${
+                                location.pathname === "/price_info" ? "select" : ""
+                            }`}
+                        >
+                            Setting
+                        </Link>
+                        <Link
+                            to="/members"
+                            className={`menuItem ${
+                                location.pathname === "/members" ? "select" : ""
+                            }`}
+                        >
+                            Members
+                        </Link>
+                        <Link
+                            to="/approve"
+                            className={`menuItem ${
+                                location.pathname === "/approve" ? "select" : ""
+                            }`}
+                        >
+                            Approve
+                        </Link>
+                        <Link
+                            to="/checkin"
+                            className={`menuItem ${
+                                location.pathname === "/checkin" ? "select" : ""
+                            }`}
+                        >
+                            Check In
+                        </Link>
+                        <Link
+                            to="/profit"
+                            className={`menuItem ${
+                                location.pathname === "/profit" ? "select" : ""
+                            }`}
+                        >
+                            Profit
+                        </Link>
+                        <Link
+                            to="/memo"
+                            className={`menuItem ${
+                                location.pathname === "/memo" ? "select" : ""
+                            }`}
+                        >
+                            Memo
+                        </Link>
+                    </>
+                ) :  <Link
                     to="/login"
                     className={`menuItem ${
                         location.pathname === "/login" ? "select" : ""
                     }`}
                 >
                     Sign up & Login
-                </Link>
-
+                </Link>}
                 <div className="footer">Copyright © Designed & Developed by ENFT</div>
             </div>
         </StyledSideBar>

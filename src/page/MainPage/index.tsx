@@ -53,10 +53,50 @@ export default function MainPage() {
         today checkin
         </div>
         <div key="approve" className="widget">
-        approve
+          <ListWidget title={"승인 요청 유저 리스트"} items={[{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          },{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          },{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          },{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          },{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          }]}/>
         </div>
         <div key="member" className="widget">
-          member
+          <ListWidget title={"접속중인 회원 리스트"} items={[{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          },{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          },{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          },{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          },{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          }]}/>
         </div>
 
         <div key="memo" className="widget">
