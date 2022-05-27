@@ -3,7 +3,7 @@ import { CgProfile } from "react-icons/cg";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Button from "../../components/Button";
-import UserInfo from "../../components/UserInfo";
+import MyInfo from "../../components/MyInfo";
 import { SERVER_URL } from "../../confing";
 import { Rootstate } from "../../models";
 import "./index.css";
@@ -89,17 +89,17 @@ export default function ProfileWidget() {
           <div className="role">Super Admin</div>
         </div>
         <div className="info_list">
-          <UserInfo
+          <MyInfo
             src="/svg/location.svg"
             label="LOCATION"
             value={admin?.location ?? ""}
           />
-          <UserInfo
+          <MyInfo
             src="/svg/phone.svg"
             label="PHONE"
             value={admin?.phone ?? ""}
           />
-          <UserInfo
+          <MyInfo
             src="/svg/wallet.svg"
             label="WALLET"
             value={admin?.address ?? ""}

@@ -1,47 +1,56 @@
 import styled from "styled-components";
 import { IUserInfoProps } from "./components-type";
+import React from "react";
+
+/**
+ *
+ *   margin-top: 15px;
+ *   float: right;
+ *   cursor: pointer;
+ *   margin-bottom: 13px;
+ *   margin-right: 20px;
+ */
 
 const StyleUserInfo = styled.div`
   display: flex;
-  margin-bottom: 13px;
-  .icon_wrapper {
-    width: 50px;
-    height: 50px;
-    margin-right: 20px;
-    background-color: #f5f5f5;
-    border-radius: 50px;
 
-    text-align: center;
-    line-height: 45px;
-    img {
-      height: 24px;
-    }
+  img {
+    width: 57px;
+    height: 57px;
+    border-radius: 10px;
+    margin-right: 24px;
   }
 
-  .label {
-    color: #c7c7c7;
+  .name {
+    color: #000000;
     font-size: 16px;
     margin-bottom: 3px;
   }
-  .value {
-    color: #202020;
-    font-size: 16px;
-    font-weight: bold;
+
+  .subName {
+    color: #8F8F8F;
+    font-size: 14px;
   }
 `;
 
-
-function UserInfo({ src, label, value }: IUserInfoProps) {
-  return (
-    <StyleUserInfo>
-      <div className="icon_wrapper">
-        <img src={src} />
-      </div>
-      <div>
-        <div className="label">{label}</div>
-        <div className="value">{value}</div>
-      </div>
-    </StyleUserInfo>
-  );
+export interface IUserInfo {
+    src: string;
+    name: string;
+    subname: string;
 }
+
+function UserInfo({ src, name, subname }: IUserInfo) {
+    return (
+        <StyleUserInfo>
+            <div className="icon_wrapper">
+                <img src={src} />
+            </div>
+            <div>
+                <div className="name">{name}</div>
+                <div className="subName">{subname}</div>
+            </div>
+        </StyleUserInfo>
+    )
+}
+
 export default UserInfo;

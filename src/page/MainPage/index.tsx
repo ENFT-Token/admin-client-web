@@ -18,18 +18,23 @@ import Alarm from "../../widget/AlarmWidget";
 import { MdChecklist } from "react-icons/md";
 import Footer from "../../widget/Footer/Footer";
 import ListWidget from "../../widget/ListWidget";
+import CountWidget from "../../widget/CountWidget";
+import {useNavigate} from "react-router-dom";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 export default function MainPage() {
   const admin = useSelector((store: Rootstate) => store.admin.adminInfo);
   const layout = [
-    { i: "todayCheckIn", x: 0, y: 0, w: 3, h: 3, isResizable: false, static: true},
-    { i: "checkin", x: 3, y: 0, w: 3, h: 3, isResizable: false, static: true},
-    { i: "approve", x: 0, y: 6, w: 3, h: 7},
-    { i: "member", x: 3, y: 6, w: 3, h: 7},
-    { i: "memo", x: 8, y: 3, w: 6, h: 4},
+    { i: "todayCheckIn", x: 0, y: 0, w: 3, h: 2, isResizable: false, static: true},
+    { i: "checkin", x: 3, y: 0, w: 3, h: 2, isResizable: false, static: true},
+    { i: "approve", x: 0, y: 5, w: 3, h: 8},
+    { i: "member", x: 3, y: 5, w: 3, h: 8},
+    { i: "memo", x: 8, y: 6, w: 6, h: 4},
     { i: "profile", x: 8, y: 0, w: 6, h: 6, isResizable: false,static: true },
   ];
+
+  const navigate = useNavigate();
+
 
   return (
     <div className="container">
@@ -46,17 +51,61 @@ export default function MainPage() {
           <ProfileWidget />
         </div>
         <div key="checkin" className="widget">
-          checkin
+          <CountWidget count={30} title={"현재 이용자 수"}  onClick={() => navigate("/checkin")}/>
         </div>
 
         <div key="todayCheckIn" className="widget">
-        today checkin
+          <CountWidget count={8842} title={"오늘 이용자 수"}/>
         </div>
         <div key="approve" className="widget">
-        approve
+          <ListWidget title={"승인 요청 유저 리스트"} items={[{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          },{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          },{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          },{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          },{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          },{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          }]}/>
         </div>
         <div key="member" className="widget">
-          member
+          <ListWidget title={"접속중인 회원 리스트"} items={[{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          },{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          },{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          },{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          },{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          }]}/>
         </div>
 
         <div key="memo" className="widget">
