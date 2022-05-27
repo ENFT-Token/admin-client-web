@@ -31,20 +31,7 @@ export default function Table({ columns, data, pagination }: any) {
   );
     const [ pageNum,setPageNum] = useState(1);
 
-  useEffect(() => {
-    console.log("pageOptions", pageOptions.filter(v => {
-      if (pageNum === 0)
-        return 0 <= v && v <= LIST_NUM - 1
-      else {
-        return (pageNum * LIST_NUM) - 1 < v && v <= (LIST_NUM * (pageNum + 1)) - 1
-      }
-    }))
 
-
-
-    console.log("pageNum", pageNum, pageCount);
-
-  }, [pageNum])
   return (
     <div>
       <div>
@@ -106,7 +93,7 @@ export default function Table({ columns, data, pagination }: any) {
                 .map((v) => (<button id="btnEach" onClick={(() => gotoPage(v))}>{v + 1}</button>))
               }
             </span>
-            <IoIosArrowForward className="arrow" onClick={() => setPageNum((v) => (Math.min(Math.ceil(pageCount / LIST_NUM), v + 1)))} >{">"}</IoIosArrowForward>
+            <IoIosArrowForward className="arrow" onClick={() => setPageNum((v) => (Math.min(Math.floor(pageCount / LIST_NUM), v + 1)))}>{">"}</IoIosArrowForward>
           </div>
         </Paginations>
       }
