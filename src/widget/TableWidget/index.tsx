@@ -42,7 +42,7 @@ export default function Table({ columns, data } : ITableProps) {
     },[])
   return (
     <div>
-      <div>
+      <TableForm>
      
 
       <table {...getTableProps()}>
@@ -56,20 +56,20 @@ export default function Table({ columns, data } : ITableProps) {
           ))}
         </thead>
 
-        <tbody {...getTableBodyProps()}>
+        <tbody className="tableBody"{...getTableBodyProps()}>
           {page.map((_page) => {
             prepareRow(_page);
             return (
-              <tr {..._page.getRowProps()}>
+              <tr className="trBody"{..._page.getRowProps()}>
                 {_page.cells.map((cell) => (
-                  <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                  <td className="tdBody" {...cell.getCellProps()}>{cell.render("Cell")}</td>
                 ))}
               </tr>
             );
           })}
         </tbody>
       </table>
-     </div>
+     </TableForm>
 
 
      <div className="totalCount" style={{float:"right", fontSize:"20px", marginTop:"5px"}}>Total Count : {data.length}</div>
@@ -95,6 +95,12 @@ export default function Table({ columns, data } : ITableProps) {
     </div>
   );
 }
+const TableForm  = styled.div`
+  /* .trBody:hover{
+    box-shadow : 3px 2px 2px 1px rgb(0 0 0 / 0.2);
+    transition: 0.3s;
+  } */
+`
 const Paginations = styled.div`
 
   &{
