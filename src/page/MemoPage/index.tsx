@@ -73,7 +73,7 @@ export default function MemoPage() {
           data={memoList.map((memo, idx) => ({
               timestamp: moment(memo.timestamp).format("yyyy-MM-DD hh:mm:ss"),
               value: memo.value,
-              run:<Button onClick={() => handleDelete(idx)} type={"red"} value={"삭제"} width={100} height={30} />,
+              run:<Button onClick={() => handleDelete(idx)} type={"green"} value={"완료"} width={100} height={30} />,
           }))}
       />
 
