@@ -14,6 +14,7 @@ import {useSelector} from "react-redux";
 import {Rootstate} from "../models";
 import {SERVER_URL} from "../confing";
 import UserInfo from "./UserInfo";
+import AlramIcon from "./AlramIcon";
 
 const StyledHeaderBar = styled.div`
   position: fixed;
@@ -86,6 +87,7 @@ function SmallProfile({ src, place }: { src: string, place: string }) {
     )
 }
 
+
 export default function HeaderBar() {
     const admin = useSelector((store: Rootstate) => store.admin.adminInfo);
     const location = useLocation();
@@ -93,7 +95,12 @@ export default function HeaderBar() {
     return (
         <StyledHeaderBar>
             <SearchBar />
-           <SmallProfile src={`http://${SERVER_URL}${admin?.cover_img}`} place={admin?.place ?? ""}/>
+           <SmallProfile src={`http://${SERVER_URL}${admin?.cover_img}`} place={admin?.place ?? ""} />
+            <div style={{float:'right',marginTop:"30px",marginRight:"62px"}}>
+                <AlramIcon src={"/svg/memo.svg"} count={2} onClick={() => {
+                    console.log("ASD")
+                }}/>
+            </div>
         </StyledHeaderBar>
     );
 }
