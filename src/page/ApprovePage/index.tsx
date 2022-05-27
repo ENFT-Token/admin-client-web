@@ -23,8 +23,14 @@ export const Styles = styled.div`
   
   padding: 1.5rem;
   width: 100%;
+  
 
   table {
+    box-shadow : 1px 1px 3px 1px rgb(0 0 0 / 0.2);
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 15px;
+
+
     text-align: center;
     width: 100%;
     text-align: center;
@@ -100,7 +106,7 @@ export default function ApprovePage() {
       toast.error("승인 실패");
     }
   };
-  const onClickReject = (address: string) => {
+    const onClickReject = (address: string) => {
     //거절하기
 
     const approvedUser = requestUser.find((data) => data.address === address); //승인하기 버튼 누른 유저정보
@@ -209,7 +215,7 @@ export const ButtonWrapper = styled.div`
 
 
 `;
-const Profile = styled.img`
+export const Profile = styled.img`
   width: 60px;
   height: 60px;
   border-radius: 30%;
