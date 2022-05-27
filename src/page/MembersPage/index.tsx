@@ -7,6 +7,7 @@ import styled from "styled-components";
 import Table from "../../widget/TableWidget";
 import { Button } from "antd";
 import { RequestAuth } from "../../models/Request";
+import { Profile, Styles } from "../ApprovePage";
 
 interface IListData {
   //렌더링계속되므로 함수밖에 작성
@@ -18,9 +19,9 @@ interface IListData {
 }
 
 export default function MembersPage() {
-  const arvUser = useSelector((store: Rootstate) => store.members.approvedUser);
+  const members = useSelector((store: Rootstate) => store.members.approvedUser);
   const [listData, setListData] = useState<IListData[]>([]);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -32,7 +33,7 @@ export default function MembersPage() {
     };
     fetch();
   }, []);
-
+  
   const columns = useMemo(
     () => [
       {
@@ -55,13 +56,26 @@ export default function MembersPage() {
         Header: "지갑 주소",
         accessor: "address",
       },
-      {
-        Header: "버튼",
-        accessor: "button",
-      },
+  
     ],
     []
   );
+
+  const data = useMemo(
+    () =>
+    members.map((v) => ({
+  
+        profile : (<Profile  width="60" height="60" src={`http://${SERVER_URL}${v.user.profile}`}></Profile>),
+        nickname: v.user.nickname,
+        requestDay: v.requestDay,
+        sex: v.user.sex,
+        address: v.address,
+      })),
+    [members]
+  );
+
+
+
 
   const temp = useMemo(
     () => [
@@ -87,15 +101,15 @@ export default function MembersPage() {
     []
   );
 
-  if (!arvUser) {
+  if (!members) {
     return <div>Loading...</div>;
   }
 
   return (
     <div>
-      <StylesTable>
+      <Styles>
         <Table columns={columns} data={temp} />
-      </StylesTable>
+      </Styles>
     </div>
   );
 }
@@ -106,35 +120,4 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-export const StylesTable = styled.div`
-  padding: 1rem;
-  width: 100%;
-  table {
-    width: 100%;
-    text-align: center;
-    border-spacing: 0;
-    border: 2px solid black;
-    tr {
-      :last-child {
-        td {
-          /* border-bottom: 0; */
-        }
-      }
-    }
-  }
-  th,
-  td {
-    margin: 0;
-    /* padding-right: 1rem; */
-    padding: 20px;
-    border-bottom: 2px solid black;
-    border-right: 2px solid black;
 
-    :last-child {
-      /* border-right: 0; */
-    }
-  }
-  .pagination {
-    padding: 0.5rem;
-  }
-`;
