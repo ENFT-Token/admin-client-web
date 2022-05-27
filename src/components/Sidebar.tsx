@@ -12,7 +12,7 @@ const StyledSideBar = styled.div`
   width: 345px;
   height: 100vh;
   background: #ffffff;
-  box-shadow: 18px 4px 35px #00000015;
+  box-shadow: 18px 4px 35px #00000005;
   .logo {
     img {
       margin-left: 71px;

@@ -16,11 +16,41 @@ import {SERVER_URL} from "../confing";
 
 const StyledHeaderBar = styled.div`
   position: fixed;
-  width:100%;
+  width: calc(100% - 345px);
   height: 120px;
   z-index: 5;
   background: #fff;
+  margin-left: 345px;
 `;
+
+const StyledSearchBar = styled.div`
+  float:left;
+  width: 491px;
+  height: 70px;
+  border-radius: 40px;
+  background: #fafafa;
+  display: flex;
+  margin: 25px;
+  img {
+    margin: 22px;
+  }
+  
+  input[type='text'] {
+    border: none;
+    outline: none;
+    background: #fafafa;
+    font-size: 16px;
+    width:80%;
+  }
+`;
+
+
+function SearchBar() {
+    return <StyledSearchBar>
+                <img src={"/svg/search.svg"} />
+        <input type={"text"} placeholder={"Search Wallet"}/>
+    </StyledSearchBar>
+}
 
 
 const StyleUserInfo = styled.div`
@@ -86,6 +116,7 @@ export default function HeaderBar() {
 
     return (
         <StyledHeaderBar>
+            <SearchBar />
            <SmallProfile src={`http://${SERVER_URL}${admin?.cover_img}`} place={admin?.place ?? ""}/>
         </StyledHeaderBar>
     );

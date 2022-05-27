@@ -27,7 +27,7 @@ export default function MainPage() {
     { i: "checkin", x: 3, y: 0, w: 3, h: 3, isResizable: false, static: true},
     { i: "approve", x: 0, y: 6, w: 3, h: 7},
     { i: "member", x: 3, y: 6, w: 3, h: 7},
-    { i: "memo", x: 8, y: 3, w: 6, h: 4},
+    { i: "memo", x: 8, y: 6, w: 6, h: 4},
     { i: "profile", x: 8, y: 0, w: 6, h: 6, isResizable: false,static: true },
   ];
 
