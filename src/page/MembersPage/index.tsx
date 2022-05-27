@@ -7,26 +7,27 @@ import styled from "styled-components";
 import Table from "../../widget/TableWidget";
 import { Button } from "antd";
 import { RequestAuth } from "../../models/Request";
-import { Profile, Styles } from "../ApprovePage";
+import { Profile } from "../ApprovePage";
 
 interface IListData {
   //렌더링계속되므로 함수밖에 작성
-  href: string;
-  title: string;
-  avatar: string;
-  description: string;
-  content: string;
+  address: string;
+  location: string;
+  nickname: string;
+  profile: string;
+  sex: string;
 }
 
 export default function MembersPage() {
   const members = useSelector((store: Rootstate) => store.members.approvedUser);
   const [listData, setListData] = useState<IListData[]>([]);
-  const dispatch = useDispatch();
+
   useEffect(() => {
     const fetch = async () => {
       try {
         const response = await RequestAuth("GET", "/admin/member");
-        console.log(response.data);
+        setListData(response.data);
+        
       } catch (e) {
         console.log("error", e);
       }
@@ -45,12 +46,12 @@ export default function MembersPage() {
         accessor: "nickname",
       },
       {
-        Header: "성별",
-        accessor: "sex",
-      },
-      {
         Header: "만료일",
         accessor: "requestDay",
+      },
+      {
+        Header: "성별",
+        accessor: "sex",
       },
       {
         Header: "지갑 주소",
@@ -63,42 +64,16 @@ export default function MembersPage() {
 
   const data = useMemo(
     () =>
-    members.map((v) => ({
-  
-        profile : (<Profile  width="60" height="60" src={`http://${SERVER_URL}${v.user.profile}`}></Profile>),
-        nickname: v.user.nickname,
-        requestDay: v.requestDay,
-        sex: v.user.sex,
+    listData.map((v) => {
+      return{
+        profile : (<Profile  width="60" height="60" src={`http://${SERVER_URL}${v.profile}`}></Profile>),
+        nickname: v.nickname,
+        //requestDay: v.,
+        sex: v.sex,
         address: v.address,
-      })),
-    [members]
-  );
-
-
-
-
-  const temp = useMemo(
-    () => [
-      {
-        nickname: "member",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-        button: (
-          <ButtonWrapper>
-            <Button id="btn1" type="primary" ghost>
-              승인하기
-            </Button>
-            <Button id="btn2" type="primary" danger>
-              거절하기
-            </Button>
-          </ButtonWrapper>
-        ),
-      },
-      { nickname: "member", sex: "남자", requestDay: 27, address: "member" },
-      { nickname: "member", sex: "남자", requestDay: 27, address: "member" },
-    ],
-    []
+      }
+      }),
+    [listData]
   );
 
   if (!members) {
@@ -107,17 +82,11 @@ export default function MembersPage() {
 
   return (
     <div>
-      <Styles>
-        <Table columns={columns} data={temp} />
-      </Styles>
+      <div>
+        <Table columns={columns} data={data} />
+      </div>
     </div>
   );
 }
-
-const ButtonWrapper = styled.div`
-  #btn1 {
-    margin-right: 10px;
-  }
-`;
 
 
