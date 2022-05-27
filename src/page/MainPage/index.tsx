@@ -7,7 +7,7 @@ import GridLayout from "react-grid-layout";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
-import InfoWidget from "../../widget/ProfileWidget";
+import ProfileWidget from "../../widget/ProfileWidget";
 import MemoWidget from "../../widget/MemoWidget";
 import { Rootstate } from "../../models";
 import { useSelector } from "react-redux";
@@ -22,19 +22,13 @@ import ListWidget from "../../widget/ListWidget";
 const ResponsiveGridLayout = WidthProvider(Responsive);
 export default function MainPage() {
   const admin = useSelector((store: Rootstate) => store.admin.adminInfo);
-
   const layout = [
-    { i: "현재", x: 0, y: 0, w: 3, h: 3, isResizable: false, minW: 3, maxW: 4 },
-    { i: "헬스장 이름", x: 3, y: 0, w: 3, h: 1.5, isResizable: false },
-    { i: "관리자 정보", x: 8, y: 0, w: 6, h: 6, isResizable: false },
-
-    { i: "알림", x: 0, y: 0, w: 3, h: 3, isResizable: false },
-    { i: "현재 회원들", x: 3, y: 0, w: 2, h: 7, isResizable: false },
-
-    { i: "접속 중인 회원들", x: 0, y: 0, w: 3, h: 4, isResizable: false },
-    { i: "관리자 메모", x: 3, y: 0, w: 3, h: 4, isResizable: false },
-    { i: "광고1", x: 8, y: 0, w: 4, h: 2, isResizable: false },
-    { i: "광고2", x: 8, y: 0, w: 4, h: 2, isResizable: false },
+    { i: "todayCheckIn", x: 0, y: 0, w: 3, h: 3, isResizable: false, static: true},
+    { i: "checkin", x: 3, y: 0, w: 3, h: 3, isResizable: false, static: true},
+    { i: "approve", x: 0, y: 6, w: 3, h: 7},
+    { i: "member", x: 3, y: 6, w: 3, h: 7},
+    { i: "memo", x: 8, y: 3, w: 6, h: 4},
+    { i: "profile", x: 8, y: 0, w: 6, h: 6, isResizable: false,static: true },
   ];
 
   return (
@@ -48,44 +42,58 @@ export default function MainPage() {
         width={1500}
         margin={[20, 20]}
       >
-        <div key="관리자 정보" className="widget">
-          <InfoWidget />
+        <div key="profile" className="widget">
+          <ProfileWidget />
         </div>
-        <div key="헬스장 이름" className="widget" id="title">
-          <div>{admin?.place}</div>
+        <div key="checkin" className="widget">
+          checkin
         </div>
-        <div key="현재 회원들" className="widget">
-          <ListWidget title="승인 요청 리스트" />
+
+        <div key="todayCheckIn" className="widget">
+        today checkin
         </div>
-        <div key="광고1" className="widget">
-          광고1
+        <div key="approve" className="widget">
+        approve
         </div>
-        <div key="광고2" className="widget">
-          광고2
+        <div key="member" className="widget">
+          member
         </div>
-        <div key="현재" className="widget" id="checkin">
-          <div id="checkinText">
-            하루 누적 이용자 수 : x 명
-            <CheckCount />
-          </div>
+
+        <div key="memo" className="widget">
+          memo
         </div>
-        <div key="알림" className="widget" id="alarm">
-          <div id="alarmText">
-            <h1 id="alarmHeader">
-              알림
-              <MdChecklist style={{ marginLeft: "15px" }} />
-            </h1>
-            <div id="alarmBody">
-              <Alarm />
-            </div>
-          </div>
-        </div>
-        <div key="관리자 메모" className="widget" id="memo">
-          <MemoWidget />
-        </div>
-        <div key="접속 중인 회원들" className="widget">
-          접속중인 회원들리스트 : 소켓이용
-        </div>
+        {/*<div key="현재 회원들" className="widget">*/}
+        {/*  <ListWidget title="승인 요청 리스트" />*/}
+        {/*</div>*/}
+        {/*<div key="현재" className="widget" id="current_checkin">*/}
+        {/*  <div id="checkinText">*/}
+        {/*    하루 누적 이용자 수 : x 명*/}
+        {/*    <CheckCount />*/}
+        {/*  </div>*/}
+        {/*</div>*/}
+        {/*<div key="현재" className="widget" id="today_checkin">*/}
+        {/*  <div id="checkinText">*/}
+        {/*    하루 누적 이용자 수 : x 명*/}
+        {/*    <CheckCount />*/}
+        {/*  </div>*/}
+        {/*</div>*/}
+        {/*<div key="알림" className="widget" id="alarm">*/}
+        {/*  <div id="alarmText">*/}
+        {/*    <h1 id="alarmHeader">*/}
+        {/*      알림*/}
+        {/*      <MdChecklist style={{ marginLeft: "15px" }} />*/}
+        {/*    </h1>*/}
+        {/*    <div id="alarmBody">*/}
+        {/*      <Alarm />*/}
+        {/*    </div>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
+        {/*<div key="관리자 메모" className="widget" id="memo">*/}
+        {/*  <MemoWidget />*/}
+        {/*</div>*/}
+        {/*<div key="접속 중인 회원들" className="widget">*/}
+        {/*  접속중인 회원들리스트 : 소켓이용*/}
+        {/*</div>*/}
       </ResponsiveGridLayout>
 
       {/* <Footer/> */}

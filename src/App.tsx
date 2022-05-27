@@ -19,16 +19,21 @@ import PriceInfoPage from "./page/PriceInfoPage";
 import jwt_decode from "jwt-decode";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import SideBar from "./widget/SideBar";
+import SideBar from "./components/Sidebar";
+import HeaderBar from "./components/HeaderBar";
 const Layout = styled.div`
-  height: calc(100vh - 80px);
+//  height: calc(100vh - 80px);
+  height: 100%;
   // background:#6EB08F;
-  background: #f9f9f9;
   margin-left: 345px;
+  padding-top: 120px;
+
 `;
 
 const StyledApp = styled.div`
   .container {
+    width: 100%;
+    height: 100vh;
   }
 `;
 
@@ -60,6 +65,7 @@ export default function App() {
       <div className="container">
         <BrowserRouter>
           <SideBar />
+          <HeaderBar />
           <Layout>
             <Routes>
               <Route path="/" element={<MainPage />}></Route>

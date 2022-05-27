@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { IUserInfoProps } from "./components-type";
 
 const StyleUserInfo = styled.div`
   display: flex;
@@ -29,11 +30,6 @@ const StyleUserInfo = styled.div`
   }
 `;
 
-interface IUserInfoProps {
-  src: string;
-  label: string;
-  value: string;
-}
 
 function UserInfo({ src, label, value }: IUserInfoProps) {
   return (

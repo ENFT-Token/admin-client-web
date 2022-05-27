@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { usePagination, useTable, } from "react-table";
-import styled from "styled-components";
-import Pagination from "@material-ui/lab/Pagination";
 
 const LIST_NUM = 6;
 export default function Table({ columns, data, pagination }: any) {
