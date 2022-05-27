@@ -9,7 +9,38 @@ type ColumnType = "Header" | "accessor";
 export interface ITableProps {
   columns:Record<ColumnType, string>[]; 
   data:any;
-} 
+}
+
+const StyleTable = styled.table`
+  box-shadow : 1px 1px 3px 1px rgb(0 0 0 / 0.2);
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border-radius: 15px;
+
+
+  text-align: center;
+  width: 100%;
+  text-align: center;
+  border-spacing: 0;
+
+  th { //head
+    margin: 0;
+    padding: 20px;
+    border-bottom: 2px solid rgba(214, 215, 217,0.5);
+
+
+    :last-child {
+      border-right: 0;
+    }
+  }
+  td{ // body
+    padding: 25px;
+    border-bottom: 1px solid rgba(214, 215, 217,0.5);
+    height:50px;
+  }
+
+
+`;
+
 export default function Table({ columns, data } : ITableProps) {
   const {
     getTableProps, //table head
@@ -41,11 +72,14 @@ export default function Table({ columns, data } : ITableProps) {
       console.log("num",pageNum,pageCount,pageIndex)
     },[])
   return (
-    <div>
+    <div style={{
+        padding: "1.5rem",
+        width: "100%",
+    }}>
       <TableForm>
      
 
-      <table {...getTableProps()}>
+      <StyleTable {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
@@ -68,7 +102,7 @@ export default function Table({ columns, data } : ITableProps) {
             );
           })}
         </tbody>
-      </table>
+      </StyleTable>
      </TableForm>
 
 

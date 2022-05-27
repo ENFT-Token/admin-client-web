@@ -94,13 +94,18 @@ export default function HeaderBar() {
 
     return (
         <StyledHeaderBar>
-            <SearchBar />
-           <SmallProfile src={`http://${SERVER_URL}${admin?.cover_img}`} place={admin?.place ?? ""} />
-            <div style={{float:'right',marginTop:"30px",marginRight:"62px"}}>
-                <AlramIcon src={"/svg/memo.svg"} count={2} onClick={() => {
-                    console.log("ASD")
-                }}/>
-            </div>
+            {admin && (
+                <>
+                    <SearchBar />
+                    <SmallProfile src={`http://${SERVER_URL}${admin?.cover_img}`} place={admin?.place ?? ""} />
+                    <div style={{float:'right',marginTop:"30px",marginRight:"62px"}}>
+                        <AlramIcon src={"/svg/memo.svg"} count={2} onClick={() => {
+                            console.log("ASD")
+                        }}/>
+                    </div>
+                </>
+            )}
+
         </StyledHeaderBar>
     );
 }

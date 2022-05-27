@@ -26,6 +26,7 @@ const Layout = styled.div`
   height: 100%;
   // background:#6EB08F;
   margin-left: 345px;
+  margin-right:15px;
   padding-top: 120px;
 
 `;

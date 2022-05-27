@@ -47,7 +47,6 @@ export default function NestedTable() {
   const columns = [
     { title: "Name", dataIndex: "name", key: "name" },
     { title: "text", dataIndex: "text", key: "upgradeNum" },
-    { title: "Date", dataIndex: "createdAt", key: "createdAt" },
     {
       title: "Action",
       dataIndex: "id",
@@ -79,17 +78,7 @@ export default function NestedTable() {
 
   return (
     <div>
-      <Table
-        className="components-table-demo-nested"
-        columns={columns}
-        dataSource={localMemoList}
-        scroll={{ y: 350 }}
-      />
-      <Input
-        placeholder="작성자 이름"
-        onChange={onChangeHead}
-        value={inputHead}
-      />
+
       <TextArea
         placeholder="내용"
         value={inputBody}

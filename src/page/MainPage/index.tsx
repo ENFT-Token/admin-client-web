@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
-import { Layout } from "antd";
-import styled from "styled-components";
 import "./index.css";
 
-import GridLayout from "react-grid-layout";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
@@ -11,19 +8,20 @@ import ProfileWidget from "../../widget/ProfileWidget";
 import MemoWidget from "../../widget/MemoWidget";
 import { Rootstate } from "../../models";
 import { useSelector } from "react-redux";
-import MemberWidget from "../../widget/ApproveWidget";
-import CheckCount from "../../widget/CheckCountWidget";
-import Alarm from "../../widget/AlarmWidget";
-
-import { MdChecklist } from "react-icons/md";
-import Footer from "../../widget/Footer/Footer";
 import ListWidget from "../../widget/ListWidget";
 import CountWidget from "../../widget/CountWidget";
 import {useNavigate} from "react-router-dom";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 export default function MainPage() {
+  const navigate = useNavigate();
+
   const admin = useSelector((store: Rootstate) => store.admin.adminInfo);
+
+  console.log(admin);
+  if(admin === null) {
+      navigate("/login");
+  }
   const layout = [
     { i: "todayCheckIn", x: 0, y: 0, w: 3, h: 2, isResizable: false, static: true},
     { i: "checkin", x: 3, y: 0, w: 3, h: 2, isResizable: false, static: true},
@@ -33,7 +31,6 @@ export default function MainPage() {
     { i: "profile", x: 8, y: 0, w: 6, h: 6, isResizable: false,static: true },
   ];
 
-  const navigate = useNavigate();
 
 
   return (
@@ -109,7 +106,7 @@ export default function MainPage() {
         </div>
 
         <div key="memo" className="widget">
-          memo
+          <MemoWidget />
         </div>
         {/*<div key="현재 회원들" className="widget">*/}
         {/*  <ListWidget title="승인 요청 리스트" />*/}

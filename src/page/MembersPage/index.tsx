@@ -93,9 +93,9 @@ export default function MembersPage() {
 
   return (
     <div>
-      <StylesTable>
+      <div>
         <Table columns={columns} data={temp} />
-      </StylesTable>
+      </div>
     </div>
   );
 }
@@ -103,38 +103,5 @@ export default function MembersPage() {
 const ButtonWrapper = styled.div`
   #btn1 {
     margin-right: 10px;
-  }
-`;
-
-export const StylesTable = styled.div`
-  padding: 1rem;
-  width: 100%;
-  table {
-    width: 100%;
-    text-align: center;
-    border-spacing: 0;
-    border: 2px solid black;
-    tr {
-      :last-child {
-        td {
-          /* border-bottom: 0; */
-        }
-      }
-    }
-  }
-  th,
-  td {
-    margin: 0;
-    /* padding-right: 1rem; */
-    padding: 20px;
-    border-bottom: 2px solid black;
-    border-right: 2px solid black;
-
-    :last-child {
-      /* border-right: 0; */
-    }
-  }
-  .pagination {
-    padding: 0.5rem;
   }
 `;

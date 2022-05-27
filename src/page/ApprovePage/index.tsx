@@ -19,43 +19,6 @@ export interface IApproveUser {
   requestDay: number;
   address: string;
 }
-export const Styles = styled.div`
-  
-  padding: 1.5rem;
-  width: 100%;
-  
-
-  table {
-    box-shadow : 1px 1px 3px 1px rgb(0 0 0 / 0.2);
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    border-radius: 15px;
-
-
-    text-align: center;
-    width: 100%;
-    text-align: center;
-    border-spacing: 0;
-   
-    th { //head
-    margin: 0;
-    padding: 20px;
-    border-bottom: 2px solid rgba(214, 215, 217,0.5);
-    
-
-    :last-child {
-      border-right: 0;
-    }
-  }
-  td{ // body
-    padding: 25px;
-    border-bottom: 1px solid rgba(214, 215, 217,0.5);
-    height:50px;
-  }
-
-  }
-  
-`;
-
 export default function ApprovePage() {
   const requestUser = useSelector((store: Rootstate) => store.members.user);
   const admin = useSelector((store: Rootstate) => store.admin.adminInfo);
@@ -200,9 +163,9 @@ export default function ApprovePage() {
   return (
     <div>
       <h1 style={{fontSize:"30px", margin:"10px 0 0 40px"}}>Approval Requests List</h1>
-    <Styles>
+    <div>
       <Table columns={columns} data={temp} />
-    </Styles>
+    </div>
     </div>
   );
 }

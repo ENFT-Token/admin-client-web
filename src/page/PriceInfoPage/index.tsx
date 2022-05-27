@@ -11,7 +11,6 @@ import { setPriceInfo } from "../../models/admin";
 import { getAccessToken, Request, RequestAuth } from "../../models/Request";
 import store from "../../models/store";
 import Table from "../../widget/TableWidget";
-import { StylesTable } from "../MembersPage";
 import "./index.css";
 
 function DeleteItem({
@@ -267,7 +266,7 @@ function PriceInfoPage() {
           </div>
         </div>
       </div>
-      <StylesTable>
+      <div>
         <Table
           columns={columns}
           data={priceInfo.map((elem) => ({
@@ -282,7 +281,7 @@ function PriceInfoPage() {
             run: <DeleteItem month={elem.month} handleList={handleList} />,
           }))}
         />
-      </StylesTable>
+      </div>
     </div>
   );
 }
