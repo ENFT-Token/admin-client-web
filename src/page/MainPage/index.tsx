@@ -79,6 +79,18 @@ export default function MainPage() {
             src:"/svg/logo.svg",
             name:"asdsa",
             subname:"xc"
+          },{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          },{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
+          },{
+            src:"/svg/logo.svg",
+            name:"asdsa",
+            subname:"xc"
           }]}/>
         </div>
         <div key="member" className="widget">
