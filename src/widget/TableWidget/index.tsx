@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { usePagination, useTable, } from "react-table";
-
-const MAX_PAGE_NUM = 5;
+import styled from "styled-components";
+import Pagination from "@material-ui/lab/Pagination";
+import { IoIosArrowBack,IoIosArrowForward } from "react-icons/io";
+const LIST_NUM = 6;
 export default function Table({ columns, data, pagination }: any) {
   const {
     getTableProps, //table head
@@ -23,7 +25,7 @@ export default function Table({ columns, data, pagination }: any) {
     {
       columns,
       data,
-      initialState: { pageIndex: 0,pageSize:5},
+      initialState: { pageIndex: 0, pageSize: 6 },
     },
     usePagination
   );
@@ -73,57 +75,80 @@ export default function Table({ columns, data, pagination }: any) {
           })}
         </tbody>
       </table>
-
-
-      
      </div>
-     { (
-        <div className="pagination">
 
 
-          <span>
-            Page{" "}
-            <strong>
-              {pageIndex + 1} of {pageOptions.length}
-            </strong>
-          </span>
-          <span>
-            | Go to page:{" "}
-            {/* <input
-              type="number"
-              defaultValue={pageIndex + 1}
-              onChange={(e) => {
-                const page = e.target.value ? Number(e.target.value) - 1 : 0;
-                gotoPage(page);
-              }}
-              style={{ width: "100px" }}
-            ></input> */}
-          </span>
-          {/* <select
-            value={pageSize}
-            onChange={(e) => {
-              setPageSize(Number(e.target.value));
-            }}
-          >
-            {[5, 10, 20, 30, 40, 50].map((pageSize) => (
-              <option key={pageSize} value={pageSize}>
-                Show {pageSize}
-              </option>
-            ))}
-          </select> */}
-          <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>{"<<"}</button>
-          <button onClick={() => setPageNum((v)=>Math.max(0,v-1))} disabled={!canPreviousPage}>{"<"}</button>
-          {pageOptions.filter(v=>v<=MAX_PAGE_NUM*pageNum && MAX_PAGE_NUM*(pageNum-1)<v)
-          .map((v) =>(<button onClick={(()=>gotoPage(v))}>{v}</button>))
-          }
-          <button onClick={() => setPageNum((v)=>Math.min(pageCount/5,v+1))} disabled={!canNextPage}>{">"}</button>
-          <button onClick={() => gotoPage(pageCount - 1)}disabled={!canNextPage}>{">>"}</button>
-        </div>
-      )}
+     { 
+        <Paginations>
+          <div className="buttonWrap">
+            <IoIosArrowBack className="arrow"  onClick={() => setPageNum((v) => (Math.max(0, v - 1)))} >{"<"}</IoIosArrowBack>
+            <span id="buttonList">
+              {pageOptions.filter(v => {
+                if (pageNum === 0)
+                  return 0 <= v && v <= LIST_NUM - 1
+                else {
+                  return (pageNum * LIST_NUM) - 1 < v && v <= (LIST_NUM * (pageNum + 1)) - 1
+                } 
+              })
+                .map((v) => (<button className={`btnEach ${"~~~" === "?" ? "select" : "" }`} onClick={(() => gotoPage(v))}>{v + 1}</button>))
+              }
+            </span>
+            <IoIosArrowForward className="arrow" onClick={() => setPageNum((v) => (Math.min(Math.floor(pageCount / LIST_NUM), v + 1)))}>{">"}</IoIosArrowForward>
+          </div>
+        </Paginations>
+      }
     </div>
   );
 }
+const Paginations = styled.div`
 
-// const Pagination = styled(pagination)`
+  &{
+  display: flex;
+  justify-content: center;
+  margin-top:50px;
+  }
+  .buttonWrap{
+  display: flex;
+  align-items: center;
   
-// `
+}
+  .arrow{
+    background-color:#f9f9f9;
+    border-radius: 10px;
+    text-align: center;
+    margin-left:20px;
+    margin-right:20px;
+    cursor: pointer; 
+
+    border: 1px solid #C2C2C2;
+    width:35px;
+    height:35px;
+    color:#6418c3;
+  }
+
+  #buttonList{
+  background-color:#f9f9f9;
+  border:1px solid rgba(117,147,170,0.4);
+  border-radius: 10px;
+
+   
+    .btnEach{
+      background-color:#f9f9f9;
+      width:60px;
+      height:35px;
+      border:none;
+      border-radius: 10px;
+      cursor: pointer; 
+      font-size: 15px;
+      text-align: center;
+  }
+  .btnEach:hover{
+      background: #1879C3 0% 0% no-repeat padding-box;
+    transition: 0.2s;
+    color:white;
+    box-shadow: 0px 7px 16px #00000024;
+    }
+  }
+`
+
+

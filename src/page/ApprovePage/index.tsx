@@ -5,11 +5,12 @@ import { SERVER_URL } from "../../confing";
 import { Rootstate } from "../../models";
 import { addAllUser, addUser, deleteUser } from "../../models/members";
 import styled from "styled-components";
-import { Button } from "antd";
+
 import Table from "../../widget/TableWidget";
 import { RequestAuth } from "../../models/Request";
 import { toast } from "react-toastify";
 import { arrayBuffer } from "stream/consumers";
+import Button from "../../components/Button";
 
 export interface IApproveUser {
   profile: string;
@@ -22,22 +23,15 @@ export const Styles = styled.div`
   
   padding: 3rem;
   width: 100%;
-  border: 2px solid #0000007f;
+
   table {
     text-align: center;
     width: 100%;
     text-align: center;
     border-spacing: 0;
-    /* tr {
-      :last-child {
-        td {
-          border-bottom: 0;
-        }
-      }
-    } */
+   
     th { //head
     margin: 0;
-    /* padding-right: 1rem; */
     padding: 20px;
     border-bottom: 2px solid rgba(214, 215, 217,0.5);
     
@@ -47,13 +41,11 @@ export const Styles = styled.div`
     }
   }
   td{ // body
-    padding: 20px;
-    border-bottom: 2px solid rgba(214, 215, 217,0.5);
-    height:100px;
+    padding: 25px;
+    border-bottom: 1px solid rgba(214, 215, 217,0.5);
+    height:50px;
   }
-  /* .pagination {
-    padding: 0.5rem;
-  } */
+
   }
   
 `;
@@ -152,21 +144,18 @@ export default function ApprovePage() {
   ];
   let arr:any=[]
   let i=0;
-  for(let i=0; i<100; i++){
+  for(let i=0; i<125; i++){
     arr.push({ 
-      profile: <img  width="60" height="60" style={{borderRadius:"30%"}}src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
-    nickname: "aa",
+      profile: <img  width="50" height="50" style={{borderRadius:"30%"}}src={"http://13.209.200.101/public/d8031c82-ce27-4709-87e9-c4b32f2d6431.png"}></img>,
+    nickname: "sdsdwdwdw",
     sex: "남자",
     requestDay: i,
     address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
     button: 
       <ButtonWrapper>
-        <Button id="btn1" type="primary" ghost>
-          승인하기
-        </Button>
-        <Button id="btn2" type="primary" danger>
-          거절하기
-        </Button>
+        <Button id="btn1" type={"green"} width={85} height={32} value={"승인하기"}></Button>
+        <Button type={"black"} width={85} height={32} value={"거절하기"}></Button>
+        
       </ButtonWrapper>})
    
   };
@@ -187,23 +176,10 @@ export default function ApprovePage() {
         address: v.address,
         button: (
           <ButtonWrapper>
-            <Button
-              id="btn1"
-              type="primary"
-              ghost
-              onClick={() => onClickApprove(v.address)}
-            >
-              승인하기
-            </Button>
-            <Button
-              id="btn2"
-              type="primary"
-              danger
-              ghost
-              onClick={() => onClickReject(v.address)}
-            >
-              거절하기
-            </Button>
+            <Button type={"green"} width={85} height={32} value={"승인하기"}
+              onClick={() => onClickReject(v.address)} />
+            <Button id="btn1"type={"black"} width={85} height={32} value={"거절하기"}
+              onClick={() => onClickApprove(v.address)} />
           </ButtonWrapper>
         ),
       })),
@@ -222,13 +198,14 @@ export default function ApprovePage() {
     </div>
   );
 }
-const ButtonWrapper = styled.div`
+export const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  #btn1 {
+  #btn1{
     margin-right: 10px;
-  
   }
+
+
 `;
 
 
