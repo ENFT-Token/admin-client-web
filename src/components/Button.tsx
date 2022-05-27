@@ -2,7 +2,7 @@ import React, { InputHTMLAttributes } from "react";
 import styled from "styled-components";
 
 interface IButtonProps extends InputHTMLAttributes<HTMLInputElement> {
-  type: "ghost" | "blue" | "green" | "black" | "outline";
+  type: "ghost" | "blue" | "green" | "red" | "black" | "outline";
   width?: number | string;
   height?: number | string;
 }
@@ -53,7 +53,8 @@ const StyledButton = styled.input<IStyleProps>`
 
   &.blue,
   &.green,
-  &.black {
+  &.black,
+  &.red {
     box-shadow: 0px 4px 8px #0000001f;
     color: #ffffff;
 
@@ -64,6 +65,10 @@ const StyledButton = styled.input<IStyleProps>`
 
   &.blue {
     background: #1879c3;
+  }
+
+  &.red {
+    background: crimson;
   }
 
   &.green {

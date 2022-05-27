@@ -1,83 +1,81 @@
-import { Table, Input, Button, Popconfirm } from "antd";
-import { useState, useRef, useEffect } from "react";
+import TextArea from "antd/lib/input/TextArea";
+import React, {useState, useRef, useEffect, useMemo} from "react";
+import Table from "../../widget/TableWidget";
+import Button from "../../components/Button";
+import moment from "moment";
 
-export default function NestedTable() {
+export interface IMemo {
+  timestamp: number;
+  value: string;
+}
+
+
+export default function MemoPage() {
   const [inputBody, setInputBody] = useState("");
-  const [inputHead, setInputHead] = useState("");
-  const [localMemoList, setlocalMemoList] = useState([] as any);
-  const date = new Date();
-  //input
-  const { TextArea } = Input;
-  let num = useRef(1);
-  const onChangeBody = (e: any) => {
-    setInputBody(e.target.value);
-  };
-  const onChangeHead = (e: any) => {
-    setInputHead(e.target.value);
-  };
-  const OnClickBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (inputBody && inputHead) {
-      const addMemoList = [
-        ...localMemoList,
-        {
-          id: num.current++,
-          name: inputHead,
-          text: inputBody,
-          createdAt: date.toString().substr(0, 25),
-        },
-      ];
-
-      setlocalMemoList(addMemoList);
-      setInputHead("");
-      setInputBody("");
-      const tempObjBody = JSON.stringify({
-        num: num.current,
-        list: addMemoList,
-      });
-      window.localStorage.setItem("memo", tempObjBody);
-    }
-  };
-  const handleDelete = (id: number) => {
-    const addMemoList = localMemoList.filter((v: any) => v.id !== id);
-    setlocalMemoList(addMemoList);
-    num.current--;
-    const tempObjBody = JSON.stringify({ num: num.current, list: addMemoList });
-    window.localStorage.setItem("memo", tempObjBody);
-  };
-  const columns = [
-    { title: "Name", dataIndex: "name", key: "name" },
-    { title: "text", dataIndex: "text", key: "upgradeNum" },
-    {
-      title: "Action",
-      dataIndex: "id",
-      key: "operation",
-      render: (id: number) => (
-        <Popconfirm
-          title="삭제하시겠습니까?"
-          onConfirm={() => handleDelete(id)}
-        >
-          <Button danger ghost>
-            Delete
-          </Button>
-        </Popconfirm>
-      ),
-    },
-  ];
-
+  const [memoList,setMemoList] = useState<IMemo[]>([]);
   useEffect(() => {
-    let memo = JSON.parse(window.localStorage.getItem("memo") as string);
-    if (memo == null) {
-      const tempObjBody = JSON.stringify({ num: 0, list: [] });
-      window.localStorage.setItem("memo", tempObjBody);
-      memo = JSON.parse(window.localStorage.getItem("memo") as string);
-    }
-    setlocalMemoList(memo.list);
-    const numStorage = memo.num;
-    num.current = numStorage;
+      try {
+          let memo: IMemo[] = [];
+          if (!localStorage["memo"]) {
+              localStorage["memo"] = JSON.stringify([]);
+              memo = [];
+          } else {
+              memo = JSON.parse(localStorage["memo"]);
+          }
+
+          setMemoList(memo);
+      }
+      catch(e) {
+          localStorage["memo"] = JSON.stringify([]);
+          setMemoList([]);
+      }
   }, []);
+
+  const handleSave = () => {
+      if(!inputBody) return;
+        const _data = [...memoList, {
+            timestamp: (new Date()).getTime(),
+            value: inputBody,
+        }];
+      localStorage["memo"] = JSON.stringify(_data);
+      setMemoList(_data);
+      setInputBody("");
+  }
+
+    const handleDelete = (idx: number) => {
+       const _data = memoList.filter((f,i) => i !== idx);
+        localStorage["memo"] = JSON.stringify(_data);
+        setMemoList(_data);
+    }
+
+
+    const columns = useMemo(
+      () => [
+        {
+          Header: "날짜",
+          accessor: "timestamp",
+        },
+        {
+          Header: "내용",
+          accessor: "value",
+        },
+        {
+          Header: "관리",
+          accessor: "run",
+        },
+      ],[]
+  );
 
   return (
     <div>
+      <Table
+          columns={columns}
+          data={memoList.map((memo, idx) => ({
+              timestamp: moment(memo.timestamp).format("yyyy-MM-DD hh:mm:ss"),
+              value: memo.value,
+              run:<Button onClick={() => handleDelete(idx)} type={"red"} value={"삭제"} width={100} height={30} />,
+          }))}
+      />
 
       <TextArea
         placeholder="내용"
@@ -85,10 +83,9 @@ export default function NestedTable() {
         showCount
         maxLength={100}
         autoSize={{ minRows: 5, maxRows: 5 }}
-        onChange={onChangeBody}
+        onChange={(e) => setInputBody(e.target.value)}
       />
-
-      <Button onClick={OnClickBtn}>확인</Button>
+      <Button type={"blue"} onClick={handleSave} value={"저장"} width={100} height={50} />
     </div>
   );
 }

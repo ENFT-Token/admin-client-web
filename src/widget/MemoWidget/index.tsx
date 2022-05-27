@@ -91,24 +91,30 @@ function MemoItem({timestamp,value} : IMemoItemProps) {
 
 export default function MemoWidget() {
   const navigate = useNavigate();
+  const [memoList,setMemoList] = useState<IMemo[]>([]);
+  useEffect(() => {
+    try {
+      let memo: IMemo[] = [];
+      if (!localStorage["memo"]) {
+        localStorage["memo"] = JSON.stringify([]);
+        memo = [];
+      } else {
+        memo = JSON.parse(localStorage["memo"]);
+      }
 
-  const list = useMemo(() => {
-    let bodyString = window.localStorage.getItem("memo");
-    if (!bodyString) {
-      const tempObjBody = JSON.stringify({ num: 0, list: [] });
-      window.localStorage.setItem("memo", tempObjBody);
-      bodyString = tempObjBody;
+      setMemoList(memo);
     }
-    return JSON.parse(bodyString as string).list;
+    catch(e) {
+      localStorage["memo"] = JSON.stringify([]);
+      setMemoList([]);
+    }
   }, []);
-
-  console.log(list);
 
   return (
     <StyleMemo>
         <div className="line" onClick={() => navigate("/memo")}>
           <div style={{fontSize:'16px'}}>MEMO</div>
-          <AlramIcon src={"/svg/memo.svg"} count={list.length} />
+          <AlramIcon src={"/svg/memo.svg"} count={memoList.length} />
           <div className={"dashed"}/>
         </div>
       <div style={{marginTop:'20px'}}>
