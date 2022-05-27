@@ -195,3 +195,7 @@ const Paginations = styled.div`
 `
 
 
+export const Title  = styled.h1`
+  font-size:30px;
+  margin:10px 0 0 40px;
+` 

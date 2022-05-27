@@ -4,12 +4,12 @@ import { Rootstate } from "../../models";
 import axios from "axios";
 import { SERVER_URL } from "../../confing";
 import styled from "styled-components";
-import Table from "../../widget/TableWidget";
+import Table, { Title } from "../../widget/TableWidget";
 import { Button } from "antd";
 import { RequestAuth } from "../../models/Request";
 import { Profile } from "../ApprovePage";
 
-interface IListData {
+export interface IListData {
   //렌더링계속되므로 함수밖에 작성
   address: string;
   location: string;
@@ -68,7 +68,7 @@ export default function MembersPage() {
       return{
         profile : (<Profile  width="60" height="60" src={`http://${SERVER_URL}${v.profile}`}></Profile>),
         nickname: v.nickname,
-        //requestDay: v.,
+        //requestDay: v.requsetDay,
         sex: v.sex,
         address: v.address,
       }
@@ -82,6 +82,7 @@ export default function MembersPage() {
 
   return (
     <div>
+      <Title>Members list</Title>
       <div>
         <Table columns={columns} data={data} />
       </div>
