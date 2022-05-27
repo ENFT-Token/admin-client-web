@@ -23,7 +23,7 @@ export const Styles = styled.div`
   
   padding: 3rem;
   width: 100%;
-  border: 2px solid #0000007f;
+
   table {
     text-align: center;
     width: 100%;
