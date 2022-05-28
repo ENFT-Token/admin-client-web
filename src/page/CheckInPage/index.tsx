@@ -4,6 +4,7 @@ import { RequestAuth } from '../../models/Request';
 import Table, { Title } from '../../widget/TableWidget';
 import { Profile } from '../ApprovePage';
 import moment from "moment";
+import {useQuery} from "react-query";
 interface ICheckList{
   address :string;
   profile :string;
@@ -16,20 +17,8 @@ interface ICheckList{
 }
 
 export default function CheckIn()  {
-  const [checkList,setCheckList] = useState<ICheckList[]>([]);
-  useEffect(()=>{
-    const fetch = async ()=>{
-      try{
-        const response = await RequestAuth("GET","/check");
-        setCheckList(response.data)
-        console.log("response",response.data)
-      }
-      catch(e){
-        
-      }
-    }
-    fetch();
-  },[])
+    const {data: checkList} = useQuery<Record<string, string>[]>("check");
+
   const columns = useMemo(
     () => [
       {
@@ -58,7 +47,7 @@ export default function CheckIn()  {
   );
   const data = useMemo(
     () =>
-    checkList.map((v) => {
+        checkList?.map((v) => {
       return{
         profile : (<Profile  width="60" height="60" src={`http://${SERVER_URL}${v.profile}`}></Profile>),
         nickname: v.nickname,
@@ -66,7 +55,7 @@ export default function CheckIn()  {
         sex: v.sex,
         address: v.address,
       }
-      }),
+      }) ?? [],
     [checkList]
   );
   return (

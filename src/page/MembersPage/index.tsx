@@ -5,6 +5,7 @@ import { SERVER_URL } from "../../confing";
 import Table, { Title } from "../../widget/TableWidget";
 import { RequestAuth } from "../../models/Request";
 import { Profile } from "../ApprovePage";
+import {useQuery} from "react-query";
 
 export interface IListData {
   //렌더링계속되므로 함수밖에 작성
@@ -16,22 +17,8 @@ export interface IListData {
 }
 
 export default function MembersPage() {
-  const members = useSelector((store: Rootstate) => store.members.approvedUser);
-  const [listData, setListData] = useState<IListData[]>([]);
+  const {data: members} = useQuery<Record<string, string>[]>("memberList");
 
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        const response = await RequestAuth("GET", "/admin/member");
-        setListData(response.data);
-        
-      } catch (e) {
-        console.log("error", e);
-      }
-    };
-    fetch();
-  }, []);
-  
   const columns = useMemo(
     () => [
       {
@@ -61,7 +48,7 @@ export default function MembersPage() {
 
   const data = useMemo(
     () =>
-    listData.map((v) => {
+        members?.map((v) => {
       return{
         profile : (<Profile  width="60" height="60" src={`http://${SERVER_URL}${v.profile}`}></Profile>),
         nickname: v.nickname,
@@ -69,8 +56,8 @@ export default function MembersPage() {
         sex: v.sex,
         address: v.address,
       }
-      }),
-    [listData]
+      }) ?? [],
+    [members]
   );
 
   if (!members) {

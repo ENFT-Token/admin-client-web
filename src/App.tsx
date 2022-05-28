@@ -22,6 +22,8 @@ import "react-toastify/dist/ReactToastify.css";
 import SideBar from "./components/Sidebar";
 import HeaderBar from "./components/HeaderBar";
 import store from "./models/store";
+import queryClient from "./queries";
+import { QueryClientProvider } from "react-query";
 const Layout = styled.div`
 //  height: calc(100vh - 80px);
   height: 100%;
@@ -39,6 +41,7 @@ const StyledApp = styled.div`
   }
 `;
 
+
 export default function App() {
 
   useEffect(() => {
@@ -49,26 +52,30 @@ export default function App() {
     }
   }, []);
   return (
-    <StyledApp>
-      <div className="_container">
-        <BrowserRouter>
-          <SideBar />
-          <HeaderBar />
-          <Layout>
-            <Routes>
-              <Route path="/" element={<MainPage />}></Route>
-              <Route path="/members" element={<MembersPage />}></Route>
-              <Route path="/price_info" element={<PriceInfoPage />}></Route>
-              <Route path="/approve" element={<ApprovePage />}></Route>
-              <Route path="/profit" element={<ProfitPage />}></Route>
-              <Route path="/memo" element={<MemoPage />}></Route>
-              <Route path="/login" element={<LoginPage />}></Route>
-              <Route path="/checkin" element={<CheckInPage />}></Route>
-            </Routes>
-          </Layout>
-        </BrowserRouter>
-      </div>
-      <ToastContainer />
-    </StyledApp>
+      <QueryClientProvider client={queryClient}>
+        <StyledApp>
+          <div className="_container">
+            <BrowserRouter>
+              <SideBar />
+              <HeaderBar />
+              <Layout>
+                <Routes>
+
+                    <Route path="/" element={<MainPage />}></Route>
+                    <Route path="/members" element={<MembersPage />}></Route>
+                    <Route path="/price_info" element={<PriceInfoPage />}></Route>
+                    <Route path="/approve" element={<ApprovePage />}></Route>
+                    <Route path="/profit" element={<ProfitPage />}></Route>
+                    <Route path="/memo" element={<MemoPage />}></Route>
+                    <Route path="/login" element={<LoginPage />}></Route>
+                    <Route path="/checkin" element={<CheckInPage />}></Route>
+
+                </Routes>
+              </Layout>
+            </BrowserRouter>
+          </div>
+          <ToastContainer />
+        </StyledApp>
+      </QueryClientProvider>
   );
 }
