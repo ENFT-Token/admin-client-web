@@ -1,32 +1,27 @@
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Input, InputNumber, message, Upload } from "antd";
-import { UploadChangeParam } from "antd/lib/upload";
-import { UploadFile } from "antd/lib/upload/interface";
-import axios from "axios";
 import React, { useEffect, useMemo, useState } from "react";
-import { useSelector } from "react-redux";
 import Button from "../../components/Button";
-import { SERVER_URL } from "../../confing";
-import { Rootstate } from "../../models";
-import { setPriceInfo } from "../../models/admin";
-import { getAccessToken, Request, RequestAuth } from "../../models/Request";
-import store from "../../models/store";
+import {  RequestAuth } from "../../models/Request";
 import Table from "../../widget/TableWidget";
 import "./index.css";
+import {useQuery} from "react-query";
+import queryClient from "../../queries";
 
 function DeleteItem({
   month,
-  handleList,
 }: {
   month: number;
-  handleList: () => void;
 }) {
   const handleDelete = async () => {
     const response = await RequestAuth("DELETE", "/admin/priceInfo", {
       month: Number(month),
     });
+    if(response.status === 200) {
+      queryClient.invalidateQueries(["priceInfo"]);
+    }
     console.log(response);
-    handleList();
+
+
   };
 
   return (
@@ -78,23 +73,9 @@ function KlayItem({
 }
 
 function PriceInfoPage() {
-  const { priceInfo, adminInfo } = useSelector(
-    (store: Rootstate) => store.admin
-  );
 
-  const handleList = () => {
-    RequestAuth("GET", "/admin/priceInfo").then((response) =>
-      store.dispatch(setPriceInfo(response.data))
-    );
-  };
+  const {data:priceInfo} = useQuery<Record<"month" | "klay",number>[]>("priceInfo");
 
-  useEffect(() => {
-    handleList();
-  }, []);
-
-  useEffect(() => {
-    console.log(priceInfo);
-  }, [priceInfo]);
 
   const [monthAndKlay, setMonthAndKlay] = useState({
     month: 0,
@@ -103,7 +84,7 @@ function PriceInfoPage() {
 
   const handleAdd = async () => {
     await RequestAuth("POST", "/admin/priceInfo", monthAndKlay);
-    handleList();
+    queryClient.invalidateQueries(["priceInfo"]);
   };
 
   const handleSave = async (month: number, klay: number) => {
@@ -112,11 +93,12 @@ function PriceInfoPage() {
       klay,
     });
     if (response.status === 200) {
-      handleList();
+      queryClient.invalidateQueries(["priceInfo"]);
       return true;
     }
     return false;
   };
+
   const columns = useMemo(
     () => [
       {
@@ -135,6 +117,21 @@ function PriceInfoPage() {
     []
   );
 
+
+  const tableData = useMemo(() => {
+    return priceInfo?.map((elem) => ({
+
+      month: elem.month,
+      klay: (
+          <KlayItem
+              klay={elem.klay}
+              month={elem.month}
+              handleSave={handleSave}
+          />
+      ),
+      run: <DeleteItem month={elem.month} />,
+    })) ?? []
+  },[priceInfo]);
 
   return (
     <div
@@ -181,17 +178,7 @@ function PriceInfoPage() {
       <div>
         <Table
           columns={columns}
-          data={priceInfo.map((elem) => ({
-            month: elem.month,
-            klay: (
-              <KlayItem
-                klay={elem.klay}
-                month={elem.month}
-                handleSave={handleSave}
-              />
-            ),
-            run: <DeleteItem month={elem.month} handleList={handleList} />,
-          }))}
+          data={tableData}
         />
       </div>
     </div>

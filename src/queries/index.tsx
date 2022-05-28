@@ -25,4 +25,13 @@ queryClient.setQueryDefaults("check", {
     refetchInterval: 3000,
 });
 
+
+
+queryClient.setQueryDefaults("priceInfo", {
+    queryFn: () => RequestAuth("GET", "/admin/priceInfo"),
+    select: (response) => {
+        return response.data;
+    },
+});
+
 export default queryClient;
