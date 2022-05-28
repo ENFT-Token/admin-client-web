@@ -16,7 +16,7 @@ const StyledProfileWidget = styled.div`
 
   .profile {
     margin-top: 42px;
-    margin-left: 37px;
+    margin-left: 27px;
     display: flex;
     flex-direction: column;
     align-items: center;
