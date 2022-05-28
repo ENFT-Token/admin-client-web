@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Rootstate } from "../../models";
 import axios from "axios";
 import { SERVER_URL } from "../../confing";
+import Button from "../../components/Button";
 import styled from "styled-components";
 import Table from "../../widget/TableWidget";
-import { Button } from "antd";
 import { RequestAuth } from "../../models/Request";
 
 interface IListData {
@@ -71,14 +71,10 @@ export default function MembersPage() {
         requestDay: 27,
         address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
         button: (
-          <ButtonWrapper>
-            <Button id="btn1" type="primary" ghost>
-              승인하기
-            </Button>
-            <Button id="btn2" type="primary" danger>
-              거절하기
-            </Button>
-          </ButtonWrapper>
+            <div>
+                <Button type="green"  value={"승인하기"} width={100} height={30} style={{marginRight:"10px"}}/>
+                <Button type="red" value={" 거절하기"} width={100} height={30}/>
+            </div>
         ),
       },
       { nickname: "member", sex: "남자", requestDay: 27, address: "member" },

@@ -1,10 +1,11 @@
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Input, InputNumber, message, Upload } from "antd";
+import { Input, InputNumber, message, Upload } from "antd";
 import { UploadChangeParam } from "antd/lib/upload";
 import { UploadFile } from "antd/lib/upload/interface";
 import axios from "axios";
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
+import Button from "../../components/Button";
 import { SERVER_URL } from "../../confing";
 import { Rootstate } from "../../models";
 import { setPriceInfo } from "../../models/admin";
@@ -29,9 +30,8 @@ function DeleteItem({
   };
 
   return (
-    <Button type="primary" danger onClick={handleDelete}>
-      삭제
-    </Button>
+    <Button type="red" onClick={handleDelete} value={"삭제"} width={100} height={30} />
+
   );
 }
 
@@ -58,9 +58,7 @@ function KlayItem({
       {isEdit == false && (
         <>
           <div>{klay}</div>{" "}
-          <Button type="link" onClick={() => setEdit(true)}>
-            EDIT
-          </Button>
+          <Button type="outline" onClick={() => setEdit(true)} value={"EDIT"} width={100} height={30}/>
         </>
       )}
       {isEdit == true && (
@@ -71,12 +69,8 @@ function KlayItem({
             addonBefore="KLAY"
             style={{ marginBottom: "10px" }}
           />{" "}
-          <Button type="primary" onClick={handleSaved}>
-            SAVE
-          </Button>
-          <Button type="primary" danger onClick={() => setEdit(false)}>
-            CANCEL
-          </Button>
+          <Button type="blue" onClick={handleSaved} value={"SAVE"}  width={100} height={30} style={{marginLeft:"10px",marginRight:'10px'}}/>
+          <Button type="red" onClick={() => setEdit(false)} value={"CANCEL"}  width={100} height={30}/>
         </>
       )}
     </div>
@@ -260,9 +254,7 @@ function PriceInfoPage() {
               style={{ marginBottom: "10px" }}
             />
 
-            <Button type="primary" onClick={handleAdd}>
-              추가
-            </Button>
+            <Button type="green" onClick={handleAdd} value={"추가"} width={"100%"} height={30}/>
           </div>
         </div>
       </div>
