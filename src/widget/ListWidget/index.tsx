@@ -55,7 +55,7 @@ function ListWidget({ title,items,onViewMoreClick }: IListItemProps) {
         <Scrollbars>
             {items.map((item,idx) => (
                 <div className={"userList"} key={`userList=${idx}`}>
-                    <UserInfo src={"/svg/logo.svg"} name={"asds"} subname={"sd"}/>
+                    <UserInfo src={"/svg/logo.svg"} name={item.name} subname={item.subname}/>
                 </div>
             ))}
         </Scrollbars>
