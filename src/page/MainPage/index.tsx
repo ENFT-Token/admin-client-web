@@ -18,6 +18,10 @@ export default function MainPage() {
 
   const admin = useSelector((store: Rootstate) => store.admin.adminInfo);
 
+  if(!localStorage['login']) {
+    navigate("/login");
+  }
+
   console.log(admin);
   const layout = [
     { i: "todayCheckIn", x: 0, y: 0, w: 3, h: 2, isResizable: false, static: true},
