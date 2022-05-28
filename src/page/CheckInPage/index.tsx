@@ -1,26 +1,81 @@
-import React from 'react'
-import { Responsive, WidthProvider } from "react-grid-layout";
-const layout = [
-  { i: "1", x: 0, y: 0, w: 5, h: 2, static: true },
-  { i: "2", x: 1, y: 0, w: 10, h: 5, minW: 2, maxW: 4 },
-  { i: "3", x: 4, y: 0, w: 5, h: 2 }
-];
+import React, { useEffect, useMemo, useState } from 'react'
+import { SERVER_URL } from '../../confing';
+import { RequestAuth } from '../../models/Request';
+import Table, { Title } from '../../widget/TableWidget';
+import { Profile } from '../ApprovePage';
+import moment from "moment";
+interface ICheckList{
+  address :string;
+  profile :string;
+  location :string;
+  sex :string;
+  nickname :string;
+  updateAt :string;
+  createAt :string;
+  privateKey :string;
+}
 
-const ResponsiveGridLayout = WidthProvider(Responsive);
 export default function CheckIn()  {
+  const [checkList,setCheckList] = useState<ICheckList[]>([]);
+  useEffect(()=>{
+    const fetch = async ()=>{
+      try{
+        const response = await RequestAuth("GET","/check");
+        setCheckList(response.data)
+        console.log("response",response.data)
+      }
+      catch(e){
+        
+      }
+    }
+    fetch();
+  },[])
+  const columns = useMemo(
+    () => [
+      {
+        Header: "프로필",
+        accessor: "profile",
+      },
+      {
+        Header: "닉네임",
+        accessor: "nickname",
+      },
+      {
+        Header: "입장 시간",
+        accessor: "checktime",
+      },
+      {
+        Header: "성별",
+        accessor: "sex",
+      },
+      {
+        Header: "지갑 주소",
+        accessor: "address",
+      },
+  
+    ],
+    []
+  );
+  const data = useMemo(
+    () =>
+    checkList.map((v) => {
+      return{
+        profile : (<Profile  width="60" height="60" src={`http://${SERVER_URL}${v.profile}`}></Profile>),
+        nickname: v.nickname,
+        checktime: moment(v.updateAt).format("hh시 mm분"),
+        sex: v.sex,
+        address: v.address,
+      }
+      }),
+    [checkList]
+  );
   return (
     
-    
-    <ResponsiveGridLayout
-    className="layout"
-    layouts={{layout}}
-    breakpoints={{ lg: 1200, md: 1200, sm: 768, xs: 480, xxs: 0 }}
-    cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 12 }}
-  >
-    <div key="1" style={{background:"red"}}>1</div>
-    <div key="2" style={{background:"green"}}>2</div>
-    <div key="3">3</div>
-  </ResponsiveGridLayout>
+
+    <div>
+      <Title>Members checking in to the GYM</Title>
+       <Table columns={columns} data={data} />
+    </div>
     
   )
 }

@@ -6,7 +6,7 @@ import { Rootstate } from "../../models";
 import { addAllUser, addUser, deleteUser } from "../../models/members";
 import styled from "styled-components";
 
-import Table from "../../widget/TableWidget";
+import Table, { Title } from "../../widget/TableWidget";
 import { RequestAuth } from "../../models/Request";
 import { toast } from "react-toastify";
 import { arrayBuffer } from "stream/consumers";
@@ -162,7 +162,7 @@ export default function ApprovePage() {
 
   return (
     <div>
-      <h1 style={{fontSize:"30px", margin:"10px 0 0 40px"}}>Approval Requests List</h1>
+      <Title>Approval requests list</Title>
     <div>
       <Table columns={columns} data={temp} />
     </div>
@@ -175,9 +175,8 @@ export const ButtonWrapper = styled.div`
   #btn1{
     margin-right: 10px;
   }
-
-
 `;
+
 export const Profile = styled.img`
   width: 60px;
   height: 60px;

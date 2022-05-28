@@ -1,38 +1,37 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { Rootstate } from "../../models";
-import axios from "axios";
 import { SERVER_URL } from "../../confing";
-import Button from "../../components/Button";
-import styled from "styled-components";
-import Table from "../../widget/TableWidget";
+import Table, { Title } from "../../widget/TableWidget";
 import { RequestAuth } from "../../models/Request";
+import { Profile } from "../ApprovePage";
 
-interface IListData {
+export interface IListData {
   //렌더링계속되므로 함수밖에 작성
-  href: string;
-  title: string;
-  avatar: string;
-  description: string;
-  content: string;
+  address: string;
+  location: string;
+  nickname: string;
+  profile: string;
+  sex: string;
 }
 
 export default function MembersPage() {
-  const arvUser = useSelector((store: Rootstate) => store.members.approvedUser);
+  const members = useSelector((store: Rootstate) => store.members.approvedUser);
   const [listData, setListData] = useState<IListData[]>([]);
 
   useEffect(() => {
     const fetch = async () => {
       try {
         const response = await RequestAuth("GET", "/admin/member");
-        console.log(response.data);
+        setListData(response.data);
+        
       } catch (e) {
         console.log("error", e);
       }
     };
     fetch();
   }, []);
-
+  
   const columns = useMemo(
     () => [
       {
@@ -44,60 +43,48 @@ export default function MembersPage() {
         accessor: "nickname",
       },
       {
-        Header: "성별",
-        accessor: "sex",
-      },
-      {
         Header: "만료일",
         accessor: "requestDay",
+      },
+      {
+        Header: "성별",
+        accessor: "sex",
       },
       {
         Header: "지갑 주소",
         accessor: "address",
       },
-      {
-        Header: "버튼",
-        accessor: "button",
-      },
+  
     ],
     []
   );
 
-  const temp = useMemo(
-    () => [
-      {
-        nickname: "member",
-        sex: "남자",
-        requestDay: 27,
-        address: "0x21232nbnj2j2pnijo2203123223n2n32n32j3kd",
-        button: (
-            <div>
-                <Button type="green"  value={"승인하기"} width={100} height={30} style={{marginRight:"10px"}}/>
-                <Button type="red" value={" 거절하기"} width={100} height={30}/>
-            </div>
-        ),
-      },
-      { nickname: "member", sex: "남자", requestDay: 27, address: "member" },
-      { nickname: "member", sex: "남자", requestDay: 27, address: "member" },
-    ],
-    []
+  const data = useMemo(
+    () =>
+    listData.map((v) => {
+      return{
+        profile : (<Profile  width="60" height="60" src={`http://${SERVER_URL}${v.profile}`}></Profile>),
+        nickname: v.nickname,
+        //requestDay: v.requsetDay,
+        sex: v.sex,
+        address: v.address,
+      }
+      }),
+    [listData]
   );
 
-  if (!arvUser) {
+  if (!members) {
     return <div>Loading...</div>;
   }
 
   return (
     <div>
+      <Title>Members list</Title>
       <div>
-        <Table columns={columns} data={temp} />
+        <Table columns={columns} data={data} />
       </div>
     </div>
   );
 }
 
-const ButtonWrapper = styled.div`
-  #btn1 {
-    margin-right: 10px;
-  }
-`;
+

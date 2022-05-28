@@ -3,6 +3,7 @@ import React, {useState, useRef, useEffect, useMemo} from "react";
 import Table from "../../widget/TableWidget";
 import Button from "../../components/Button";
 import moment from "moment";
+import styled from "styled-components";
 
 export interface IMemo {
   timestamp: number;
@@ -66,6 +67,7 @@ export default function MemoPage() {
       ],[]
   );
 
+
   return (
     <div>
       <Table
@@ -89,3 +91,4 @@ export default function MemoPage() {
     </div>
   );
 }
+
