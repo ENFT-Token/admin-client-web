@@ -40,7 +40,7 @@ const StyleMemoItem = styled.div`
     align-items: center;
     .ago {
       color: #202020;
-      margin-right: 40px;
+      width: 90px;
     }
     .bar {
       border-radius: 5px;
