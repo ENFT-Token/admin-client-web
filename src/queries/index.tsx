@@ -17,6 +17,16 @@ queryClient.setQueryDefaults("memberList", {
     }
 });
 
+queryClient.setQueryDefaults("todayCount", {
+    queryFn: () => RequestAuth("GET", "/check/today_count"),
+    select: (response) => {
+        return response?.data?.count ?? 0;
+    },
+    refetchInterval: 3000,
+});
+
+
+
 queryClient.setQueryDefaults("check", {
     queryFn: () => RequestAuth("GET", "/check"),
     select: (response) => {

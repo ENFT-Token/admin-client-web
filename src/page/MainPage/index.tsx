@@ -36,6 +36,7 @@ export default function MainPage() {
 
   const {data: approveList} = useQuery<Record<string,any>[]>("approveList");
   const {data: checkList} = useQuery<Record<string,any>[]>("check");
+  const {data: todayCount} = useQuery<number>("todayCount");
 
 
   const approveData = useMemo(() => {
@@ -75,7 +76,7 @@ export default function MainPage() {
         </div>
 
         <div key="todayCheckIn" className="widget">
-          <CountWidget count={8842} title={"오늘 이용자 수"}/>
+          <CountWidget count={todayCount ?? 0} title={"오늘 이용자 수"}/>
         </div>
         <div key="approve" className="widget">
           <ListWidget title={"승인 요청 유저 리스트"} items={approveData}/>
