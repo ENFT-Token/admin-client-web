@@ -19,9 +19,6 @@ export default function MainPage() {
   const admin = useSelector((store: Rootstate) => store.admin.adminInfo);
 
   console.log(admin);
-  if(admin === null) {
-      navigate("/login");
-  }
   const layout = [
     { i: "todayCheckIn", x: 0, y: 0, w: 3, h: 2, isResizable: false, static: true},
     { i: "checkin", x: 3, y: 0, w: 3, h: 2, isResizable: false, static: true},

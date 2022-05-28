@@ -5,6 +5,7 @@ interface IButtonProps extends InputHTMLAttributes<HTMLInputElement> {
   type: "ghost" | "blue" | "green" | "red" | "black" | "outline";
   width?: number | string;
   height?: number | string;
+  inputType?: React.HTMLInputTypeAttribute;
 }
 
 interface IStyleProps {
@@ -80,16 +81,18 @@ const StyledButton = styled.input<IStyleProps>`
   }
 `;
 
-function Button({ type, width, height, ...rest }: IButtonProps) {
+function Button({ type, width, height, inputType,...rest }: IButtonProps) {
   return (
     <StyledButton
       _width={width}
       _height={height}
-      type="button"
+      type={!inputType ? "button" : inputType}
       {...rest}
       className={type}
     />
   );
 }
+
+
 
 export default Button;
