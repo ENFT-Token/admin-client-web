@@ -49,10 +49,10 @@ export default function MainPage() {
 
 
   const checkData = useMemo(() => {
-    return checkList?.map(approve => ({
-      src:approve.user.profile,
-      name: approve.user.nickname,
-      subname: `CheckIn ${moment(approve.updateAt).format("hh:mm:ss")}`
+    return checkList?.map(check => ({
+      src:check.profile,
+      name: check.nickname,
+      subname: `CheckIn ${moment(check.updateAt).format("hh:mm:ss")}`
     })) ?? [];
   }, [checkList]);
 
