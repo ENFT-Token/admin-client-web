@@ -79,10 +79,10 @@ export default function MainPage() {
           <CountWidget count={todayCount ?? 0} title={"오늘 이용자 수"}/>
         </div>
         <div key="approve" className="widget">
-          <ListWidget title={"승인 요청 유저 리스트"} items={approveData}/>
+          <ListWidget title={"승인 요청 유저 리스트"} items={approveData} onViewMoreClick={() => navigate("/approve")}/>
         </div>
         <div key="member" className="widget">
-          <ListWidget title={"접속중인 회원 리스트"} items={checkData}/>
+          <ListWidget title={"접속중인 회원 리스트"} items={checkData} onViewMoreClick={() => navigate("/members")}/>
         </div>
 
         <div key="memo" className="widget">
