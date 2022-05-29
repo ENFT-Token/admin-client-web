@@ -13,6 +13,7 @@ import { arrayBuffer } from "stream/consumers";
 import Button from "../../components/Button";
 import {useQuery} from "react-query";
 import queryClient from "../../queries";
+import ConfirmModal from "../../components/Modal";
 
 export interface IApproveUser {
   profile: string;
@@ -25,6 +26,11 @@ export default function ApprovePage() {
 
   const {data: approveList} = useQuery<Record<string, any>[]>("approveList");
 
+  const [isModal,setModal] = useState({
+    content: "",
+    open: false,
+    func: () => {},
+  });
   const onClickApprove = async (address: string) => {
     //승인하기
 
@@ -47,7 +53,6 @@ export default function ApprovePage() {
   };
     const onClickReject = async (address: string) => {
     //거절하기
-
     const approvedUser = approveList?.find((data) => data.address === address); //승인하기 버튼 누른 유저정보
     const response = await RequestAuth("POST", "/admin/approve/reject", {
       address: approvedUser?.address,
@@ -56,6 +61,11 @@ export default function ApprovePage() {
     });
     if(response.status === 201) {
       toast("거절 성공");
+      setModal({
+        ...isModal,
+        open:false,
+      })
+      queryClient.invalidateQueries(["approveList"]);
     }
   };
 
@@ -88,6 +98,8 @@ export default function ApprovePage() {
     },
   ], []);
 
+
+
   const data = useMemo(
     () =>
       approveList?.map((v) => ({
@@ -100,9 +112,13 @@ export default function ApprovePage() {
         button: (
           <ButtonWrapper>
             <Button type={"green"} width={85} height={32} value={"승인하기"}
-              onClick={() => onClickReject(v.address)} />
-            <Button id="btn1"type={"black"} width={85} height={32} value={"거절하기"}
               onClick={() => onClickApprove(v.address)} />
+            <Button id="btn1"type={"black"} width={85} height={32} value={"거절하기"}
+              onClick={() => setModal({
+                content: "거절",
+                func: () => onClickReject(v.address),
+                open:true
+              })} />
           </ButtonWrapper>
         ),
       })) ?? [],
@@ -111,6 +127,10 @@ export default function ApprovePage() {
 
   return (
     <div>
+      <ConfirmModal open={isModal.open} onClose={() => setModal({
+        ...isModal,
+        open:false
+      })} content={isModal.content === "승인" ? "정말로 승인하시겠습니까 ?" : "정말로 승인을 거절하시겠습니까 ?"} yesLabel={isModal.content} onYes={isModal.func}/>
       <Title>Approval requests list</Title>
     <div>
       <Table columns={columns} data={data} />
