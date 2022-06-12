@@ -156,15 +156,12 @@ export default function ApprovePage() {
     [requestUser]
   );
 
-  useEffect(() => {
-    console.log("data", data);
-  }, [data]);
 
   return (
     <div>
       <Title>Approval requests list</Title>
     <div>
-      <Table columns={columns} data={temp} />
+      <Table columns={columns} data={data} />
     </div>
     </div>
   );
