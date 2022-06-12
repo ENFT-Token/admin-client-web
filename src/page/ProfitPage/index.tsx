@@ -77,12 +77,15 @@ display: flex;
 flex-direction: column;
 
 
-border-radius: 30px;
+
 padding:10px;
 
 .box{
   background-color: white;
   padding:30px;
+  border-radius: 30px;
+  margin:10px;
+  box-shadow: 3px 3px 3px 3px #cdcdcd;
 }
 .line{
   margin-bottom: 50px;
