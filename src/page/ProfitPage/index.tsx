@@ -56,7 +56,7 @@ export default function ProfitPage() {
   return (
 
     <ChartForm>
-      <Title>Members list</Title>
+      <Title>Chart</Title>
       <div className='curMembers box'>
         <h1 id='header'>현재 고객 수</h1>
         <Line className='line' {...config(test1)} />
