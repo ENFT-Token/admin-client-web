@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useMemo} from "react";
 import "./index.css";
 
 import { Responsive, WidthProvider } from "react-grid-layout";
@@ -11,6 +11,8 @@ import { useSelector } from "react-redux";
 import ListWidget from "../../widget/ListWidget";
 import CountWidget from "../../widget/CountWidget";
 import {useNavigate} from "react-router-dom";
+import {useQueries, useQuery} from "react-query";
+import moment from "moment";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 export default function MainPage() {
@@ -18,10 +20,11 @@ export default function MainPage() {
 
   const admin = useSelector((store: Rootstate) => store.admin.adminInfo);
 
-  console.log(admin);
-  if(admin === null) {
-      navigate("/login");
+  if(!localStorage['login']) {
+    navigate("/login");
   }
+
+  console.log(admin);
   const layout = [
     { i: "todayCheckIn", x: 0, y: 0, w: 3, h: 2, isResizable: false, static: true},
     { i: "checkin", x: 3, y: 0, w: 3, h: 2, isResizable: false, static: true},
@@ -31,6 +34,27 @@ export default function MainPage() {
     { i: "profile", x: 8, y: 0, w: 6, h: 6, isResizable: false,static: true },
   ];
 
+  const {data: approveList} = useQuery<Record<string,any>[]>("approveList");
+  const {data: checkList} = useQuery<Record<string,any>[]>("check");
+  const {data: todayCount} = useQuery<number>("todayCount");
+
+
+  const approveData = useMemo(() => {
+    return approveList?.map(approve => ({
+        src:approve.user.profile,
+        name: approve.user.nickname,
+        subname: `Request ${approve.requestDay} day`
+    })) ?? [];
+  }, [approveList]);
+
+
+  const checkData = useMemo(() => {
+    return checkList?.map(check => ({
+      src:check.profile,
+      name: check.nickname,
+      subname: `CheckIn ${moment(check.updateAt).format("hh:mm:ss")}`
+    })) ?? [];
+  }, [checkList]);
 
 
   return (
@@ -48,73 +72,17 @@ export default function MainPage() {
           <ProfileWidget />
         </div>
         <div key="checkin" className="widget">
-          <CountWidget count={30} title={"현재 이용자 수"}  onClick={() => navigate("/checkin")}/>
+          <CountWidget count={checkData.length} title={"현재 이용자 수"}  onClick={() => navigate("/checkin")}/>
         </div>
 
         <div key="todayCheckIn" className="widget">
-          <CountWidget count={8842} title={"오늘 이용자 수"}/>
+          <CountWidget count={todayCount ?? 0} title={"오늘 이용자 수"}/>
         </div>
         <div key="approve" className="widget">
-          <ListWidget title={"승인 요청 유저 리스트"} items={[{
-            src:"/svg/logo.svg",
-            name:"asdsa",
-            subname:"xc"
-          },{
-            src:"/svg/logo.svg",
-            name:"asdsa",
-            subname:"xc"
-          },{
-            src:"/svg/logo.svg",
-            name:"asdsa",
-            subname:"xc"
-          },{
-            src:"/svg/logo.svg",
-            name:"asdsa",
-            subname:"xc"
-          },{
-            src:"/svg/logo.svg",
-            name:"asdsa",
-            subname:"xc"
-          },{
-            src:"/svg/logo.svg",
-            name:"asdsa",
-            subname:"xc"
-          },{
-            src:"/svg/logo.svg",
-            name:"asdsa",
-            subname:"xc"
-          },{
-            src:"/svg/logo.svg",
-            name:"asdsa",
-            subname:"xc"
-          },{
-            src:"/svg/logo.svg",
-            name:"asdsa",
-            subname:"xc"
-          }]}/>
+          <ListWidget title={"승인 요청 유저 리스트"} items={approveData} onViewMoreClick={() => navigate("/approve")}/>
         </div>
         <div key="member" className="widget">
-          <ListWidget title={"접속중인 회원 리스트"} items={[{
-            src:"/svg/logo.svg",
-            name:"asdsa",
-            subname:"xc"
-          },{
-            src:"/svg/logo.svg",
-            name:"asdsa",
-            subname:"xc"
-          },{
-            src:"/svg/logo.svg",
-            name:"asdsa",
-            subname:"xc"
-          },{
-            src:"/svg/logo.svg",
-            name:"asdsa",
-            subname:"xc"
-          },{
-            src:"/svg/logo.svg",
-            name:"asdsa",
-            subname:"xc"
-          }]}/>
+          <ListWidget title={"접속중인 회원 리스트"} items={checkData} onViewMoreClick={() => navigate("/members")}/>
         </div>
 
         <div key="memo" className="widget">

@@ -6,6 +6,7 @@ import AlramIcon from "../../components/AlramIcon";
 import {useNavigate} from "react-router-dom";
 import { IMemo } from "../../page/MemoPage";
 import moment from "moment";
+import Scrollbars from "react-custom-scrollbars";
 
 const StyleMemo = styled.div`
   display: flex;
@@ -39,7 +40,7 @@ const StyleMemoItem = styled.div`
     align-items: center;
     .ago {
       color: #202020;
-      margin-right: 40px;
+      width: 90px;
     }
     .bar {
       border-radius: 5px;
@@ -69,10 +70,34 @@ interface IMemoItemProps {
 }
 
 function MemoItem({timestamp,value} : IMemoItemProps) {
+
+  const ago = useMemo(() => {
+    const now = new Date().getTime();
+    const diffTime =  now - timestamp;
+
+    let ago = Math.floor(Math.abs(diffTime / (1000 * 60 * 60 * 24)));
+    if(ago > 0) {
+      return `${ago}d`;
+    }
+    ago = Math.floor(Math.abs(diffTime / (1000 * 60 * 60)));
+    if(ago > 0) {
+      return `${ago}h`;
+    }
+    ago = Math.floor(Math.abs(diffTime / (1000 * 60)));
+    if(ago > 0) {
+      return `${ago}m`;
+    }
+    ago = Math.floor(Math.abs(diffTime / (1000)));
+    if(ago >= 0) {
+      return `${ago}s`;
+    }
+    return "";
+  }, [timestamp]);
+
   return <StyleMemoItem>
     <div className={"timestamp"}>
       <div className={"ago"}>
-        2m ago
+        {ago} ago
       </div>
       <div className={"bar"}/>
     </div>
@@ -81,7 +106,7 @@ function MemoItem({timestamp,value} : IMemoItemProps) {
         {value}
       </div>
       <div className={"date"}>
-        {moment(timestamp).format("yyyy-MM-ss HH:MM:SS")}
+        {moment(timestamp).format("yyyy-MM-DD hh:mm:ss")}
       </div>
     </div>
   </StyleMemoItem>
@@ -116,9 +141,9 @@ export default function MemoWidget() {
           <AlramIcon src={"/svg/memo.svg"} count={memoList.length} />
           <div className={"dashed"}/>
         </div>
-      <div style={{marginTop:'20px',overflow:'auto'}}>
-        {memoList.map((memo,idx) =>   <MemoItem value={memo.value} key={`memo-${idx}`} timestamp={memo.timestamp} />)}
-      </div>
+        <Scrollbars style={{marginTop:"20px"}}>
+        {memoList.map((memo,idx) => <MemoItem value={memo.value} key={`memo-${idx}`} timestamp={memo.timestamp} />)}
+        </Scrollbars>
     </StyleMemo>
   );
 }

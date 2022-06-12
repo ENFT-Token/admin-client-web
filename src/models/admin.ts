@@ -40,7 +40,7 @@ export const adminSlice = createSlice({
   name: "admin",
   initialState,
   reducers: {
-    addInfo(state, action: PayloadAction<IAdmin>) {
+    addInfo(state, action: PayloadAction<IAdmin | null>) {
       state.adminInfo = action.payload;
     },
     setPriceInfo(state, action: PayloadAction<IPriceInfo[]>) {

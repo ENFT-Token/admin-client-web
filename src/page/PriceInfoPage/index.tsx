@@ -1,37 +1,32 @@
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Input, InputNumber, message, Upload } from "antd";
-import { UploadChangeParam } from "antd/lib/upload";
-import { UploadFile } from "antd/lib/upload/interface";
-import axios from "axios";
+import { Input, InputNumber, message, Upload } from "antd";
 import React, { useEffect, useMemo, useState } from "react";
-import { useSelector } from "react-redux";
-import { SERVER_URL } from "../../confing";
-import { Rootstate } from "../../models";
-import { setPriceInfo } from "../../models/admin";
-import { getAccessToken, Request, RequestAuth } from "../../models/Request";
-import store from "../../models/store";
+import Button from "../../components/Button";
+import {  RequestAuth } from "../../models/Request";
 import Table from "../../widget/TableWidget";
 import "./index.css";
+import {useQuery} from "react-query";
+import queryClient from "../../queries";
 
 function DeleteItem({
   month,
-  handleList,
 }: {
   month: number;
-  handleList: () => void;
 }) {
   const handleDelete = async () => {
     const response = await RequestAuth("DELETE", "/admin/priceInfo", {
       month: Number(month),
     });
+    if(response.status === 200) {
+      queryClient.invalidateQueries(["priceInfo"]);
+    }
     console.log(response);
-    handleList();
+
+
   };
 
   return (
-    <Button type="primary" danger onClick={handleDelete}>
-      삭제
-    </Button>
+    <Button type="red" onClick={handleDelete} value={"삭제"} width={100} height={30} />
+
   );
 }
 
@@ -58,9 +53,7 @@ function KlayItem({
       {isEdit == false && (
         <>
           <div>{klay}</div>{" "}
-          <Button type="link" onClick={() => setEdit(true)}>
-            EDIT
-          </Button>
+          <Button type="outline" onClick={() => setEdit(true)} value={"EDIT"} width={100} height={30}/>
         </>
       )}
       {isEdit == true && (
@@ -71,12 +64,8 @@ function KlayItem({
             addonBefore="KLAY"
             style={{ marginBottom: "10px" }}
           />{" "}
-          <Button type="primary" onClick={handleSaved}>
-            SAVE
-          </Button>
-          <Button type="primary" danger onClick={() => setEdit(false)}>
-            CANCEL
-          </Button>
+          <Button type="blue" onClick={handleSaved} value={"SAVE"}  width={100} height={30} style={{marginLeft:"10px",marginRight:'10px'}}/>
+          <Button type="red" onClick={() => setEdit(false)} value={"CANCEL"}  width={100} height={30}/>
         </>
       )}
     </div>
@@ -84,23 +73,9 @@ function KlayItem({
 }
 
 function PriceInfoPage() {
-  const { priceInfo, adminInfo } = useSelector(
-    (store: Rootstate) => store.admin
-  );
 
-  const handleList = () => {
-    RequestAuth("GET", "/admin/priceInfo").then((response) =>
-      store.dispatch(setPriceInfo(response.data))
-    );
-  };
+  const {data:priceInfo} = useQuery<Record<"month" | "klay",number>[]>("priceInfo");
 
-  useEffect(() => {
-    handleList();
-  }, []);
-
-  useEffect(() => {
-    console.log(priceInfo);
-  }, [priceInfo]);
 
   const [monthAndKlay, setMonthAndKlay] = useState({
     month: 0,
@@ -109,7 +84,7 @@ function PriceInfoPage() {
 
   const handleAdd = async () => {
     await RequestAuth("POST", "/admin/priceInfo", monthAndKlay);
-    handleList();
+    queryClient.invalidateQueries(["priceInfo"]);
   };
 
   const handleSave = async (month: number, klay: number) => {
@@ -118,11 +93,12 @@ function PriceInfoPage() {
       klay,
     });
     if (response.status === 200) {
-      handleList();
+      queryClient.invalidateQueries(["priceInfo"]);
       return true;
     }
     return false;
   };
+
   const columns = useMemo(
     () => [
       {
@@ -140,68 +116,23 @@ function PriceInfoPage() {
     ],
     []
   );
-  const [imageData, setImageData] = useState({
-    imageUrl: "",
-    loading: false,
-  });
 
-  useEffect(() => {
-    if (adminInfo) {
-      setImageData({
-        imageUrl: `http://${SERVER_URL}${adminInfo.cover_img}`,
-        loading: false,
-      });
-    }
-  }, [adminInfo]);
-  const uploadButton = (
-    <div>
-      {imageData.loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
 
-  const uploadImage = async (options: any) => {
-    const { file } = options;
-    // action={`http://${SERVER_URL}/admin/upload_cover`}
+  const tableData = useMemo(() => {
+    return priceInfo?.map((elem) => ({
 
-    const fmData = new FormData();
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data",
-        Authorization: `Bearer ${getAccessToken()}`,
-      },
-    };
-    fmData.append("image", file);
-    try {
-      setImageData({
-        imageUrl: "",
-        loading: true,
-      });
-      const response = await axios.post(
-        `http://${SERVER_URL}/admin/upload_cover`,
-        fmData,
-        config
-      );
-      const makeURI = `${response.data.cover_img}`;
+      month: elem.month,
+      klay: (
+          <KlayItem
+              klay={elem.klay}
+              month={elem.month}
+              handleSave={handleSave}
+          />
+      ),
+      run: <DeleteItem month={elem.month} />,
+    })) ?? []
+  },[priceInfo]);
 
-      const authInfo = JSON.parse(localStorage["login"]);
-      authInfo.cover_img = makeURI;
-      localStorage["login"] = JSON.stringify(authInfo);
-
-      setImageData({
-        imageUrl: `http://${SERVER_URL}${makeURI}`,
-        loading: false,
-      });
-    } catch (err) {
-      console.log("Eroor: ", err);
-      // const error = new Error("Some error");
-      message.error("Upload Error");
-      setImageData({
-        imageUrl: "",
-        loading: false,
-      });
-    }
-  };
   return (
     <div
       style={{
@@ -215,26 +146,6 @@ function PriceInfoPage() {
         style={{ display: "flex", flexDirection: "column", marginTop: "10px" }}
       >
         <div style={{ display: "flex" }}>
-          <div style={{ marginTop: "10px", marginRight: "50px" }}>
-            <h2 style={{ textAlign: "center" }}>커버 사진 등록</h2>
-            <Upload
-              name="avatar"
-              listType="picture-card"
-              className="avatar-uploader upload"
-              showUploadList={false}
-              customRequest={uploadImage}
-            >
-              {imageData.imageUrl ? (
-                <img
-                  src={imageData.imageUrl}
-                  alt="avatar"
-                  style={{ width: "100%" }}
-                />
-              ) : (
-                uploadButton
-              )}
-            </Upload>
-          </div>
           <div
             style={{
               display: "flex",
@@ -260,26 +171,14 @@ function PriceInfoPage() {
               style={{ marginBottom: "10px" }}
             />
 
-            <Button type="primary" onClick={handleAdd}>
-              추가
-            </Button>
+            <Button type="green" onClick={handleAdd} value={"추가"} width={"100%"} height={30}/>
           </div>
         </div>
       </div>
       <div>
         <Table
           columns={columns}
-          data={priceInfo.map((elem) => ({
-            month: elem.month,
-            klay: (
-              <KlayItem
-                klay={elem.klay}
-                month={elem.month}
-                handleSave={handleSave}
-              />
-            ),
-            run: <DeleteItem month={elem.month} handleList={handleList} />,
-          }))}
+          data={tableData}
         />
       </div>
     </div>

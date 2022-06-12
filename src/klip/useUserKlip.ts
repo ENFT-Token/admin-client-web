@@ -18,6 +18,7 @@ function useUserKilp() {
       );
       const { request_key } = response.data;
       const qrcode = `https://klipwallet.com/?target=/a2a?request_key=${request_key}`;
+      console.log(qrcode);
       setQrValue(qrcode);
       const pollingInterval = setInterval(() => {
         axios

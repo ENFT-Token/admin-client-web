@@ -21,6 +21,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SideBar from "./components/Sidebar";
 import HeaderBar from "./components/HeaderBar";
+import store from "./models/store";
+import queryClient from "./queries";
+import { QueryClientProvider } from "react-query";
 const Layout = styled.div`
 //  height: calc(100vh - 80px);
   height: 100%;
@@ -38,50 +41,41 @@ const StyledApp = styled.div`
   }
 `;
 
+
 export default function App() {
-  const dispatch = useDispatch();
 
   useEffect(() => {
-    // 로그인 체킹. (만료시간 체크)
     const loginLocal = window.localStorage.getItem("login");
-    console.log("loginLocal", loginLocal);
-
     if (loginLocal) {
       const data = JSON.parse(loginLocal);
-
-      if (data?.access_token) {
-        const _decoded: any = jwt_decode(data?.access_token);
-        const expiredData = new Date(_decoded.exp * 1000);
-        if (new Date() > expiredData) {
-          alert("로그인 만료. 재로그인 해주세요.");
-          delete localStorage["login"];
-        } else {
-          dispatch(addInfo(data)); // 로그인 데이터 유지
-        }
-      }
+      store.dispatch(addInfo(data));
     }
   }, []);
   return (
-    <StyledApp>
-      <div className="_container">
-        <BrowserRouter>
-          <SideBar />
-          <HeaderBar />
-          <Layout>
-            <Routes>
-              <Route path="/" element={<MainPage />}></Route>
-              <Route path="/members" element={<MembersPage />}></Route>
-              <Route path="/price_info" element={<PriceInfoPage />}></Route>
-              <Route path="/approve" element={<ApprovePage />}></Route>
-              <Route path="/profit" element={<ProfitPage />}></Route>
-              <Route path="/memo" element={<MemoPage />}></Route>
-              <Route path="/login" element={<LoginPage />}></Route>
-              <Route path="/checkin" element={<CheckInPage />}></Route>
-            </Routes>
-          </Layout>
-        </BrowserRouter>
-      </div>
-      <ToastContainer />
-    </StyledApp>
+      <QueryClientProvider client={queryClient}>
+        <StyledApp>
+          <div className="_container">
+            <BrowserRouter>
+              <SideBar />
+              <HeaderBar />
+              <Layout>
+                <Routes>
+
+                    <Route path="/" element={<MainPage />}></Route>
+                    <Route path="/members" element={<MembersPage />}></Route>
+                    <Route path="/price_info" element={<PriceInfoPage />}></Route>
+                    <Route path="/approve" element={<ApprovePage />}></Route>
+                    <Route path="/profit" element={<ProfitPage />}></Route>
+                    <Route path="/memo" element={<MemoPage />}></Route>
+                    <Route path="/login" element={<LoginPage />}></Route>
+                    <Route path="/checkin" element={<CheckInPage />}></Route>
+
+                </Routes>
+              </Layout>
+            </BrowserRouter>
+          </div>
+          <ToastContainer />
+        </StyledApp>
+      </QueryClientProvider>
   );
 }

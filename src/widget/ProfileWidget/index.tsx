@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useRef} from "react";
 import { CgProfile } from "react-icons/cg";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
@@ -7,6 +7,12 @@ import MyInfo from "../../components/MyInfo";
 import { SERVER_URL } from "../../confing";
 import { Rootstate } from "../../models";
 import "./index.css";
+import {toast} from "react-toastify";
+import {getAccessToken} from "../../models/Request";
+import axios from "axios";
+import {message} from "antd";
+import {addInfo} from "../../models/admin";
+import store from "../../models/store";
 
 const StyledProfileWidget = styled.div`
   width: 100%;
@@ -16,7 +22,7 @@ const StyledProfileWidget = styled.div`
 
   .profile {
     margin-top: 42px;
-    margin-left: 37px;
+    margin-left: 27px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -64,6 +70,51 @@ const StyledProfileWidget = styled.div`
 
 export default function ProfileWidget() {
   const admin = useSelector((store: Rootstate) => store.admin.adminInfo);
+  const ref = useRef<HTMLInputElement>(null);
+
+  const handleUpload = async () => {
+    if(!ref.current) return;
+    ref.current.click();
+  };
+
+  const handleUploadFile : React.ChangeEventHandler<HTMLInputElement> = async (e) => {
+    if(!e.target.files) return;
+    const file = e.target.files.item(0);
+    if(!file) return;
+    if(!file.type.includes("image")) {
+      toast.error("파일 형식이 잘못 됐습니다.");
+      return;
+    };
+    // action={`http://${SERVER_URL}/admin/upload_cover`}
+
+    const fmData = new FormData();
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+        Authorization: `Bearer ${getAccessToken()}`,
+      },
+    };
+    fmData.append("image", file);
+    try {
+      const response = await axios.post(
+          `http://${SERVER_URL}/admin/upload_cover`,
+          fmData,
+          config
+      );
+      const makeURI = `${response.data.cover_img}`;
+
+      const authInfo = JSON.parse(localStorage["login"]);
+      authInfo.cover_img = makeURI;
+      localStorage["login"] = JSON.stringify(authInfo);
+
+      store.dispatch(addInfo(authInfo));
+    } catch (err) {
+      console.log("Eroor: ", err);
+      // const error = new Error("Some error");
+      toast.error("Upload Error");
+    }
+  }
+
   return (
     <StyledProfileWidget>
       <div className="profile">
@@ -73,11 +124,14 @@ export default function ProfileWidget() {
         />
         <Button
           type="ghost"
+          inputType={"button"}
           value="Edit Profile"
           width={185}
           height={52}
           className="profile_btn"
+          onClick={handleUpload}
         />
+        <input type="file" style={{display:"none"}} ref={ref} onChange={handleUploadFile}/>
       </div>
 
       <div className="profileInfo">

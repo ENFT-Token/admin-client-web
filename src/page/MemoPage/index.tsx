@@ -11,6 +11,21 @@ export interface IMemo {
 }
 
 
+const StyleMemo = styled.div`
+    display: flex;
+
+    height: 100%;
+  .content {
+    flex: 1;
+    padding:20px;
+    &.text{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+`;
+
 export default function MemoPage() {
   const [inputBody, setInputBody] = useState("");
   const [memoList,setMemoList] = useState<IMemo[]>([]);
@@ -69,7 +84,20 @@ export default function MemoPage() {
 
 
   return (
-    <div>
+    <StyleMemo>
+        <div className={"content text"}>
+            <TextArea
+                placeholder="내용"
+                value={inputBody}
+                showCount
+                maxLength={100}
+                rows={10}
+                style={{height:"100%"}}
+                onChange={(e) => setInputBody(e.target.value)}
+            />
+        <Button type={"blue"} onClick={handleSave} value={"저장"} width={"100%"} height={50} style={{marginTop:"40px",marginBottom:"40px"}} />
+        </div>
+        <div className={"content"}>
       <Table
           columns={columns}
           data={memoList.map((memo, idx) => ({
@@ -78,17 +106,8 @@ export default function MemoPage() {
               run:<Button onClick={() => handleDelete(idx)} type={"green"} value={"완료"} width={100} height={30} />,
           }))}
       />
-
-      <TextArea
-        placeholder="내용"
-        value={inputBody}
-        showCount
-        maxLength={100}
-        autoSize={{ minRows: 5, maxRows: 5 }}
-        onChange={(e) => setInputBody(e.target.value)}
-      />
-      <Button type={"blue"} onClick={handleSave} value={"저장"} width={100} height={50} />
-    </div>
+        </div>
+    </StyleMemo>
   );
 }
 
