@@ -48,11 +48,13 @@ queryClient.setQueryDefaults("chartRegister", {
   select: (response) => {
     return response.data;
   },
+  staleTime:Infinity
 });
 queryClient.setQueryDefaults("chartCheckIn", {
   queryFn: () => RequestAuth("GET", "/check/month_count"),
   select: (response) => {
     return response.data;
   },
+  staleTime:Infinity
 });
 export default queryClient;

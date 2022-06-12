@@ -58,11 +58,11 @@ export default function ProfitPage() {
     <ChartForm>
       <Title>Chart</Title>
       <div className='curMembers box'>
-        <h1 id='header'>현재 고객 수</h1>
+        <h1 id='header'>헬스장 신규 등록 유저 수</h1>
         <Line className='line' {...config(test1)} />
       </div>
       <div className='apvMembers box'>
-        <h1 id='header'>승인 요청한 회원 수</h1>
+        <h1 id='header'>헬스장 체크인 유저 수</h1>
         <Line className='line' {...config(test2)} />
       </div>
 
